@@ -1,0 +1,26 @@
+
+<h2>
+  Word Board !!</h2>
+  <div>
+    
+  
+    <!--
+    <span> Word: </span>{{ word.id }} 
+    <h3><span> word: </span> {{ word.value | uppercase }}</h3>
+    -->
+
+    
+
+    <ul class="WordBoard">
+      <li *ngFor="let word of wordlist" (click)="onSelect(word)" [class.selected]="word === selectedWord">
+        <span class="wordCard">{{word.id}} </span> {{word.value}}
+      </li>
+    </ul>
+
+    
+
+  </div> 
+
+
+
+
