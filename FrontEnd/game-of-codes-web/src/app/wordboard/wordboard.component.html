@@ -7,7 +7,7 @@
     <!--
     <span> Word: </span>{{ word.id }} 
     <h3><span> word: </span> {{ word.value | uppercase }}</h3>
-    -->
+    
 
     
 
@@ -15,7 +15,15 @@
       <li *ngFor="let word of wordlist" (click)="onSelect(word)" [class.selected]="word === selectedWord">
         <span class="wordCard">{{word.id}} </span> {{word.value}}
       </li>
-    </ul>
+    </ul>-->
+
+    <div class="grid grid-pad">
+      <a *ngFor="let word of wordlist" class="col-1-4"  routerLink="/detail/{{word.id}}">
+        <div class="module word">
+          <h4>{{word.value}}</h4>
+        </div>
+      </a>
+    </div>
 
     
 
