@@ -9,6 +9,8 @@ import { WordboardDetailsComponent } from './wordboard-details/wordboard-details
 import { MessagesComponent } from './messages/messages.component';
 import { AppRoutingModule } from './/app-routing.module';
 import { MenuComponent } from './menu/menu.component';
+import { NavComponent } from './nav/nav.component';
+import { NavWordboardComponent } from './nav-wordboard/nav-wordboard.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +18,9 @@ import { MenuComponent } from './menu/menu.component';
     WordboardComponent,
     WordboardDetailsComponent,
     MessagesComponent,
-    MenuComponent
+    MenuComponent,
+    NavComponent,
+    NavWordboardComponent
   ],
   imports: [
     BrowserModule,

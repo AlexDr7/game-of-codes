@@ -1,13 +1,4 @@
-/* DashboardComponent's private CSS styles */
-[class*='col-'] {
-  float: left;
-  padding-right: 20px;
-  padding-bottom: 20px;
-  padding-left: 15px;
-}
-[class*='col-']:last-of-type {
-  padding-right: 0;
-}
+
 a {
   text-decoration: none;
 }
@@ -22,31 +13,19 @@ h3 {
 h4 {
   position: relative;
 }
-.grid {
-  margin: 0;
-}
-.col-1-4 {
-  width: 20%;
-}
 .module {
   padding: 20px;
+  margin: 0.5rem;
   text-align: center;
   color: #eee;
-  max-height: 120px;
-  min-width: 120px;
+  
   background-color: #607D8B;
-  border-radius: 2px;
+  border-radius: 0.1rem;
 }
 .module:hover {
   background-color: #EEE;
   cursor: pointer;
   color: #607d8b;
-}
-.grid-pad {
-  padding: 10px 0;
-}
-.grid-pad > [class*='col-']:last-of-type {
-  padding-right: 20px;
 }
 @media (max-width: 600px) {
   .module {
@@ -54,10 +33,20 @@ h4 {
     max-height: 75px; }
 }
 @media (max-width: 1024px) {
-  .grid {
-    margin: 0;
-  }
   .module {
     min-width: 60px;
   }
+}
+
+.purple-word.guide{
+  background-color: #b300b3;
+}
+.red-word.guide{
+  background-color: #e60000;
+}
+.blue-word.guide{
+  background-color: #00bfff;
+}
+.grey-word.guide{
+  background-color: #7a7a52;
 }
