@@ -1,4 +1,4 @@
-<app-nav-wordboard></app-nav-wordboard>
+<app-nav-wordboard [appBoardViewChange] (changeTurn)="changeTurn()" (guidesTurn)="toGuidesTurn()"></app-nav-wordboard>
   
 <div class="card">
   <div class="card-body">
@@ -16,20 +16,20 @@
       <div *ngIf="i<5">
       <div class="row">
         
-        <div class="module word col" id="{{wordlist[i*5].value}}">
+        <div [ngClass]="{'guide': isWordboardVisible }" class="module word col " [class]="wordlist[i*5].colour" [id]="wordlist[i*5].value" >
           <h4>{{wordlist[i*5].value}}</h4>
         </div>
-        <div class="module word col" id="{{wordlist[i*5+1].value}}">
+        <div [ngClass]="{'guide': isWordboardVisible }" class="module word col" [class]="wordlist[i*5+1].colour" [id]="wordlist[i*5+1].value">
           <h4>{{wordlist[i*5+1].value}}</h4>
         </div>
-        <div class="module word col" id="{{wordlist[i*5+2].value}}">
-          <h4>{{wordlist[i*5+2].value}}</h4>
+        <div [ngClass]="{'guide': isWordboardVisible }" class="module word col" [class]="wordlist[i*5+2].colour" [id]=" wordlist[i*5+2].value">
+          <h4 >{{wordlist[i*5+2].value}}</h4>
         </div>
-        <div class="module word col" id="{{wordlist[i*5+3].value}}">
-          <h4>{{wordlist[i*5+3].value}}</h4>
+        <div [ngClass]="{'guide': isWordboardVisible }" class="module word col" [class]="wordlist[i*5+3].colour" [id]="wordlist[i*5+3].value">
+          <h4 >{{wordlist[i*5+3].value}}</h4>
         </div>
-        <div class="module word col" id="{{wordlist[i*5+4].value}}">
-          <h4>{{wordlist[i*5+4].value}}</h4>
+        <div [ngClass]="{'guide': isWordboardVisible }" class="module word col" [class]="wordlist[i*5+4].colour" [id]="wordlist[i*5+4].value">
+          <h4 >{{wordlist[i*5+4].value}}</h4>
         </div>
       </div>
       </div>

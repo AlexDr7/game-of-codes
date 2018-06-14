@@ -11,6 +11,7 @@ import { AppRoutingModule } from './/app-routing.module';
 import { MenuComponent } from './menu/menu.component';
 import { NavComponent } from './nav/nav.component';
 import { NavWordboardComponent } from './nav-wordboard/nav-wordboard.component';
+import { BoardViewChangeDirective } from './board-view-change.directive';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { NavWordboardComponent } from './nav-wordboard/nav-wordboard.component';
     MessagesComponent,
     MenuComponent,
     NavComponent,
-    NavWordboardComponent
+    NavWordboardComponent,
+    BoardViewChangeDirective
   ],
   imports: [
     BrowserModule,

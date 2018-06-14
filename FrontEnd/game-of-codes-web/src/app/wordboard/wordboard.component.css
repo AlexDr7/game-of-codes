@@ -38,15 +38,16 @@ h4 {
   }
 }
 
-.purple-word.guide{
+.PURPLE.guide{
   background-color: #b300b3;
 }
-.red-word.guide{
+.RED.guide{
   background-color: #e60000;
 }
-.blue-word.guide{
+.BLUE.guide{
   background-color: #00bfff;
 }
-.grey-word.guide{
+.GREY.guide{
   background-color: #7a7a52;
 }
+

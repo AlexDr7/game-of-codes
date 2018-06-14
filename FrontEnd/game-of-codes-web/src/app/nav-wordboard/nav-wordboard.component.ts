@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit , EventEmitter , Output} from '@angular/core';
 
 @Component({
   selector: 'app-nav-wordboard',
@@ -7,9 +7,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NavWordboardComponent implements OnInit {
 
+  @Output() guidesTurn = new EventEmitter<boolean>();
+
   constructor() { }
 
   ngOnInit() {
+  }
+
+  toGuidesTurn(){
+    this.guidesTurn.emit();
   }
 
 }

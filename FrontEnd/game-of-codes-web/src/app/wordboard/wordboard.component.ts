@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter , Output } from '@angular/core';
 import { Word } from '../word';
 import { WordService } from '../word.service';
 
@@ -9,6 +9,8 @@ import { WordService } from '../word.service';
 })
 export class WordboardComponent implements OnInit {
 
+  @Output() changeTurn = new EventEmitter();
+
   word: Word = {
     id: 0,
     value: "Knife",
@@ -16,6 +18,7 @@ export class WordboardComponent implements OnInit {
   };
 
   wordlist : Word[];
+  isWordboardVisible = false;
 
   constructor(private wordService : WordService) { }
 
@@ -31,6 +34,17 @@ export class WordboardComponent implements OnInit {
 
   getWords(): void {
       this.wordService.getWordList().subscribe( wordlist => this.wordlist = wordlist )
+  }
+
+  toGuidesTurn(): void {
+    if(this.isWordboardVisible){
+      this.isWordboardVisible=false;
+    }
+    else{
+      this.isWordboardVisible=true;
+    }
+    
+    console.log("Button Click");
   }
 
 }
