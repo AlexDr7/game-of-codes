@@ -21,10 +21,9 @@ h4 {
   
   background-color: #607D8B;
   border-radius: 0.1rem;
+
 }
-.module:hover {
-  
-}
+
 .activeButton:hover {
   background-color: #EEE;
   cursor: pointer;
@@ -54,4 +53,3 @@ h4 {
 .GREY.guide{
   background-color: #7a7a52;
 }
-

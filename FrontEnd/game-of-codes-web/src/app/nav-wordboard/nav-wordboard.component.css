@@ -1,13 +1,14 @@
 .score{
-    padding:0.8rem;
-    margin: 0.5rem;
-
     color: #eee;
     font-size: 110%;
     font-weight: 650;
     text-shadow: -0.7px 0 black, 0 0.7px black, 0.8px 0 black, 0 -0.8px black;
 }
 
+.scoreboard{
+    padding:0.8rem;
+    margin: 0.3rem;
+}
 
 .blue{
     background-color: #66b3ff;
@@ -28,4 +29,16 @@ button{
 
 .notDisplayed{
     display:none;
+}
+
+.text{
+    font-size:100%;
+    font-weight: 350;
+}
+.clue{
+    font-size:150%;
+}
+span{
+    margin-right: 0.2rem;
+    margin-left: 0.2rem;
 }

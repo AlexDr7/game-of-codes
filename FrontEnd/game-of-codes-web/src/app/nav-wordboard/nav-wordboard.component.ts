@@ -9,33 +9,30 @@ import {Globals} from '../globals'
 })
 export class NavWordboardComponent implements OnInit {
 
-  @Output() guidesTurn = new EventEmitter<boolean>();
+  @Output() guidesTurn = new EventEmitter<any>();
 
   currentClue;
+  relatedWords;
 
-  isPlayersTurn=true;
-  isBluesTurn=true;
-
-  constructor(private globals: Globals) {
-      this.isPlayersTurn = globals.isPlayersTurn;
-      this.isBluesTurn = globals.isBluesTurn;
-   }
+  constructor(private globals: Globals) { }
 
   ngOnInit() {
   }
 
   toGuidesTurnClick(){
-    this.guidesTurn.emit(this.isPlayersTurn);
+    this.guidesTurn.emit();
   }
 
-  onGiveClueClick(clue : string){
+  onGiveClueClick(clue : string, related : number){
+    if(clue){
+      this.currentClue = clue;
+      this.relatedWords = related;
+      
+      this.globals.isPlayersTurn = true;
+      this.globals.currentGuessesLeft = related;
 
-    this.currentClue = clue;
-    
-    this.isPlayersTurn = true;
-    this.globals.isPlayersTurn = true;
-
-    this.guidesTurn.emit(this.isPlayersTurn);
+      this.guidesTurn.emit(clue);
+    }
   }
 
 }

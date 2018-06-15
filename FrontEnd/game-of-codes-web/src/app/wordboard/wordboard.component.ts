@@ -13,18 +13,18 @@ export class WordboardComponent implements OnInit {
 
   @Output() changeTurn = new EventEmitter();
 
-  word: Word = {
-    id: 0,
-    value: "Knife",
-    colour: "Blue"
-  };
-
   wordlist : Word[];
   isWordboardVisible = false;
-  isPlayersTurn = false;
+  currentClue;
+
+  activeWords : boolean[] = new Array(25);
 
   constructor(private wordService : WordService, private globals: Globals) { 
-    this.isPlayersTurn = globals.isPlayersTurn;
+    
+    for(var i = 0;i<25;i++) { 
+      this.activeWords[i] = true; 
+    }
+
   }
 
   ngOnInit() {
@@ -41,27 +41,33 @@ export class WordboardComponent implements OnInit {
       this.wordService.getWordList().subscribe( wordlist => this.wordlist = wordlist )
   }
 
-  toGuidesTurn(isPlayersTime : boolean): void {
-    if(!isPlayersTime){
+  toGuidesTurn($event): void {
+    if(!this.globals.isPlayersTurn){
       if(this.isWordboardVisible){
         this.isWordboardVisible=false;
       }
       else{
         this.isWordboardVisible=true;
       }
-      console.log("Button Click"+isPlayersTime);
+      console.log("Button Click"+this.globals.isPlayersTurn);
     }
     else{
       this.isWordboardVisible=false;
-      this.changeTurns(isPlayersTime);
     }
     
   }
 
-  changeTurns(isPlayersTime: boolean): void {
-    console.log("Button Click2"+isPlayersTime);
-    this.isPlayersTurn = isPlayersTime;
-    this.globals.isPlayersTurn=this.isPlayersTurn;
+  clickWord( wordClicked : number){
+    if(this.globals.isPlayersTurn){
+      if(this.activeWords[wordClicked]){
+        this.activeWords[wordClicked] = false;
+        this.globals.currentGuessesLeft--;
+        if(this.globals.currentGuessesLeft<=0){
+          this.globals.isPlayersTurn = false;
+        }
+      } 
+    }
+    
   }
 
 }
