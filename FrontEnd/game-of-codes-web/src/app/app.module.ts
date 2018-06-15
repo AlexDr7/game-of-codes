@@ -11,7 +11,7 @@ import { AppRoutingModule } from './/app-routing.module';
 import { MenuComponent } from './menu/menu.component';
 import { NavComponent } from './nav/nav.component';
 import { NavWordboardComponent } from './nav-wordboard/nav-wordboard.component';
-import { BoardViewChangeDirective } from './board-view-change.directive';
+import { Globals } from './globals';
 
 @NgModule({
   declarations: [
@@ -21,15 +21,14 @@ import { BoardViewChangeDirective } from './board-view-change.directive';
     MessagesComponent,
     MenuComponent,
     NavComponent,
-    NavWordboardComponent,
-    BoardViewChangeDirective
+    NavWordboardComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     AppRoutingModule
   ],
-  providers: [],
+  providers: [Globals],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

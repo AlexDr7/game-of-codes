@@ -2,6 +2,8 @@ import { Component, OnInit, EventEmitter , Output } from '@angular/core';
 import { Word } from '../word';
 import { WordService } from '../word.service';
 
+import {Globals} from '../globals'
+
 @Component({
   selector: 'app-wordboard',
   templateUrl: './wordboard.component.html',
@@ -19,8 +21,11 @@ export class WordboardComponent implements OnInit {
 
   wordlist : Word[];
   isWordboardVisible = false;
+  isPlayersTurn = false;
 
-  constructor(private wordService : WordService) { }
+  constructor(private wordService : WordService, private globals: Globals) { 
+    this.isPlayersTurn = globals.isPlayersTurn;
+  }
 
   ngOnInit() {
     this.getWords();
@@ -36,15 +41,27 @@ export class WordboardComponent implements OnInit {
       this.wordService.getWordList().subscribe( wordlist => this.wordlist = wordlist )
   }
 
-  toGuidesTurn(): void {
-    if(this.isWordboardVisible){
-      this.isWordboardVisible=false;
+  toGuidesTurn(isPlayersTime : boolean): void {
+    if(!isPlayersTime){
+      if(this.isWordboardVisible){
+        this.isWordboardVisible=false;
+      }
+      else{
+        this.isWordboardVisible=true;
+      }
+      console.log("Button Click"+isPlayersTime);
     }
     else{
-      this.isWordboardVisible=true;
+      this.isWordboardVisible=false;
+      this.changeTurns(isPlayersTime);
     }
     
-    console.log("Button Click");
+  }
+
+  changeTurns(isPlayersTime: boolean): void {
+    console.log("Button Click2"+isPlayersTime);
+    this.isPlayersTurn = isPlayersTime;
+    this.globals.isPlayersTurn=this.isPlayersTurn;
   }
 
 }

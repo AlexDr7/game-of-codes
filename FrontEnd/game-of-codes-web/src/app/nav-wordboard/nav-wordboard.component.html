@@ -4,15 +4,32 @@
   
     <ul class="navbar-nav mr-auto">
       <li class="navbar-text">
-        <span class="score">Blue's Score : 0</span>
+        <span class="blue score">Blue's : 0</span>
       </li>
       <li class="navbar-text">
-        <span class="score">Red's Score : 0</span>
+        <span class="red score">Red's : 0</span>
       </li>
       <li class="navbar-text">
-        <span class="score">Blue's Turn</span>
+        <span class="turnSign score">Blue's Turn</span>
       </li>
     </ul>
-    <button class="btn btn-warning" type="button" (click)="toGuidesTurn()">Guide's View</button>
+
+
+    <form class="form-inline giveClue" [ngClass]="{'notDisplayed':isPlayersTurn}">
+      <input #newClue class="form-control mr-sm-2" type="search" placeholder="Give Clue" aria-label="Clue">
+      <button class="btn btn-primary" type="submit" (click)="onGiveClueClick(newClue.value)">Give Clue</button>
+      <select>
+        <option value="0">0</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        <option value="6">6</option>
+        <option value="7">7</option>        
+      </select>
+    </form>
+    <span id="Clue" class="score" [ngClass]="{'notDisplayed':!isPlayersTurn}">{{currentClue}}</span>
+    <button class="btn btn-warning" type="button" [ngClass]="{'notDisplayed':isPlayersTurn}" (click)="toGuidesTurnClick()">Guide's View</button>
   
 </nav>
