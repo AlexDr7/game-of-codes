@@ -5,4 +5,5 @@ export class Globals {
   isBluesTurn: boolean = true;
   isPlayersTurn: boolean = false;
   currentGuessesLeft: number = 0;
+  numberOfRelatedWords: number = 0;
 }

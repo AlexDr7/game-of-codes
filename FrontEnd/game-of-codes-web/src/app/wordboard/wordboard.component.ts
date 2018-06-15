@@ -61,10 +61,24 @@ export class WordboardComponent implements OnInit {
     if(this.globals.isPlayersTurn){
       if(this.activeWords[wordClicked]){
         this.activeWords[wordClicked] = false;
-        this.globals.currentGuessesLeft--;
-        if(this.globals.currentGuessesLeft<=0){
-          this.globals.isPlayersTurn = false;
+        if(this.globals.numberOfRelatedWords != 0){
+          this.globals.currentGuessesLeft--;       
+          if(this.globals.currentGuessesLeft<=0){
+            this.globals.isPlayersTurn = false;
+          }
         }
+        if((this.globals.isBluesTurn && this.wordlist[wordClicked].colour=="RED") 
+          || (!this.globals.isBluesTurn && this.wordlist[wordClicked].colour=="BLUE")) {
+          this.globals.isPlayersTurn = false;
+          if(this.globals.isBluesTurn){
+            this.globals.isBluesTurn = false;
+          }
+          else{
+            this.globals.isBluesTurn = true;
+          }
+        }
+        
+
       } 
     }
     
