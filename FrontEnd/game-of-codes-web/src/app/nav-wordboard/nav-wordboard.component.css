@@ -4,10 +4,16 @@
     font-weight: 650;
     text-shadow: -0.7px 0 black, 0 0.7px black, 0.8px 0 black, 0 -0.8px black;
 }
+.navbar-brand{
+    text-shadow: -0.7px 0 black, 0 0.7px black, 0.8px 0 black, 0 -0.8px black;
+}
 
 .scoreboard{
     padding:0.8rem;
     margin: 0.3rem;
+    border: 0.1rem solid #595959;
+    box-shadow: 0.07rem 0.07rem 0.07rem 0.07rem #888888;
+    border-radius: 0.2rem;
 }
 
 .blue{
@@ -19,7 +25,8 @@
 }
 
 .turnSign {
-    background-color: #66b3ff;
+    border-radius: 2rem;
+    margin-left: 4rem;
 }
 
 button{

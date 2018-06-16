@@ -3,7 +3,6 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { WordboardComponent } from './wordboard/wordboard.component';
 import { MenuComponent } from './menu/menu.component';
-import { WordboardDetailsComponent } from './wordboard-details/wordboard-details.component';
 
 
 const routes: Routes = [

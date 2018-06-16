@@ -1,5 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatDialogModule } from "@angular/material";
 
 import { FormsModule } from '@angular/forms';
 
@@ -12,6 +14,7 @@ import { MenuComponent } from './menu/menu.component';
 import { NavComponent } from './nav/nav.component';
 import { NavWordboardComponent } from './nav-wordboard/nav-wordboard.component';
 import { Globals } from './globals';
+import { GameDialogComponent } from './game-dialog/game-dialog.component';
 
 @NgModule({
   declarations: [
@@ -21,12 +24,18 @@ import { Globals } from './globals';
     MessagesComponent,
     MenuComponent,
     NavComponent,
-    NavWordboardComponent
+    NavWordboardComponent,
+    GameDialogComponent
+  ],
+  entryComponents: [
+    GameDialogComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
-    AppRoutingModule
+    AppRoutingModule,
+    MatDialogModule,
+    BrowserAnimationsModule
   ],
   providers: [Globals],
   bootstrap: [AppComponent]

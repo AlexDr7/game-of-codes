@@ -53,3 +53,8 @@ h4 {
 .GREY.guide{
   background-color: #7a7a52;
 }
+
+.alreadySelected{
+  outline: 0.2rem solid black;
+  outline-offset: 0.01rem;
+}

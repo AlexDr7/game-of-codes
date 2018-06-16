@@ -1,21 +1,21 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-secondary">
-  <span class="navbar-brand mb-0 h1">Scoreboard</span>
+<nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #e3f2fd;">
+  <span class="navbar-brand mb-0 h1"></span>
   
   
     <ul class="navbar-nav mr-auto">
       <li class="navbar-text">
-        <span class="blue score scoreboard">Blue's : 0</span>
+        <span class="blue score scoreboard">Blue Words : {{globals.blueWordsCount}}</span>
       </li>
       <li class="navbar-text">
-        <span class="red score scoreboard">Red's : 0</span>
+        <span class="red score scoreboard">Red Words : {{globals.redWordsCount}}</span>
       </li>
       <li class="navbar-text">
-        <span [ngClass]="{'blue': globals.isBluesTurn, 'red': !globals.isBluesTurn}" class="turnSign score scoreboard">Blue's Turn</span>
+        <span [ngClass]="{'blue': globals.isBluesTurn, 'red': !globals.isBluesTurn}" class="turnSign score scoreboard">{{globals.teamsTurn}}'s Turn</span>
       </li>
     </ul>
 
 
-    <form class="form-inline giveClue" [ngClass]="{'notDisplayed':globals.isPlayersTurn}">
+    <form class="form-inline giveClue" [ngClass]="{'notDisplayed':globals.isPlayersTurn || globals.isGameOver}">
       <input #newClue class="form-control mr-sm-2" type="search" placeholder="Give Clue" aria-label="Clue">
       <select #numOfRelatedWords>
         <option value="0">0</option>
@@ -29,7 +29,7 @@
       </select>
       <button class="btn btn-primary" type="submit" (click)="onGiveClueClick(newClue.value,numOfRelatedWords.value)">Give Clue</button>
     </form>
-    <span id="Clue" class="score" [ngClass]="{'notDisplayed':!globals.isPlayersTurn}"><span class="text"> Clue: </span><span class="clue">{{currentClue}}</span><span class="text"> Related Words: </span>{{relatedWords}}<span class="text"> Guesses Left: </span>{{globals.currentGuessesLeft}}</span>
+    <span id="Clue" class="score" [ngClass]="{'notDisplayed':!globals.isPlayersTurn || globals.isGameOver}"><span class="text"> Clue: </span><span class="clue">{{currentClue}}</span><span class="text"> Related Words: </span>{{relatedWords}}<span class="text"> Guesses Left: </span>{{globals.currentGuessesLeft}}</span>
     <button class="btn btn-warning" type="button" [ngClass]="{'notDisplayed':globals.isPlayersTurn}" (click)="toGuidesTurnClick()">Guide's View</button>
   
 </nav>

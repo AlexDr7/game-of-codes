@@ -1,0 +1,6 @@
+Front End:
+-Bootstrap
+-Angular
+-Angular Material (npm install --save @angular/material @angular/cdk)
+- ANgular animations (npm install @angular/animations)
+-Font Awesome
