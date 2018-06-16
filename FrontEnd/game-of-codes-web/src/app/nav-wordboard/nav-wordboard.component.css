@@ -2,7 +2,7 @@
     color: #eee;
     font-size: 110%;
     font-weight: 650;
-    text-shadow: -0.7px 0 black, 0 0.7px black, 0.8px 0 black, 0 -0.8px black;
+    text-shadow: 0.04rem 0.04rem 0.07rem black;
 }
 .navbar-brand{
     text-shadow: -0.7px 0 black, 0 0.7px black, 0.8px 0 black, 0 -0.8px black;
@@ -10,13 +10,14 @@
 
 .scoreboard{
     padding:0.8rem;
-    margin: 0.3rem;
+    margin: 0.4rem;
     border: 0.1rem solid #595959;
-    box-shadow: 0.07rem 0.07rem 0.07rem 0.07rem #888888;
+    box-shadow: 0.04rem 0.04rem 0.04rem 0.04rem #888888;
     border-radius: 0.2rem;
 }
 
 .blue{
+    margin-left:-0.7rem;
     background-color: #66b3ff;
 }
 
@@ -26,7 +27,7 @@
 
 .turnSign {
     border-radius: 2rem;
-    margin-left: 4rem;
+    margin-left: 2.5rem;
 }
 
 button{
@@ -39,8 +40,8 @@ button{
 }
 
 .text{
-    font-size:100%;
-    font-weight: 350;
+    font-size:105%;
+    font-weight: 430;
 }
 .clue{
     font-size:150%;
@@ -48,4 +49,22 @@ button{
 span{
     margin-right: 0.2rem;
     margin-left: 0.2rem;
+}
+
+.guideButton{
+    color: white;
+    
+    font-size:103%;
+    text-shadow: 0.05rem 0.05rem 0.06rem black;
+
+    border-radius: 5%;
+    box-shadow: 0.07rem 0.07rem 0.07rem 0.07rem #888888;
+}
+
+.giveClueButton{
+    margin-right:0.5rem;
+    margin-left:0.3rem;
+
+    border-radius: 3%;
+    box-shadow: 0.07rem 0.07rem 0.07rem 0.07rem #888888;
 }

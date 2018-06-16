@@ -4,3 +4,7 @@ Front End:
 -Angular Material (npm install --save @angular/material @angular/cdk)
 - ANgular animations (npm install @angular/animations)
 -Font Awesome
+
+
+-bower (npm install -g bower)
+-bootstrap toggle (bower install angular-bootstrap-toggle --save)
