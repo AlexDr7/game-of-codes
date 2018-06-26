@@ -6,9 +6,15 @@ export class Globals {
   teamsTurn: string ;
 
   isPlayersTurn: boolean = false;
-  isGameOver: boolean = false;
+  isGameOver: boolean = true;
+
+
+  currentClue : string;
   currentGuessesLeft: number = 0;
   numberOfRelatedWords: number = 0;
+
   blueWordsCount: number = 0;
   redWordsCount: number = 0;
+  activeWords : boolean[] = new Array(25);
+
 }

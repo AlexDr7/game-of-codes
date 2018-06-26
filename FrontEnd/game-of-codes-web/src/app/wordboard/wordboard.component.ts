@@ -23,17 +23,11 @@ export class WordboardComponent implements OnInit {
   gameStateTitle: string;
   teamPlayingMessage: string;
 
-  activeWords : boolean[] = new Array(25);
 
   constructor(private wordService : WordService, private globals: Globals, private dialog: MatDialog) { 
-    
-    for(var i = 0;i<25;i++) { 
-      this.activeWords[i] = true; 
-    }
-    globals.blueWordsCount = 8;
-    globals.redWordsCount = 8;
-    globals.teamsTurn = "Blue";
 
+    console.log("WordBoard Constructor");
+    
   }
 
   ngOnInit() {
@@ -81,9 +75,9 @@ export class WordboardComponent implements OnInit {
 
   clickWord( wordClicked : number){
     if(this.globals.isPlayersTurn){
-      if(this.activeWords[wordClicked]){
+      if(this.globals.activeWords[wordClicked]){
         
-        this.activeWords[wordClicked] = false;
+        this.globals.activeWords[wordClicked] = false;
         if(this.wordlist[wordClicked].colour=="BLUE"){
           this.globals.blueWordsCount--;
         }

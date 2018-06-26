@@ -27,7 +27,7 @@
       </select>
       <button class="btn btn-primary giveClueButton" type="submit" (click)="onGiveClueClick(newClue.value,numOfRelatedWords.value)">Give Clue</button>
     </form>
-    <span id="Clue" class="score" [ngClass]="{'notDisplayed':!globals.isPlayersTurn || globals.isGameOver}"><span class="text"> Clue: </span><span class="clue">{{currentClue}}</span><span class="text"> Related Words: </span>{{globals.numberOfRelatedWords}}<span class="text"> Guesses Left: </span>{{globals.currentGuessesLeft}}</span>
+    <span id="Clue" class="score" [ngClass]="{'notDisplayed':!globals.isPlayersTurn || globals.isGameOver}"><span class="text"> Clue: </span><span class="clue">{{globals.currentClue}}</span><span class="text"> Related Words: </span>{{globals.numberOfRelatedWords}}<span class="text"> Guesses Left: </span>{{globals.currentGuessesLeft}}</span>
     <button class="btn btn-danger guideButton" type="button" [ngClass]="{'notDisplayed':globals.isPlayersTurn}" (click)="toGuidesTurnClick()">Guide's View</button>
 
 </nav>

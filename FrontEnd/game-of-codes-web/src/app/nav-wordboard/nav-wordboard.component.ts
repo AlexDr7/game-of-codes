@@ -11,8 +11,6 @@ export class NavWordboardComponent implements OnInit {
 
   @Output() guidesTurn = new EventEmitter<any>();
 
-  currentClue;
-
   constructor(private globals: Globals) { }
 
   ngOnInit() {
@@ -24,7 +22,7 @@ export class NavWordboardComponent implements OnInit {
 
   onGiveClueClick(clue : string, related : number){
     if(clue){
-      this.currentClue = clue;
+      this.globals.currentClue = clue;
       this.globals.numberOfRelatedWords = related;
       
       this.globals.isPlayersTurn = true;
