@@ -31,8 +31,8 @@ export class MenuComponent implements OnInit {
     this.globals.isGameOver = false;
     this.globals.blueWordsCount = 8;
     this.globals.redWordsCount = 8;
-    this.globals.teamsTurn = "Blue";
-    console.log("constructor");
+    this.globals.teamsTurn = "Blue's Turn";
+    this.globals.canNotPass = true;
   }
 
 }

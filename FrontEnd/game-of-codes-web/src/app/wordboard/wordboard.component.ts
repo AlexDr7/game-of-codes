@@ -4,7 +4,7 @@ import { MatDialog, MatDialogConfig } from '@angular/material';
 import { Word } from '../word';
 import { WordService } from '../word.service';
 
-import {Globals} from '../globals'
+import { Globals } from '../globals'
 import { GameDialogComponent } from '../game-dialog/game-dialog.component';
 
 @Component({
@@ -25,8 +25,6 @@ export class WordboardComponent implements OnInit {
 
 
   constructor(private wordService : WordService, private globals: Globals, private dialog: MatDialog) { 
-
-    console.log("WordBoard Constructor");
     
   }
 
@@ -78,6 +76,7 @@ export class WordboardComponent implements OnInit {
       if(this.globals.activeWords[wordClicked]){
         
         this.globals.activeWords[wordClicked] = false;
+        this.globals.canNotPass = false;
         if(this.wordlist[wordClicked].colour=="BLUE"){
           this.globals.blueWordsCount--;
         }
@@ -90,6 +89,8 @@ export class WordboardComponent implements OnInit {
           this.gameStateMessage = "Congratulations Red Team!!! ";
           this.globals.isGameOver = true;
           this.globals.isPlayersTurn = false;
+          this.globals.teamsTurn = "Red Team Won!";
+          this.globals.isBluesTurn = false;
           this.openDialog(this.gameStateTitle, this.gameStateMessage); 
         }
         else if(this.globals.blueWordsCount==0){
@@ -97,14 +98,25 @@ export class WordboardComponent implements OnInit {
           this.gameStateMessage = "Congratulations Blue Team!!! ";
           this.globals.isGameOver = true;
           this.globals.isPlayersTurn = false;
+          this.globals.teamsTurn = "Blue Team Won!";
+          this.globals.isBluesTurn = true;
           this.openDialog(this.gameStateTitle, this.gameStateMessage); 
         }
         else if(this.wordlist[wordClicked].colour=="PURPLE"){
-          
-          this.gameStateTitle = this.globals.teamsTurn+" Team Defeat!!";
           this.gameStateMessage = "You chose the Purple Word!! ";
           this.globals.isGameOver = true;
           this.globals.isPlayersTurn = false;
+          if(this.globals.isBluesTurn){
+            this.gameStateTitle = "Blue Team Defeat!!";
+            this.globals.teamsTurn = "Red Team Won!";
+            this.globals.isBluesTurn = false;
+          }
+          else {
+            this.gameStateTitle = "Red Team Defeat!!";
+            this.globals.teamsTurn = "Blue Team Won!";
+            this.globals.isBluesTurn = true;
+          }
+
           this.openDialog(this.gameStateTitle, this.gameStateMessage); 
         }
         else if((this.globals.isBluesTurn && this.wordlist[wordClicked].colour!="BLUE") 
@@ -115,28 +127,29 @@ export class WordboardComponent implements OnInit {
           if(this.globals.isBluesTurn){
             this.gameStateTitle = "Blue Team"+this.gameStateTitle;
             this.globals.isBluesTurn = false;
-            this.globals.teamsTurn = "Red";
+            this.globals.teamsTurn = "Red's Turn";
           }
           else{
             this.gameStateTitle = "Red Team"+this.gameStateTitle;
             this.globals.isBluesTurn = true;
-            this.globals.teamsTurn = "Blue";
+            this.globals.teamsTurn = "Blue's Turn";
           }
           this.openDialog(this.gameStateTitle, this.gameStateMessage); 
         }
         else if(this.globals.numberOfRelatedWords != 0){
           this.globals.currentGuessesLeft--;       
           if(this.globals.currentGuessesLeft<=0){
-            this.globals.isPlayersTurn = false;
-            this.gameStateTitle = this.globals.teamsTurn+" Team is out of guesses!!";
+            this.globals.isPlayersTurn = false;        
             this.gameStateMessage = "This ends your turn ";
             if(this.globals.isBluesTurn){
+              this.gameStateTitle = "Blue Team is out of guesses!!";
               this.globals.isBluesTurn = false;
-              this.globals.teamsTurn = "Red";
+              this.globals.teamsTurn = "Red's Turn";
             }
             else{
+              this.gameStateTitle = "Red Team is out of guesses!!";
               this.globals.isBluesTurn = true;
-              this.globals.teamsTurn = "Blue";
+              this.globals.teamsTurn = "Blue's Turn";
             }
             this.openDialog(this.gameStateTitle, this.gameStateMessage); 
           }

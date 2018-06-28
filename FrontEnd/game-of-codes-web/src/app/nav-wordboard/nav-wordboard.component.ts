@@ -24,11 +24,25 @@ export class NavWordboardComponent implements OnInit {
     if(clue){
       this.globals.currentClue = clue;
       this.globals.numberOfRelatedWords = related;
-      
+      this.globals.canNotPass = true;
+
       this.globals.isPlayersTurn = true;
       this.globals.currentGuessesLeft = related;
 
-      this.guidesTurn.emit(clue);
+      this.guidesTurn.emit();
+    }
+  }
+
+  onPass(){
+    this.globals.isPlayersTurn = false;
+    this.globals.canNotPass = true;
+    if(this.globals.isBluesTurn){
+      this.globals.isBluesTurn = false;
+      this.globals.teamsTurn = "Red's Turn";
+    }
+    else {
+      this.globals.isBluesTurn = true;
+      this.globals.teamsTurn = "Blue's Turn";
     }
   }
 

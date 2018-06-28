@@ -6,8 +6,9 @@ export class Globals {
   teamsTurn: string ;
 
   isPlayersTurn: boolean = false;
+  canNotPass: boolean = true;
   isGameOver: boolean = true;
-
+  
 
   currentClue : string;
   currentGuessesLeft: number = 0;

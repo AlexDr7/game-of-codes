@@ -5,7 +5,6 @@ import { WordboardComponent } from './wordboard/wordboard.component';
 import { MenuComponent } from './menu/menu.component';
 import { RulesComponent } from './rules/rules.component';
 
-
 const routes: Routes = [
   { path: 'wordboard', component: WordboardComponent },
   { path: 'menu' , component: MenuComponent},

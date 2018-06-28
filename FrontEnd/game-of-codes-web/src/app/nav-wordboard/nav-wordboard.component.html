@@ -8,7 +8,7 @@
         <span class="red score scoreboard">Red Words : {{globals.redWordsCount}}</span>
       </li>
       <li class="navbar-text">
-        <span [ngClass]="{'blue': globals.isBluesTurn, 'red': !globals.isBluesTurn}" class="turnSign score scoreboard">{{globals.teamsTurn}}'s Turn</span>
+        <span [ngClass]="{'blue': globals.isBluesTurn, 'red': !globals.isBluesTurn}" class="turnSign score scoreboard">{{globals.teamsTurn}}</span>
       </li>
     </ul>
 
@@ -27,6 +27,7 @@
       </select>
       <button class="btn btn-primary giveClueButton" type="submit" (click)="onGiveClueClick(newClue.value,numOfRelatedWords.value)">Give Clue</button>
     </form>
+    <button class="btn btn-danger guideButton" type="button" [ngClass]="{'notDisplayed': !globals.isPlayersTurn || globals.canNotPass }" (click)="onPass()">Pass</button>
     <span id="Clue" class="score" [ngClass]="{'notDisplayed':!globals.isPlayersTurn || globals.isGameOver}"><span class="text"> Clue: </span><span class="clue">{{globals.currentClue}}</span><span class="text"> Related Words: </span>{{globals.numberOfRelatedWords}}<span class="text"> Guesses Left: </span>{{globals.currentGuessesLeft}}</span>
     <button class="btn btn-danger guideButton" type="button" [ngClass]="{'notDisplayed':globals.isPlayersTurn}" (click)="toGuidesTurnClick()">Guide's View</button>
 

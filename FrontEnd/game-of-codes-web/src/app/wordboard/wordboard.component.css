@@ -55,6 +55,6 @@ h4 {
 }
 
 .alreadySelected{
-  outline: 0.2rem solid black;
+  outline: 0.4rem solid black;
   outline-offset: 0.01rem;
 }
