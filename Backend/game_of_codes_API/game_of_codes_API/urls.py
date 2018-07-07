@@ -16,6 +16,10 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
+from Services.Webservice import endpoint
+
 urlpatterns = [
+    path('basikosAI', endpoint.basikosAI, name='basikos'),
+    path('wordService', endpoint.wordService, name='wordService'),
     path('admin/', admin.site.urls),
 ]

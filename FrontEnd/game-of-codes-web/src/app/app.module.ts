@@ -3,7 +3,9 @@ import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDialogModule } from "@angular/material";
 
+
 import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { WordboardComponent } from './wordboard/wordboard.component';
@@ -35,7 +37,8 @@ import { RulesComponent } from './rules/rules.component';
     FormsModule,
     AppRoutingModule,
     MatDialogModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    HttpClientModule
   ],
   providers: [Globals],
   bootstrap: [AppComponent]
