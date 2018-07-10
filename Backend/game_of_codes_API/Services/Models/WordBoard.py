@@ -46,7 +46,7 @@ class WordBoard:
 
     def fillBoardByTemplate(self, templateID, gameID):
         for i in range(25):
-            self.board.append(GameSquare(WordBoard.template_color_1[i], gameID, WordBoard.template_color_1[i]))
+            self.board.append(GameSquare(WordBoard.template_color_1[i], gameID, WordBoard.template_words_1[i]))
 
         return self.board
 
@@ -56,5 +56,11 @@ class WordBoard:
     def getBoard(self):
         return self.board
 
+    def serialiseBoard(self):
+        data = {}
 
+        for i in range(25):
+            data.update({"GameSquare"+str(i): self.board[i].serialiseGameSquare()})
+
+        return data
 

@@ -10,11 +10,23 @@ class GameSquare:
         else:
             self.wordText = word_text
 
+        self.isGuessed = False
+
+        conn = sqlCommands.create_connection()
+        with conn:
+            self.squareID = sqlCommands.create_game_square(conn, self.wordText, self.gameID, self.color, self.isGuessed)
+
+        conn.commit()
+        conn.close()
+
 
     def getRandomWord(self):
         conn = sqlCommands.create_connection()
         with conn:
             row = sqlCommands.getRandomWord()
+
+        conn.commit()
+        conn.close()
 
         return row
 
@@ -29,3 +41,14 @@ class GameSquare:
 
     def getColor(self):
         return self.color
+
+    def getGameSquareID(self):
+        return self.squareID
+
+    def serialiseGameSquare(self):
+        data = {
+            'id': self.squareID,
+            'value': self.wordText,
+            'colour': self.color
+        }
+        return data

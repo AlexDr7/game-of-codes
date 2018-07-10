@@ -2,17 +2,17 @@ import sqlite3
 import wikipedia
 
 from django.db import Error
-from Services.DatabaseServices.sqlCommands import sqlCommands
+from sqlCommands import sqlCommands
 
 
 def main():
     database = "..\GameOfCodesDB"
 
     # create a database connection
-    conn = sqlCommands.create_connection(database)
+    conn = sqlCommands.create_connection()
     with conn:
         # create a new project
-
+        '''
         filepath = '..\word-nounlist.txt'
         with open(filepath) as fp:
             line = fp.readline()
@@ -30,7 +30,12 @@ def main():
 
                 line = fp.readline()
 
+        '''
+        row = sqlCommands.select_word(conn, "GREECE")
+        print(row)
 
+        row = sqlCommands.create_game(conn)
+        print(row)
         #word = ('ZOO', 0)
         #word_id = create_word(conn, word)
 

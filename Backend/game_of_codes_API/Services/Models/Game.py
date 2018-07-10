@@ -37,5 +37,17 @@ class Game:
                                                   self.isGameCompleted, self.blueCorrectGuesses, self.blueWrongGuesses,
                                                   self.redCorrectGuesses, self.redWrongGuesses)
 
-            self.board = WordBoard(self.gameID, self.numOfBlueWords, self.numOfRedWords)
+        conn.commit()
+        conn.close()
+        self.board = WordBoard(self.gameID, self.numOfBlueWords, self.numOfRedWords)
+        self.board.fillBoardByTemplate(1, self.gameID)
 
+
+
+    def serialiseGame(self):
+        gameData = {
+            'GameID': self.gameID,
+            'Board': self.board.serialiseBoard()
+        }
+
+        return gameData

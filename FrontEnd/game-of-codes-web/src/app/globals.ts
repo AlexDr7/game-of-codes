@@ -1,7 +1,10 @@
 import { Injectable } from '@angular/core';
+import { Game } from './game';
 
 @Injectable()
 export class Globals {
+  game: Game;
+
   isBluesTurn: boolean = true;
   teamsTurn: string ;
 

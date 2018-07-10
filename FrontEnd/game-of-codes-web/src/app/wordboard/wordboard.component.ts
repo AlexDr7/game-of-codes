@@ -2,6 +2,7 @@ import { Component, OnInit, EventEmitter , Output } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material';
 
 import { Word } from '../word';
+import { Board } from '../board';
 import { WordService } from '../word.service';
 
 import { Globals } from '../globals'
@@ -22,6 +23,7 @@ export class WordboardComponent implements OnInit {
   gameStateMessage: string;
   gameStateTitle: string;
   teamPlayingMessage: string;
+  board : Board;
 
 
   constructor(private wordService : WordService, private globals: Globals, private dialog: MatDialog) { 
@@ -29,7 +31,7 @@ export class WordboardComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getWords();
+    this.getBoardWords();
   }
 
   selectedWord: Word;
@@ -39,7 +41,14 @@ export class WordboardComponent implements OnInit {
   }
 
   getWords(): void {
-      this.wordService.getWordList().subscribe( wordlist => this.wordlist = wordlist )
+    this.wordService.getWordList().subscribe( wordlist => this.wordlist = wordlist )
+  }
+
+  getBoardWords(): void {
+    this.wordService.getBoard(this.globals.game).subscribe((data: Board) => this.board = {
+      GameID: data['GameID'],
+      Board:  data['Board']
+    });
   }
 
   toGuidesTurn($event): void {

@@ -5,7 +5,7 @@ from django.db import Error
 class sqlCommands:
     database = "..\GameOfCodesDB"
 
-    def create_connection(self, db_file="..\GameOfCodesDB"):
+    def create_connection(db_file="GameOfCodesDB"):
 
         """ create a database connection to the SQLite database
             specified by db_file
@@ -20,7 +20,7 @@ class sqlCommands:
 
         return None
 
-    def create_word(self, conn, word):
+    def create_word(conn, word):
         """
         Create a new word into the words table
         :param conn:
@@ -33,7 +33,7 @@ class sqlCommands:
         cur.execute("INSERT INTO Services_word(word_text) VALUES(?)", (word,))
         return cur.lastrowid
 
-    def create_game(self, conn, bluePlayer = "HumanP", blueGuide= "HumanG", redPlayer = "HumanP", redGuide = "HumanG",
+    def create_game(conn, bluePlayer = "HumanP", blueGuide= "HumanG", redPlayer = "HumanP", redGuide = "HumanG",
                 isCompleted= False, blueCorrectGuesses=0, blueWrongGuesses=0, redCorrectGuesses=0, redWrongGuesses=0):
         """
         Create a new word into the words table
@@ -41,14 +41,14 @@ class sqlCommands:
         :param word:
         :return: word id
         """
-        sql = ''' INSERT INTO Services_game(is_completed,blue_player,red_player,blue_guide,red_guide,blue_wrong_guesses
-          ,blue_correct_guesses,red_wrong_guesses,red_correct_guesses)  VALUES(?,?,?,?,?,?,?,?,?) '''
+        sql = ''' INSERT INTO Services_game(is_completed,blue_player_id,red_player_id,blue_guide_id,red_guide_id,
+        blue_wrong_guesses,blue_correct_guesses,red_wrong_guesses,red_correct_guesses)  VALUES(?,?,?,?,?,?,?,?,?) '''
         cur = conn.cursor()
-        cur.execute(sql, (isCompleted, bluePlayer, redPlayer, blueGuide, redGuide, blueWrongGuesses, blueCorrectGuesses
-                          , redWrongGuesses, redCorrectGuesses))
+        cur.execute(sql, (isCompleted, bluePlayer, redPlayer, blueGuide, redGuide, blueWrongGuesses, blueCorrectGuesses,
+                          redWrongGuesses, redCorrectGuesses))
         return cur.lastrowid
 
-    def update_game(self, conn, gameID, isCompleted= False, blueCorrectGuesses=0, blueWrongGuesses=0,
+    def update_game(conn, gameID, isCompleted= False, blueCorrectGuesses=0, blueWrongGuesses=0,
                     redCorrectGuesses=0, redWrongGuesses=0):
         """
         Create a new word into the words table
@@ -61,19 +61,19 @@ class sqlCommands:
         cur = conn.cursor()
         cur.execute(sql, (isCompleted, blueCorrectGuesses, blueWrongGuesses, redCorrectGuesses, redWrongGuesses, gameID))
 
-    def create_game_square(self, conn, word, game, color, isGuessed):
+    def create_game_square(conn, word, game, color, isGuessed):
         """
         Create a new word into the words table
         :param conn:
         :param word:
         :return: word id
         """
-        sql = ''' INSERT INTO Services_game_square(word,game,color,is_guessed)  VALUES(?,?,?,?) '''
+        sql = ''' INSERT INTO Services_game_square(word_id,game_id,color,is_guessed)  VALUES(?,?,?,?) '''
         cur = conn.cursor()
         cur.execute(sql, (word, game, color, isGuessed))
         return cur.lastrowid
 
-    def update_game_square(self, conn, squareID, isGuessed):
+    def update_game_square(conn, squareID, isGuessed):
         """
         Create a new word into the words table
         :param conn:
@@ -83,9 +83,8 @@ class sqlCommands:
         sql = ''' UPDATE Services_game_square SET is_guessed=? WHERE id = ? '''
         cur = conn.cursor()
         cur.execute(sql, (isGuessed, squareID))
-        return cur.lastrowid
 
-    def select_word(self, conn, word):
+    def select_word(conn, word):
         """
         Select a word from the words table
         :param conn:
@@ -99,7 +98,7 @@ class sqlCommands:
         rows = cur.fetchall()
         return rows
 
-    def getRandomWord(self, conn):
+    def getRandomWord(conn):
         """
             Select a random word from the words table
             :param conn:
