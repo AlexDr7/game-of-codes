@@ -3,6 +3,7 @@ import { Game } from './game';
 
 @Injectable()
 export class Globals {
+  gameid: number = 0 ;
   game: Game;
 
   isBluesTurn: boolean = true;

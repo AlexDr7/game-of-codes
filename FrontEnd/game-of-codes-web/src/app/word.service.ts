@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Word } from  './word';
-import { Board } from './board';
+import { Game } from './game';
 
 import { WORDSLIST } from './WordsList';
 import { MessageService } from './message.service';
@@ -29,7 +29,7 @@ export class WordService {
     return of (WORDSLIST);
   }
 
-  getBoard(game) {
-    return this.http.post<Board>(this.boardUrl, game , httpOptions);
+  getBoard(game): Observable<Game> {
+    return this.http.post<Game>(this.boardUrl, game , httpOptions);
   }
 }

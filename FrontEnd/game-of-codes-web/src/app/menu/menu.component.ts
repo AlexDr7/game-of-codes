@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Word } from '../word';
+import { Game } from '../game';
 import { WordService } from '../word.service';
 
 import { Globals } from '../globals'
@@ -16,11 +17,21 @@ export class MenuComponent implements OnInit {
   constructor(private wordService: WordService, private globals: Globals) { }
 
   ngOnInit() {
-    this.getWordList();
+    
   }
 
   getWordList(): void{
     this.wordService.getWordList().subscribe(wordlist => this.wordlist = wordlist)
+  }
+
+  getBoardWords(): void {
+    this.wordService.getBoard(this.globals.gameid).subscribe((data: Game) => {
+      console.log(data)
+      this.globals.game = data;
+      this.wordlist = this.globals.game.Board;
+      console.log(this.globals.game.Board);
+    });
+  
   }
 
   onClickStartNewGame(){
@@ -33,6 +44,8 @@ export class MenuComponent implements OnInit {
     this.globals.redWordsCount = 8;
     this.globals.teamsTurn = "Blue's Turn";
     this.globals.canNotPass = true;
+
+    this.getBoardWords();
   }
 
 }

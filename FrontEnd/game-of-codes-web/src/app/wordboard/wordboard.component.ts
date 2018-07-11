@@ -2,11 +2,12 @@ import { Component, OnInit, EventEmitter , Output } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material';
 
 import { Word } from '../word';
-import { Board } from '../board';
+import { Game } from '../game';
 import { WordService } from '../word.service';
 
 import { Globals } from '../globals'
 import { GameDialogComponent } from '../game-dialog/game-dialog.component';
+import { ENTER_CLASSNAME } from '@angular/animations/browser/src/util';
 
 @Component({
   selector: 'app-wordboard',
@@ -23,7 +24,7 @@ export class WordboardComponent implements OnInit {
   gameStateMessage: string;
   gameStateTitle: string;
   teamPlayingMessage: string;
-  board : Board;
+  board : Game;
 
 
   constructor(private wordService : WordService, private globals: Globals, private dialog: MatDialog) { 
@@ -31,7 +32,7 @@ export class WordboardComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getBoardWords();
+    this.getWords();
   }
 
   selectedWord: Word;
@@ -41,14 +42,14 @@ export class WordboardComponent implements OnInit {
   }
 
   getWords(): void {
-    this.wordService.getWordList().subscribe( wordlist => this.wordlist = wordlist )
-  }
-
-  getBoardWords(): void {
-    this.wordService.getBoard(this.globals.game).subscribe((data: Board) => this.board = {
-      GameID: data['GameID'],
-      Board:  data['Board']
-    });
+    if(this.globals.game){
+      this.wordlist = this.globals.game.Board;
+      console.log(this.wordlist);
+    }
+    else {
+      this.wordService.getWordList().subscribe( wordlist => this.wordlist = wordlist );
+      console.log("else");
+    }
   }
 
   toGuidesTurn($event): void {
@@ -86,10 +87,10 @@ export class WordboardComponent implements OnInit {
         
         this.globals.activeWords[wordClicked] = false;
         this.globals.canNotPass = false;
-        if(this.wordlist[wordClicked].colour=="BLUE"){
+        if(this.wordlist[wordClicked].colour=="B"){
           this.globals.blueWordsCount--;
         }
-        else if(this.wordlist[wordClicked].colour=="RED"){
+        else if(this.wordlist[wordClicked].colour=="R"){
           this.globals.redWordsCount--;
         }
 
@@ -111,7 +112,7 @@ export class WordboardComponent implements OnInit {
           this.globals.isBluesTurn = true;
           this.openDialog(this.gameStateTitle, this.gameStateMessage); 
         }
-        else if(this.wordlist[wordClicked].colour=="PURPLE"){
+        else if(this.wordlist[wordClicked].colour=="P"){
           this.gameStateMessage = "You chose the Purple Word!! ";
           this.globals.isGameOver = true;
           this.globals.isPlayersTurn = false;
@@ -128,8 +129,8 @@ export class WordboardComponent implements OnInit {
 
           this.openDialog(this.gameStateTitle, this.gameStateMessage); 
         }
-        else if((this.globals.isBluesTurn && this.wordlist[wordClicked].colour!="BLUE") 
-        || (!this.globals.isBluesTurn && this.wordlist[wordClicked].colour!="RED")) {
+        else if((this.globals.isBluesTurn && this.wordlist[wordClicked].colour!="B") 
+        || (!this.globals.isBluesTurn && this.wordlist[wordClicked].colour!="R")) {
           this.globals.isPlayersTurn = false;
           this.gameStateTitle = " Guessed Incorrectly!";
           this.gameStateMessage = "This ends your turn ";

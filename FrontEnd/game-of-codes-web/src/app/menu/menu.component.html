@@ -3,4 +3,38 @@
   <h2>Main Menu</h2>
 
   <button type="button" class="btn btn-lg btn-info" (click)="onClickStartNewGame()" routerLink="/wordboard">Start New Game</button>
+  <h3>Options</h3>
+
+  <div class="playerOptions container">
+    <div class="row">
+      <div class="col-md-3">
+        <h4 class="blue">Blue Player</h4>
+        <select #blueTeamPlayer class="form-control">
+          <option value="HumanP" selected>Human Player</option>
+          <option value="BasikosAI">Basic AI Player</option>             
+        </select>
+      </div>
+      <div class="col-md-3">
+        <h4 class="blue">Blue Guide</h4>
+        <select #blueTeamGuide class="form-control">
+          <option value="HumanP" selected>Human Player</option>
+          <option value="BasikosAI">Basic AI Player</option>             
+        </select>
+      </div>
+      <div class="col-md-3">
+        <h4 class="red">Red Player</h4>
+        <select #redTeamPlayer class="form-control">
+          <option value="HumanP" selected>Human Player</option>
+          <option value="BasikosAI">Basic AI Player</option>             
+        </select>
+      </div>
+      <div class="col-md-3">
+        <h4 class="red">Red Guide</h4>
+        <select #redTeamGuide class="form-control">
+          <option value="HumanP" selected>Human Player</option>
+          <option value="BasikosAI">Basic AI Player</option>             
+        </select>
+      </div>
+    </div>
+  </div>
 </div>
