@@ -3,6 +3,8 @@ import { Word } from '../word';
 import { Game } from '../game';
 import { WordService } from '../word.service';
 
+import {Router} from '@angular/router';
+
 import { Globals } from '../globals'
 
 @Component({
@@ -13,8 +15,8 @@ import { Globals } from '../globals'
 export class MenuComponent implements OnInit {
 
   wordlist: Word[] = [];
-
-  constructor(private wordService: WordService, private globals: Globals) { }
+  
+  constructor(private wordService: WordService, private globals: Globals, private router: Router) { }
 
   ngOnInit() {
     
@@ -30,6 +32,8 @@ export class MenuComponent implements OnInit {
       this.globals.game = data;
       this.wordlist = this.globals.game.Board;
       console.log(this.globals.game.Board);
+
+      this.router.navigateByUrl('/wordboard');
     });
   
   }
