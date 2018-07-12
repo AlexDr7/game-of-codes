@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Game } from './game';
+import { GameSettings } from './gamesettings';
 
 @Injectable()
 export class Globals {
@@ -13,6 +14,8 @@ export class Globals {
   canNotPass: boolean = true;
   isGameOver: boolean = true;
   
+  singleMode: boolean = false;
+  gameSettings: GameSettings;
 
   currentClue : string;
   currentGuessesLeft: number = 0;

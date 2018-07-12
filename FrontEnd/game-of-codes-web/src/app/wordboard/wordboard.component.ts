@@ -3,6 +3,7 @@ import { MatDialog, MatDialogConfig } from '@angular/material';
 
 import { Word } from '../word';
 import { Game } from '../game';
+
 import { WordService } from '../word.service';
 
 import { Globals } from '../globals'
