@@ -16,27 +16,32 @@
       <div *ngIf="i<5">
       <div class="row">
         
-        <div [ngClass]="{'guide': isWordboardVisible || !globals.activeWords[i*5] , 'alreadySelected': isWordboardVisible && !globals.activeWords[i*5] , activeButton: globals.isPlayersTurn && globals.activeWords[i*5] && !globals.isGameOver  }" class="module word col" [class]="wordlist[i*5].colour" (click)="clickWord(i*5)" [id]="wordlist[i*5].value">
-          <h4>{{wordlist[i*5].value}}</h4>
-        </div>
-        <div [ngClass]="{'guide': isWordboardVisible || !globals.activeWords[i*5+1] , 'alreadySelected': isWordboardVisible && !globals.activeWords[i*5+1] , activeButton: globals.isPlayersTurn && globals.activeWords[i*5+1] && !globals.isGameOver }" class="module word col" [class]="wordlist[i*5+1].colour" (click)="clickWord(i*5+1)" [id]="wordlist[i*5+1].value">
-          <h4>{{wordlist[i*5+1].value}}</h4>
-        </div>
-        <div [ngClass]="{'guide': isWordboardVisible || !globals.activeWords[i*5+2] , 'alreadySelected': isWordboardVisible && !globals.activeWords[i*5+2] , activeButton: globals.isPlayersTurn && globals.activeWords[i*5+2] && !globals.isGameOver }" class="module word col" [class]="wordlist[i*5+2].colour" (click)="clickWord(i*5+2)" [id]="wordlist[i*5+2].value">
-          <h4 >{{wordlist[i*5+2].value}}</h4>
-        </div>
-        <div [ngClass]="{'guide': isWordboardVisible || !globals.activeWords[i*5+3] , 'alreadySelected': isWordboardVisible && !globals.activeWords[i*5+3] , activeButton: globals.isPlayersTurn && globals.activeWords[i*5+3] && !globals.isGameOver }" class="module word col" [class]="wordlist[i*5+3].colour" (click)="clickWord(i*5+3)" [id]="wordlist[i*5+3].value">
-          <h4 >{{wordlist[i*5+3].value}}</h4>
-        </div>
-        <div [ngClass]="{'guide': isWordboardVisible || !globals.activeWords[i*5+4] , 'alreadySelected': isWordboardVisible && !globals.activeWords[i*5+4] , activeButton: globals.isPlayersTurn && globals.activeWords[i*5+4] && !globals.isGameOver }" class="module word col" [class]="wordlist[i*5+4].colour" (click)="clickWord(i*5+4)" [id]="wordlist[i*5+4].value">
-          <h4 >{{wordlist[i*5+4].value}}</h4>
-        </div>
+        <h4 [ngClass]="{'guide': isWordboardVisible || !globals.activeWords[i*5] , 'alreadySelected': isWordboardVisible && !globals.activeWords[i*5] , activeButton: globals.isPlayersTurn && globals.activeWords[i*5] && !globals.isGameOver  }" class="module word col" [class]="wordlist[i*5].colour" (click)="clickWord(i*5)" [id]="wordlist[i*5].value">
+          {{wordlist[i*5].value}}
+        </h4>
+        <h4 [ngClass]="{'guide': isWordboardVisible || !globals.activeWords[i*5+1] , 'alreadySelected': isWordboardVisible && !globals.activeWords[i*5+1] , activeButton: globals.isPlayersTurn && globals.activeWords[i*5+1] && !globals.isGameOver }" class="module word col" [class]="wordlist[i*5+1].colour" (click)="clickWord(i*5+1)" [id]="wordlist[i*5+1].value">
+          {{wordlist[i*5+1].value}}
+        </h4>
+        <h4 [ngClass]="{'guide': isWordboardVisible || !globals.activeWords[i*5+2] , 'alreadySelected': isWordboardVisible && !globals.activeWords[i*5+2] , activeButton: globals.isPlayersTurn && globals.activeWords[i*5+2] && !globals.isGameOver }" class="module word col" [class]="wordlist[i*5+2].colour" (click)="clickWord(i*5+2)" [id]="wordlist[i*5+2].value">
+          {{wordlist[i*5+2].value}}
+        </h4>
+        <h4 [ngClass]="{'guide': isWordboardVisible || !globals.activeWords[i*5+3] , 'alreadySelected': isWordboardVisible && !globals.activeWords[i*5+3] , activeButton: globals.isPlayersTurn && globals.activeWords[i*5+3] && !globals.isGameOver }" class="module word col" [class]="wordlist[i*5+3].colour" (click)="clickWord(i*5+3)" [id]="wordlist[i*5+3].value">
+          {{wordlist[i*5+3].value}}
+        </h4>
+        <h4 [ngClass]="{'guide': isWordboardVisible || !globals.activeWords[i*5+4] , 'alreadySelected': isWordboardVisible && !globals.activeWords[i*5+4] , activeButton: globals.isPlayersTurn && globals.activeWords[i*5+4] && !globals.isGameOver }" class="module word col" [class]="wordlist[i*5+4].colour" (click)="clickWord(i*5+4)" [id]="wordlist[i*5+4].value">
+          {{wordlist[i*5+4].value}}
+        </h4>
       </div>
       </div>
     </div>
     
   </div>
 </div> 
+
+<button type="button" class="btn btn-lg btn-secondary back" [ngClass]="{'notDisplayed': !this.globals.isGameOver}" routerLink="/menu">
+  Back to Menu
+  <i class="fa fa-undo" style="font-size:24px"></i>
+</button>
 
 
 

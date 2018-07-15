@@ -1,45 +1,37 @@
-import sqlite3
 import wikipedia
 
+from pathlib import Path
+
 from django.db import Error
-from sqlCommands import sqlCommands
+from Services.DatabaseServices.databaseCommands import databaseCommands
 
 
-def main():
-    database = "..\GameOfCodesDB"
 
+def initializeWordDatabase():
+    database = "..\..\GameOfCodesDB"
     # create a database connection
-    conn = sqlCommands.create_connection()
-    with conn:
-        # create a new project
-        '''
-        filepath = '..\word-nounlist.txt'
-        with open(filepath) as fp:
+
+    p = Path(__file__).parents[2]
+
+    filepath = p / 'word-nounlist.txt'
+
+    print(filepath)
+    with open(filepath) as fp:
+        line = fp.readline()
+        while line:
+            target_word = line.strip().upper()
+            print(target_word)
+            searchOutcome = wikipedia.search(target_word)
+            if len(searchOutcome):
+                print(searchOutcome[0])
+
+                row = databaseCommands.select_word(target_word)
+                if row is None:
+                    word_id = databaseCommands.create_word(target_word)
+
+
             line = fp.readline()
-            while line:
-                target_word = line.strip().upper()
-                print(target_word)
-                searchOutcome = wikipedia.search(target_word)
-                if len(searchOutcome):
-                    print(searchOutcome[0])
 
-                    row = sqlCommands.select_word(conn, target_word)
-                    if len(row) == 0:
-                        word_id = sqlCommands.create_word(conn, target_word)
-
-
-                line = fp.readline()
-
-        '''
-        row = sqlCommands.select_word(conn, "GREECE")
-        print(row)
-
-        row = sqlCommands.create_game(conn)
-        print(row)
         #word = ('ZOO', 0)
         #word_id = create_word(conn, word)
-
-
-if __name__ == '__main__':
-    main()
 

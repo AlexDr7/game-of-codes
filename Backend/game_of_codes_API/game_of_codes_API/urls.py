@@ -21,5 +21,8 @@ from Services.Webservice import endpoint
 urlpatterns = [
     path('basikosAI', endpoint.basikosAI, name='basikos'),
     path('wordService', endpoint.wordService, name='wordService'),
+    path('addClue', endpoint.addClue, name='addClue'),
+    path('updateClue', endpoint.updateClue, name='updateClue'),
+    path('initializeDatabase', endpoint.initializeDatabase, name='initializeDatabase'),
     path('admin/', admin.site.urls),
 ]

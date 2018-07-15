@@ -1,4 +1,4 @@
-from Services.DatabaseServices.sqlCommands import sqlCommands
+from Services.DatabaseServices.databaseCommands import databaseCommands
 
 class GameSquare:
 
@@ -12,23 +12,26 @@ class GameSquare:
 
         self.isGuessed = False
 
-        conn = sqlCommands.create_connection()
+        '''conn = sqlCommands.create_connection()
         with conn:
             self.squareID = sqlCommands.create_game_square(conn, self.wordText, self.gameID, self.color, self.isGuessed)
 
         conn.commit()
-        conn.close()
+        conn.close()'''
+
+        self.squareID = databaseCommands.create_game_square(self.wordText, self.gameID, self.color, self.isGuessed)
+
 
 
     def getRandomWord(self):
-        conn = sqlCommands.create_connection()
+        '''conn = sqlCommands.create_connection()
         with conn:
-            row = sqlCommands.getRandomWord()
+            row = sqlCommands.getRandomWord(conn)
 
         conn.commit()
-        conn.close()
+        conn.close()'''
 
-        return row
+        return databaseCommands.select_random_word().word_text
 
     def getWord(self):
         return self.word
@@ -45,9 +48,10 @@ class GameSquare:
     def getGameSquareID(self):
         return self.squareID
 
-    def serialiseGameSquare(self):
+    def serialiseGameSquare(self, i):
         data = {
             'id': self.squareID,
+            'index': i,
             'value': self.wordText,
             'colour': self.color
         }

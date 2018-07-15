@@ -2,12 +2,15 @@
 <div class="menu">
   <h2>Main Menu</h2>
 
-  <button type="button" class="btn btn-lg btn-info" (click)="onClickStartNewGame()">Start New Game</button>
+  <button type="button" class="btn btn-lg btn-info" (click)="onClickStartNewGame()">
+    Start New Game
+    <i class="fa fa-spinner fa-spin" style="font-size:24px" [ngClass]="{'notDisplayed': !loading}" ></i>
+  </button>
   <h3>Options</h3>
 
   <div class="form-check">
       <label>
-        <input type="checkbox" name="check" [(ngModel)]="globals.singleMode"> <span class="label-text">Singleteam Game</span>
+        <input type="checkbox" name="check" [(ngModel)]="globals.singleMode"> <span class="label-text">SingleTeam Game</span>
       </label>
     </div>
 

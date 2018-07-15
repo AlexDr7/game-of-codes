@@ -30,12 +30,12 @@ h4 {
   color: #607d8b;
 }
 
-@media (max-width: 600px) {
+@media (max-width: 800px) {
   .module {
-    font-size: 10px;
+    font-size: 12px;
     max-height: 75px; }
 }
-@media (max-width: 1024px) {
+@media (max-width: 2000px) {
   .module {
     min-width: 60px;
   }
@@ -57,4 +57,12 @@ h4 {
 .alreadySelected{
   outline: 0.4rem solid black;
   outline-offset: 0.01rem;
+}
+
+.back{
+  margin: 0.7rem;
+}
+
+.notDisplayed{
+  display:none;
 }

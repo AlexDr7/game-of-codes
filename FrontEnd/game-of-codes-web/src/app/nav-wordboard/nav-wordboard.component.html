@@ -7,7 +7,7 @@
       <li class="navbar-text nav-item red score scoreboard">
         Red Words : {{globals.redWordsCount}}
       </li>
-      <li class="navbar-text nav-item turnSign score scoreboard" [ngClass]="{'blue': globals.isBluesTurn, 'red': !globals.isBluesTurn}">
+      <li class="navbar-text nav-item turnSign score scoreboard" [ngClass]="{'blue': globals.isBluesTurn, 'red': !globals.isBluesTurn, 'notDisplayed': globals.singleMode}">
         {{globals.teamsTurn}}
       </li>
     </ul>

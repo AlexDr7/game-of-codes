@@ -21,7 +21,8 @@ export class MenuComponent implements OnInit {
   blueGuide: string = "HumanP";
   redPlayer: string = "HumanP";
   redGuide: string = "HumanP";
-  
+  loading: boolean = false;
+
   constructor(private wordService: WordService, private globals: Globals, private router: Router) { }
 
   ngOnInit() {
@@ -33,10 +34,16 @@ export class MenuComponent implements OnInit {
   }
 
   getBoardWords(): void {
-
+    this.loading = true;
     this.wordService.getBoard(this.globals.gameSettings).subscribe((data: Game) => {
-      console.log(data)
+      this.loading = false;
       this.globals.game = data;
+      this.globals.isBluesTurn = this.globals.game.isBlueFirst;
+      this.globals.blueWordsCount = this.globals.game.blueWordsCount;
+      this.globals.redWordsCount = this.globals.game.redWordsCount;
+      if (!this.globals.isBluesTurn){
+        this.globals.teamsTurn = "Red's Turn";
+      }
       this.wordlist = this.globals.game.Board;
       this.router.navigateByUrl('/wordboard');
     });
@@ -49,8 +56,7 @@ export class MenuComponent implements OnInit {
       this.globals.activeWords[i] = true; 
     }
     this.globals.isGameOver = false;
-    this.globals.blueWordsCount = 8;
-    this.globals.redWordsCount = 8;
+    
     this.globals.teamsTurn = "Blue's Turn";
     this.globals.canNotPass = true;
 

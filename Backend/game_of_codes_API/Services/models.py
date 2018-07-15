@@ -34,6 +34,10 @@ class Game(models.Model):
     red_wrong_guesses = models.IntegerField(default=0)
     red_correct_guesses = models.IntegerField(default=0)
 
+    is_blue_first = models.BooleanField(default=True)
+    is_single_mode = models.BooleanField(default=False)
+
+
 
 class Game_Square(models.Model):
     BLUE_RED_GREY_PURPLE = (
@@ -52,8 +56,21 @@ class Clue(models.Model):
         ('B', 'Blue'),
         ('R', 'Red')
     )
+    GOOD_OR_BAD = (
+        (-1, 'Not Verified'),
+        (0, 'Found All Hints'),
+        (1, 'Chose Grey'),
+        (2, 'Passed'),
+        (3, 'Chose Red'),
+        (4, 'Chose Purple'),
+    )
     game = models.ForeignKey(Game, on_delete=models.CASCADE)
-    words_hinted = models.ManyToManyField(Game_Square)
+    agent_guide = models.ForeignKey(Agent, on_delete=models.CASCADE, related_name='agent_guide')
+    agent_player = models.ForeignKey(Agent, on_delete=models.CASCADE, related_name='agent_player')
+    badness = models.IntegerField(choices=GOOD_OR_BAD)
+    clue_text = models.CharField('Clue', max_length=150)
+    words_hinted = models.ManyToManyField(Game_Square, related_name='words_hinted')
+    words_guessed = models.ManyToManyField(Game_Square, related_name='words_guessed')
     color = models.CharField(max_length=1, choices=BLUE_RED)
     num_of_words_hinted = models.IntegerField()
     num_of_words_correctly_guessed = models.IntegerField(default=0)

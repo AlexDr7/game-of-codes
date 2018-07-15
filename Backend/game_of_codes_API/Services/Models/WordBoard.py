@@ -1,13 +1,14 @@
 import random
 
 from Services.Models.GameSquare import GameSquare
+from collections import defaultdict
 
 class WordBoard:
 
     id = 1
     template_words_1 = ["BRIDGE", "KNIFE", "HEART", "VET", "ROCK", "MONSTER", "CAPITAL", "LOCH NESS", "BANK", "CLIFF",
                         "RABBIT", "TRACK", "GLOVE", "BOMB", "CASINO", "LITTER", "SKYSCRAPER", "FAN", "SNOWMAN",
-                        "BOTTLE", "TORCH", "LINK",  "BLOCK", "TIE", "SPRING"]
+                        "BOTTLE", "TORCH", "LINK",  "BLOCK", "SPRING", "TIE"]
     template_color_1 = ["B", "P", "B", "B", "B", "B", "B", "B", "B", "R", "R", "R", "R", "R", "R", "R", "R", "G", "G"
                         , "G", "G", "G", "G", "G", "G"]
 
@@ -25,15 +26,17 @@ class WordBoard:
         numOfGrey = 0
         colorArr = ["P", "B", "R", "G"]
 
-        for i in range(25):
+        i = 0
+
+        while i < 25:
             randColor = random.randint(0, 3)
-            if randColor == 0 and numOfPurple==0:
+            if randColor == 0 and numOfPurple == 0:
                 self.board.append(GameSquare(colorArr[randColor], gameID))
                 numOfPurple += 1
             elif randColor == 1 and numOfBlue < self.numOfBlueWords:
                 self.board.append(GameSquare(colorArr[randColor], gameID))
                 numOfBlue += 1
-            elif randColor == 2 and numOfRed < self.numOfRedWordsWords:
+            elif randColor == 2 and numOfRed < self.numOfRedWords:
                 self.board.append(GameSquare(colorArr[randColor], gameID))
                 numOfRed += 1
             elif randColor == 3 and numOfGrey < 7:
@@ -42,6 +45,7 @@ class WordBoard:
             else:
                 i += -1
 
+            i += 1
         return self.board
 
     def fillBoardByTemplate(self, templateID, gameID):
@@ -56,11 +60,12 @@ class WordBoard:
     def getBoard(self):
         return self.board
 
-    def serialiseBoard(self):
-        data = {}
+    def serialiseBoard(self, gameData):
+        data = defaultdict(list)
 
         for i in range(25):
-            data.update({"GameSquare"+str(i): self.board[i].serialiseGameSquare()})
+            data["Board"].append(self.board[i].serialiseGameSquare(i))
 
-        return data
+        gameData.update(data)
+        return gameData
 
