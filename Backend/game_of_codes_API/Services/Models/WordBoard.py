@@ -1,5 +1,6 @@
 import random
 
+from Services.DatabaseServices.databaseCommands import databaseCommands
 from Services.Models.GameSquare import GameSquare
 from collections import defaultdict
 
@@ -18,6 +19,11 @@ class WordBoard:
         self.numOfRedWords = numOfRedWords
         self.gameID = gameID
         self.size = 25
+        self.blueWords = []
+        self.redWords = []
+        self.greyWords = []
+        self.purpleWord = []
+
 
     def fillBoardWithRandomWords(self, gameID):
         numOfPurple = 0
@@ -68,4 +74,9 @@ class WordBoard:
 
         gameData.update(data)
         return gameData
+
+    def deserialiseBoard(self):
+
+
+        return True
 

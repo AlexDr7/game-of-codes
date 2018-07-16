@@ -37,16 +37,6 @@ class Game:
         self.redCorrectGuesses = 0
         self.redWrongGuesses = 0
 
-        '''conn = sqlCommands.create_connection()
-        with conn:
-            self.gameID = sqlCommands.create_game(conn, self.bluePlayer, self.blueGuide, self.redPlayer, self.redGuide,
-                                                  self.isGameCompleted, self.blueCorrectGuesses, self.blueWrongGuesses,
-                                                  self.redCorrectGuesses, self.redWrongGuesses, self.isSingleMode,
-                                                  self.isBluesFirst)
-
-        conn.commit()
-        conn.close()'''
-
         self.gameID = databaseCommands.create_game(self.bluePlayer, self.blueGuide, self.redPlayer, self.redGuide,
                                      self.isGameCompleted, self.blueCorrectGuesses, self.blueWrongGuesses,
                                   self.redCorrectGuesses, self.redWrongGuesses, self.isSingleMode, self.isBluesFirst)

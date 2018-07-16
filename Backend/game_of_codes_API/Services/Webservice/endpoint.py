@@ -6,6 +6,7 @@ from django.views.decorators.cache import cache_control
 from django.views.decorators.csrf import csrf_exempt
 
 from Services.Models.JSONParser import JSONParser
+from Services.Models.BasikosAI import BasikosAI
 from Services.DatabaseServices.databaseCommands import databaseCommands
 from Services.DatabaseServices.AddWordTxtToDatabase import initializeWordDatabase
 
@@ -79,6 +80,23 @@ def addClue(request):
         clue = JSONParser.deserializeClueAndCreateClue(body)
 
         response = HttpResponse(clue.clueID, status=201)
+
+    else:
+        return HttpResponse("Method not Allowed", status=405)
+
+    return response
+
+@csrf_exempt
+def agentBasikosClue(request):
+
+    if request.method == "POST":
+        body_unicode = request.body.decode('utf-8')
+        body = json.loads(body_unicode)
+
+        game = JSONParser.deserializeGameSettingsAndCreateGame(body)
+        agentI = BasikosAI(game)
+
+        response = HttpResponse(agentI, content_type="application/json")
 
     else:
         return HttpResponse("Method not Allowed", status=405)

@@ -12,25 +12,11 @@ class GameSquare:
 
         self.isGuessed = False
 
-        '''conn = sqlCommands.create_connection()
-        with conn:
-            self.squareID = sqlCommands.create_game_square(conn, self.wordText, self.gameID, self.color, self.isGuessed)
-
-        conn.commit()
-        conn.close()'''
-
         self.squareID = databaseCommands.create_game_square(self.wordText, self.gameID, self.color, self.isGuessed)
 
 
 
     def getRandomWord(self):
-        '''conn = sqlCommands.create_connection()
-        with conn:
-            row = sqlCommands.getRandomWord(conn)
-
-        conn.commit()
-        conn.close()'''
-
         return databaseCommands.select_random_word().word_text
 
     def getWord(self):

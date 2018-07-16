@@ -27,8 +27,6 @@ class Clue:
         return self.relatedGameSquares
 
     def updateClue(self, gameSquaresGuessed, badness, numCorrectlyGuessed):
-
-
         databaseCommands.update_clue(self.clueID, gameSquaresGuessed, badness, numCorrectlyGuessed)
         return True
 

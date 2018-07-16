@@ -1,9 +1,22 @@
 from Services.Models.Game import Game
 from Services.Models.Clue import Clue
+from Services.Models.WordBoard import WordBoard
 
 from Services.DatabaseServices.databaseCommands import databaseCommands
 
 class JSONParser:
+
+    def deserialiseBoard(json):
+        gameid = json["GameID"]
+        numOfBlueWords = json["blueWordsCount"]
+        numOfRedWords = json["redWordsCount"]
+
+        boardJson = json["Board"]
+        board = WordBoard(gameid,numOfBlueWords,numOfRedWords)
+
+        board.deserialiseBoard()
+        return board
+
 
     def deserializeGameSettingsAndCreateGame(json):
 
