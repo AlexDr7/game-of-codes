@@ -42,6 +42,8 @@ class databaseCommands:
                  , is_single_mode=isSingleMode)
         g.save()
 
+
+
         return g.id
 
     def select_game(gameID):
@@ -113,6 +115,7 @@ class databaseCommands:
         c.num_of_words_correctly_guessed = numWordsCorrectlyGuessed
 
         for sq2 in wordlistGuessed:
+            wg = Game_Square.objects.get(pk=sq2)
             c.words_guessed.add(sq2)
 
         c.save()

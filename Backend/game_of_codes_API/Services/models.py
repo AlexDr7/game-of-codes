@@ -61,7 +61,7 @@ class Clue(models.Model):
         (0, 'Found All Hints'),
         (1, 'Chose Grey'),
         (2, 'Passed'),
-        (3, 'Chose Red'),
+        (3, 'Chose Opponent Colour'),
         (4, 'Chose Purple'),
     )
     game = models.ForeignKey(Game, on_delete=models.CASCADE)

@@ -1,9 +1,19 @@
 import { Injectable } from '@angular/core';
 import { Game } from './game';
 import { GameSettings } from './gamesettings';
+import { Clue } from './clue';
+
+import { HttpHeaders } from '@angular/common/http';
 
 @Injectable()
 export class Globals {
+  APIurl: string = "http://127.0.0.1:8000/";
+  httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type':  'application/json'
+    })
+  }
+
   gameid: number = 0 ;
   game: Game;
 
@@ -17,12 +27,17 @@ export class Globals {
   singleMode: boolean = false;
   gameSettings: GameSettings;
 
-  currentClue : string;
+  
   currentGuessesLeft: number = 0;
   numberOfRelatedWords: number = 0;
+
+  clueList: Clue[];
+  clueIndex: number = -1;
+  currentClue : string;
 
   blueWordsCount: number = 0;
   redWordsCount: number = 0;
   activeWords : boolean[] = new Array(25);
 
+  
 }

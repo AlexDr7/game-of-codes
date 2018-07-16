@@ -26,8 +26,8 @@
       <div class="col-md-3">
         <h4 class="blue">Blue Guide</h4>
         <select [(ngModel)]="blueGuide" class="form-control">
-          <option value="HumanP" selected>Human Player</option>
-          <option value="BasikosAI">Basic AI Player</option>             
+          <option value="HumanG" selected>Human Guide</option>
+          <option value="BasikosAI">Basic AI Guide</option>             
         </select>
       </div>
       <div class="col-md-3" [ngClass]="{'notDisplayed': globals.singleMode}">
@@ -40,8 +40,8 @@
       <div class="col-md-3" [ngClass]="{'notDisplayed': globals.singleMode}">
         <h4 class="red">Red Guide</h4>
         <select [(ngModel)]="redGuide" class="form-control">
-          <option value="HumanP" selected>Human Player</option>
-          <option value="BasikosAI">Basic AI Player</option>             
+          <option value="HumanG" selected>Human Guide</option>
+          <option value="BasikosAI">Basic AI Guide</option>             
         </select>
       </div>
     </div>

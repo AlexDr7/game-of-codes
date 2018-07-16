@@ -18,9 +18,9 @@ export class MenuComponent implements OnInit {
 
   wordlist: Word[] = [];
   bluePlayer: string = "HumanP";
-  blueGuide: string = "HumanP";
+  blueGuide: string = "HumanG";
   redPlayer: string = "HumanP";
-  redGuide: string = "HumanP";
+  redGuide: string = "HumanG";
   loading: boolean = false;
 
   constructor(private wordService: WordService, private globals: Globals, private router: Router) { }
@@ -41,13 +41,20 @@ export class MenuComponent implements OnInit {
       this.globals.isBluesTurn = this.globals.game.isBlueFirst;
       this.globals.blueWordsCount = this.globals.game.blueWordsCount;
       this.globals.redWordsCount = this.globals.game.redWordsCount;
+      this.globals.gameid = this.globals.game.GameID;
+
+      this.globals.game.blueCorrectGuesses = 0;
+      this.globals.game.blueWrongGuesses = 0;
+      this.globals.game.redCorrectGuesses = 0;
+      this.globals.game.redWrongGuesses = 0;
+
       if (!this.globals.isBluesTurn){
         this.globals.teamsTurn = "Red's Turn";
       }
       this.wordlist = this.globals.game.Board;
       this.router.navigateByUrl('/wordboard');
     });
-  
+    this.globals.clueList= [];
   }
 
   onClickStartNewGame(){
@@ -57,8 +64,12 @@ export class MenuComponent implements OnInit {
     }
     this.globals.isGameOver = false;
     
+    this.globals.isPlayersTurn = false;
     this.globals.teamsTurn = "Blue's Turn";
     this.globals.canNotPass = true;
+
+    this.globals.clueIndex=-1;
+    this.globals.clueList=[];
 
     this.globals.gameSettings  = {
       singleMode : this.globals.singleMode,

@@ -1,6 +1,8 @@
 from Services.Models.Game import Game
 from Services.Models.Clue import Clue
 
+from Services.DatabaseServices.databaseCommands import databaseCommands
+
 class JSONParser:
 
     def deserializeGameSettingsAndCreateGame(json):
@@ -34,3 +36,29 @@ class JSONParser:
         relatedGameSquares = list()
 
         return Clue(gameID, agentPlayer, agentGuide, clueText, relatedGameSquares, color, numOfRelated)
+
+    def deserializeUpdateClue(json):
+
+        clueID = json["clueID"]
+        numWordsCorrectlyGuessed = json["numOfCorrectlyGuessed"]
+        badness = json["badness"]
+
+        wordlistGuessed = list()
+
+        for object in json["wordsGuessed"]:
+            wordlistGuessed.append(object["id"])
+
+        return databaseCommands.update_clue(clueID, wordlistGuessed, badness, numWordsCorrectlyGuessed)
+
+    def deserializeUpdateGame(json):
+
+        gameID = json["GameID"]
+        isComplete = True
+
+        blueCorrectGuesses= json["blueCorrectGuesses"]
+        blueWrongGuesses= json["blueWrongGuesses"]
+        redCorrectGuesses= json["redCorrectGuesses"]
+        redWrongGuesses= json["redWrongGuesses"]
+
+        return databaseCommands.update_game_isCompleted(gameID, isComplete, blueCorrectGuesses, blueWrongGuesses,
+                                                        redCorrectGuesses, redWrongGuesses)

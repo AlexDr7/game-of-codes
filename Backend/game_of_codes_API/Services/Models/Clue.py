@@ -18,8 +18,8 @@ class Clue:
         self.numOfWordsCorrectlyGuessed = numOfWordsCorrectlyGuessed
 
         self.clueID = databaseCommands.create_clue(self.gameID, self.guideName, self.playerName, self.clueText,
-                                                   gameSquareList, self.badness, self.color, self.numOfWordsHinted,
-                                                     self.numOfWordsCorrectlyGuessed)
+                                                   self.relatedGameSquares,self.numOfWordsHinted, self.color,
+                                                    self.badness, self.numOfWordsCorrectlyGuessed)
 
 
 
@@ -27,6 +27,8 @@ class Clue:
         return self.relatedGameSquares
 
     def updateClue(self, gameSquaresGuessed, badness, numCorrectlyGuessed):
+
+
         databaseCommands.update_clue(self.clueID, gameSquaresGuessed, badness, numCorrectlyGuessed)
         return True
 

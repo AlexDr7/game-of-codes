@@ -37,7 +37,31 @@ def updateClue(request):
     response = HttpResponse(content_type="application/json")
     if (request.method == "POST"):
 
-        response = HttpResponse("Success", status=200)
+        body_unicode = request.body.decode('utf-8')
+        body = json.loads(body_unicode)
+
+        clue = JSONParser.deserializeUpdateClue(body)
+        print(body)
+        response = HttpResponse(clue, status=200)
+
+    else:
+        return HttpResponse("Method not Allowed", status=405)
+
+    return response
+
+@csrf_exempt
+def updateGame(request):
+    response = HttpResponse(content_type="application/json")
+    if (request.method == "POST"):
+
+        body_unicode = request.body.decode('utf-8')
+        body = json.loads(body_unicode)
+
+        print(body)
+
+        game = JSONParser.deserializeUpdateGame(body)
+
+        response = HttpResponse(game, status=200)
 
     else:
         return HttpResponse("Method not Allowed", status=405)
@@ -52,7 +76,9 @@ def addClue(request):
         body_unicode = request.body.decode('utf-8')
         body = json.loads(body_unicode)
 
-        response = HttpResponse("Success", status=201)
+        clue = JSONParser.deserializeClueAndCreateClue(body)
+
+        response = HttpResponse(clue.clueID, status=201)
 
     else:
         return HttpResponse("Method not Allowed", status=405)
@@ -65,8 +91,6 @@ def wordService(request):
     if request.method == "POST":
         body_unicode = request.body.decode('utf-8')
         body = json.loads(body_unicode)
-
-        print(body)
 
         game = JSONParser.deserializeGameSettingsAndCreateGame(body)
         dump = json.dumps(game.serialiseGame())

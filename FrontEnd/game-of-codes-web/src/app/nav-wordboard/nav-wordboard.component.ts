@@ -1,6 +1,9 @@
 import { Component, OnInit , EventEmitter , Output} from '@angular/core';
 
 import {Globals} from '../globals'
+import { Clue } from '../clue';
+
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-nav-wordboard',
@@ -11,7 +14,9 @@ export class NavWordboardComponent implements OnInit {
 
   @Output() guidesTurn = new EventEmitter<any>();
 
-  constructor(private globals: Globals) { }
+  newClue : Clue;
+
+  constructor(private globals: Globals, private http: HttpClient) { }
 
   ngOnInit() {
   }
@@ -25,6 +30,23 @@ export class NavWordboardComponent implements OnInit {
       this.globals.currentClue = clue;
       this.globals.numberOfRelatedWords = related;
       this.globals.canNotPass = true;
+
+      this.globals.clueIndex++;
+      if (this.globals.isBluesTurn){
+        var playerName = this.globals.gameSettings.bluePlayer;
+        var guideName = this.globals.gameSettings.blueGuide; 
+      }
+      else{
+        var playerName = this.globals.gameSettings.redPlayer;
+        var guideName = this.globals.gameSettings.redGuide; 
+      }
+
+      this.globals.clueList.push(new Clue(this.globals.gameid,clue,this.globals.teamsTurn[0],related,0,playerName,guideName))
+
+      
+      this.sendClue(this.globals.clueList[this.globals.clueIndex]).subscribe( data => 
+        this.globals.clueList[this.globals.clueIndex].clueID = data);
+      console.log(this.globals.clueList[this.globals.clueIndex]);
 
       this.globals.isPlayersTurn = true;
       this.globals.currentGuessesLeft = related;
@@ -44,6 +66,16 @@ export class NavWordboardComponent implements OnInit {
       this.globals.isBluesTurn = true;
       this.globals.teamsTurn = "Blue's Turn";
     }
+    this.globals.clueList[this.globals.clueIndex].badness = 2;
+    this.updateCurrentClue();
+  }
+
+  sendClue(clue){
+    return this.http.post<number>(this.globals.APIurl+"addClue", clue , this.globals.httpOptions);
+  }
+
+  updateCurrentClue(){
+    return this.http.post<number>(this.globals.APIurl+"updateClue", this.globals.clueList[this.globals.clueIndex] , this.globals.httpOptions).subscribe();
   }
 
 }

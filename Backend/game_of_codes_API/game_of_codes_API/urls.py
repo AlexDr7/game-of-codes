@@ -24,5 +24,6 @@ urlpatterns = [
     path('addClue', endpoint.addClue, name='addClue'),
     path('updateClue', endpoint.updateClue, name='updateClue'),
     path('initializeDatabase', endpoint.initializeDatabase, name='initializeDatabase'),
+    path('updateGame', endpoint.updateGame, name='updateGame'),
     path('admin/', admin.site.urls),
 ]
