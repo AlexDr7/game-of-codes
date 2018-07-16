@@ -7,4 +7,9 @@ export interface Game {
     blueWordsCount: number;
     redWordsCount: number;
     Board: Word[];
+
+    blueCorrectGuesses: number;
+    blueWrongGuesses: number;
+    redCorrectGuesses: number;
+    redWrongGuesses: number;
 }
