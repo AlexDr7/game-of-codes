@@ -86,6 +86,13 @@ class databaseCommands:
         gs = Game_Square.objects.get(pk=squareID)
         return gs
 
+    def select_game_square_gameId_word(gameID, word):
+        gs = Game_Square.objects.get(game_id=gameID, word=word)
+        return gs
+
+    def select_game_squares_based_on_game(gameID):
+        return Game_Square.objects.filter(game_id=gameID)
+
     def delete_game_square(squareID):
         gs = Game_Square.objects.get(pk=squareID)
         gs.delete()
@@ -99,8 +106,12 @@ class databaseCommands:
         c = Clue(game=g, agent_guide=agG, agent_player=agP, badness=badness, clue_text=clueText, color=colour,
                  num_of_words_hinted=numWordsHinted, num_of_words_correctly_guessed=numWordsCorrectlyGuessed)
         c.save()
-        for sq in wordlistHinted:
-            c.words_hinted.add(sq)
+        for word in wordlistHinted:
+            if isinstance(word,str):
+                sq = databaseCommands.select_game_square_gameId_word(gameID, word)
+                c.words_hinted.add(sq)
+
+
 
         c.save()
         return c.id

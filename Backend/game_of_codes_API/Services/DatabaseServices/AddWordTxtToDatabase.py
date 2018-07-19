@@ -16,6 +16,7 @@ def initializeWordDatabase():
     filepath = p / 'word-nounlist.txt'
 
     print(filepath)
+
     with open(filepath) as fp:
         line = fp.readline()
         while line:

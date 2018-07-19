@@ -5,14 +5,18 @@ class GameSquare:
     def __init__(self, color, gameID, word_text="word"):
         self.color = color
         self.gameID = gameID
-        if word_text == "word":
-            self.wordText = self.getRandomWord()
-        else:
-            self.wordText = word_text
-
         self.isGuessed = False
 
-        self.squareID = databaseCommands.create_game_square(self.wordText, self.gameID, self.color, self.isGuessed)
+        if word_text == "word":
+            self.wordText = self.getRandomWord()
+            self.squareID = databaseCommands.create_game_square(self.wordText, self.gameID, self.color, self.isGuessed)
+        else:
+            self.squareID = databaseCommands.select_game_square_gameId_word(self.gameID, word_text).id
+            self.wordText = word_text
+
+
+
+
 
 
 

@@ -19,6 +19,8 @@ class WordBoard:
         self.numOfRedWords = numOfRedWords
         self.gameID = gameID
         self.size = 25
+
+        self.wordsOnBoard = set()
         self.blueWords = []
         self.redWords = []
         self.greyWords = []
@@ -77,6 +79,21 @@ class WordBoard:
 
     def deserialiseBoard(self):
 
+        gameSquareList = databaseCommands.select_game_squares_based_on_game(self.gameID)
+        for gameSqr in gameSquareList:
+
+            newGameSqr = GameSquare(gameSqr.color, self.gameID, gameSqr.word_id)
+            self.board.append(newGameSqr)
+            self.wordsOnBoard.add(gameSqr.word_id)
+            if not gameSqr.is_guessed:
+                if gameSqr.color == "B":
+                    self.blueWords.append(gameSqr.word_id)
+                elif gameSqr.color == "R":
+                    self.redWords.append(gameSqr.word_id)
+                elif str(gameSqr.color) == "P":
+                    self.purpleWord.append(gameSqr.word_id)
+                elif gameSqr.color == "G":
+                    self.greyWords.append(gameSqr.word_id)
 
         return True
 

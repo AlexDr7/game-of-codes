@@ -17,7 +17,6 @@ class JSONParser:
         board.deserialiseBoard()
         return board
 
-
     def deserializeGameSettingsAndCreateGame(json):
 
         singleMode = json["singleMode"]
@@ -59,7 +58,9 @@ class JSONParser:
         wordlistGuessed = list()
 
         for object in json["wordsGuessed"]:
-            wordlistGuessed.append(object["id"])
+            squareID = object["id"]
+            wordlistGuessed.append(squareID)
+            databaseCommands.update_game_square(squareID, True)
 
         return databaseCommands.update_clue(clueID, wordlistGuessed, badness, numWordsCorrectlyGuessed)
 

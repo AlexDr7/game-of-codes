@@ -6,7 +6,7 @@ from django.views.decorators.cache import cache_control
 from django.views.decorators.csrf import csrf_exempt
 
 from Services.Models.JSONParser import JSONParser
-from Services.Models.BasikosAI import BasikosAI
+from Services.Models.BasikosAI.BasikosAI import BasikosAI
 from Services.DatabaseServices.databaseCommands import databaseCommands
 from Services.DatabaseServices.AddWordTxtToDatabase import initializeWordDatabase
 
@@ -19,13 +19,8 @@ def basikosAI(request):
         body_unicode = request.body.decode('utf-8')
         body = json.loads(body_unicode)
 
-        wordlist = list()
-        w1 = databaseCommands.select_game_square(5066)
-        w2 = databaseCommands.select_game_square(5065)
-        wordlist.append(w1)
-        wordlist.append(w2)
 
-        print(databaseCommands.create_clue(210,"HumanG", "HumanP", "Yolo", wordlist, 2,"R",2,1))
+        databaseCommands.select_game_squares_based_on_game(3)
 
     else:
         return HttpResponse("Method not Allowed", status=405)
@@ -87,16 +82,20 @@ def addClue(request):
     return response
 
 @csrf_exempt
-def agentBasikosClue(request):
+def guideBasikosAskClue(request):
 
     if request.method == "POST":
         body_unicode = request.body.decode('utf-8')
         body = json.loads(body_unicode)
 
-        game = JSONParser.deserializeGameSettingsAndCreateGame(body)
-        agentI = BasikosAI(game)
+        turn = body["teamTurn"]
+        board = JSONParser.deserialiseBoard(body)
+        agentI = BasikosAI(board, turn)
+        clue = agentI.relateWordsgetClue()
 
-        response = HttpResponse(agentI, content_type="application/json")
+        dumpJson = json.dumps(clue.serialiseClue())
+
+        response = HttpResponse(dumpJson, content_type="application/json")
 
     else:
         return HttpResponse("Method not Allowed", status=405)
@@ -111,9 +110,9 @@ def wordService(request):
         body = json.loads(body_unicode)
 
         game = JSONParser.deserializeGameSettingsAndCreateGame(body)
-        dump = json.dumps(game.serialiseGame())
+        dumpJson = json.dumps(game.serialiseGame())
 
-        response = HttpResponse(dump, content_type="application/json")
+        response = HttpResponse(dumpJson, content_type="application/json")
 
     else:
         return HttpResponse("Method not Allowed", status=405)

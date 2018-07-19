@@ -30,3 +30,14 @@ class Clue:
         databaseCommands.update_clue(self.clueID, gameSquaresGuessed, badness, numCorrectlyGuessed)
         return True
 
+    def serialiseClue(self):
+        gameData = {
+            'gameID': self.gameID,
+            'clueText': self.clueText,
+            'colour': self.color,
+            'numOfHintedWords': self.numOfWordsHinted,
+            'playerName': self.playerName,
+            'guideName': self.guideName,
+            'clueID': self.clueID
+        }
+        return gameData

@@ -40,16 +40,17 @@ class Game(models.Model):
 
 
 class Game_Square(models.Model):
-    BLUE_RED_GREY_PURPLE = (
+    BLUE_RED_GREY_PURPLE = [
         ('B', 'Blue'),
         ('R', 'Red'),
         ('G', 'Green'),
         ('P', 'Purple')
-    )
+    ]
     word = models.ForeignKey(Word, on_delete=models.PROTECT)
     game = models.ForeignKey(Game, on_delete=models.CASCADE)
     color = models.CharField(max_length=1, choices=BLUE_RED_GREY_PURPLE)
     is_guessed = models.BooleanField(default=False)
+
 
 class Clue(models.Model):
     BLUE_RED = (
