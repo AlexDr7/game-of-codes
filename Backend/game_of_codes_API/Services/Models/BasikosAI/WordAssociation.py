@@ -34,17 +34,30 @@ class WordAssociation:
     def calculateSimpleRelevantWords(self, targetWords, searchWidth):
 
         for targetWord in targetWords:
+
             searchOutcome = wikipedia.search(targetWord, searchWidth)
 
             for outcome in searchOutcome:
-                try:
-                    page = wikipedia.page(outcome)
+                self.searchWikipediaBasedOnWord(outcome, targetWord)
+
+
+    def searchWikipediaBasedOnWord(self, outcome, targetWord):
+        try:
+            if outcome is not None:
+                page = wikipedia.page(outcome)
+                if page.content is not None:
                     content = self.sanitizeString(page.content)
                     contentList = content.split(" ")
                     self.addCommonWordsIgnoreMeaningless(contentList, targetWord)
+        except wikipedia.exceptions.DisambiguationError as e:
+            for title in e.options:
+                content = self.sanitizeString(title)
+                contentList = content.split(" ")
+                self.addCommonWordsIgnoreMeaningless(contentList, targetWord)
 
-                except wikipedia.exceptions.DisambiguationError:
-                    print("Disambiguarion Error" + outcome)
+        except wikipedia.exceptions.PageError:
+            print(" Wikipedia Page not found: " + outcome)
+
 
     def addCommonWordsIgnoreMeaningless(self, contentWords, targetWord):
 
@@ -71,8 +84,9 @@ class WordAssociation:
             for outcome in searchOutcome:
                 try:
                     page = wikipedia.page(outcome)
-                    content = self.sanitizeString(page.content)
-                    contentList = content.split(" ")
+                    if page.content is not None:
+                        content = self.sanitizeString(page.content)
+                        contentList = content.split(" ")
 
                     for contentWord in contentList:
                         contentWordChecked = contentWord.strip().upper()
@@ -80,7 +94,7 @@ class WordAssociation:
                             del self.commonWords[contentWordChecked]
 
                 except wikipedia.exceptions.DisambiguationError:
-                    print("Disambiguarion Error" + outcome)
+                    print("Disambiguarion Error " + outcome)
 
     def deleteWordsThatAppearInEveryWord(self):
 
