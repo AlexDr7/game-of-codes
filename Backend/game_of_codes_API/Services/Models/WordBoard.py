@@ -39,22 +39,30 @@ class WordBoard:
         while i < 25:
             randColor = random.randint(0, 3)
             if randColor == 0 and numOfPurple == 0:
-                self.board.append(GameSquare(colorArr[randColor], gameID))
+                self.board.append(self.createGameSquareWithRandomWord(colorArr[randColor], gameID))
                 numOfPurple += 1
             elif randColor == 1 and numOfBlue < self.numOfBlueWords:
-                self.board.append(GameSquare(colorArr[randColor], gameID))
+                self.board.append(self.createGameSquareWithRandomWord(colorArr[randColor], gameID))
                 numOfBlue += 1
             elif randColor == 2 and numOfRed < self.numOfRedWords:
-                self.board.append(GameSquare(colorArr[randColor], gameID))
+                self.board.append(self.createGameSquareWithRandomWord(colorArr[randColor], gameID))
                 numOfRed += 1
             elif randColor == 3 and numOfGrey < 7:
-                self.board.append(GameSquare(colorArr[randColor], gameID))
+                self.board.append(self.createGameSquareWithRandomWord(colorArr[randColor], gameID))
                 numOfGrey += 1
             else:
                 i += -1
 
             i += 1
         return self.board
+
+    def createGameSquareWithRandomWord(self, color, gameID):
+        gs = GameSquare(color, gameID)
+        while gs.getWord() in self.wordsOnBoard:
+            gs.setWord(gs.getRandomWord())
+
+        self.wordsOnBoard.add(gs.getWord())
+        return gs
 
     def fillBoardByTemplate(self, templateID, gameID):
         for i in range(25):

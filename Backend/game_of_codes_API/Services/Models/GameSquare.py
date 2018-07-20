@@ -15,19 +15,14 @@ class GameSquare:
             self.wordText = word_text
 
 
-
-
-
-
-
     def getRandomWord(self):
         return databaseCommands.select_random_word().word_text
 
     def getWord(self):
-        return self.word
+        return self.wordText
 
     def setWord(self, word):
-        self.word = word
+        self.wordText = word
 
     def setColor(self, new_color):
         self.color = new_color

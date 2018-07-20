@@ -82,7 +82,7 @@ def addClue(request):
     return response
 
 @csrf_exempt
-def guideBasikosAskClue(request):
+def guideVasikiaAskClue(request):
 
     if request.method == "POST":
         body_unicode = request.body.decode('utf-8')

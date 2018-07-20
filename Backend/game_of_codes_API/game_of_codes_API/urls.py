@@ -25,6 +25,6 @@ urlpatterns = [
     path('updateClue', endpoint.updateClue, name='updateClue'),
     path('initializeDatabase', endpoint.initializeDatabase, name='initializeDatabase'),
     path('updateGame', endpoint.updateGame, name='updateGame'),
-    path('guideBasikosAskClue', endpoint.guideBasikosAskClue, name='guideBasikosAskClue'),
+    path('guideVasikiaAskClue', endpoint.guideVasikiaAskClue, name='guideVasikiaAskClue'),
     path('admin/', admin.site.urls),
 ]

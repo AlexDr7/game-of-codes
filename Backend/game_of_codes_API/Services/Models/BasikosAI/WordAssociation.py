@@ -82,19 +82,32 @@ class WordAssociation:
         for badWord in badWords:
             searchOutcome = wikipedia.search(badWord, searchWidth)
             for outcome in searchOutcome:
-                try:
-                    page = wikipedia.page(outcome)
-                    if page.content is not None:
-                        content = self.sanitizeString(page.content)
-                        contentList = content.split(" ")
+                self.searchWikipediaBasedOnWordAndDeleteFromCommon(outcome)
+
+    def searchWikipediaBasedOnWordAndDeleteFromCommon(self, outcome):
+        try:
+            if outcome is not None:
+                page = wikipedia.page(outcome)
+                if page.content is not None:
+                    content = self.sanitizeString(page.content)
+                    contentList = content.split(" ")
 
                     for contentWord in contentList:
                         contentWordChecked = contentWord.strip().upper()
                         if contentWordChecked in self.commonWords:
                             del self.commonWords[contentWordChecked]
 
-                except wikipedia.exceptions.DisambiguationError:
-                    print("Disambiguarion Error " + outcome)
+        except wikipedia.exceptions.DisambiguationError as e:
+            for title in e.options:
+                content = self.sanitizeString(title)
+                contentList = content.split(" ")
+                for contentWord in contentList:
+                    contentWordChecked = contentWord.strip().upper()
+                    if contentWordChecked in self.commonWords:
+                        del self.commonWords[contentWordChecked]
+
+        except wikipedia.exceptions.PageError:
+            print(" Wikipedia Page not found: " + outcome)
 
     def deleteWordsThatAppearInEveryWord(self):
 
