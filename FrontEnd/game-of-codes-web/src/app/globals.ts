@@ -19,6 +19,7 @@ export class Globals {
 
   isBluesTurn: boolean = true;
   teamsTurn: string ;
+  isAITurn: boolean = false;
 
   isPlayersTurn: boolean = false;
   canNotPass: boolean = true;

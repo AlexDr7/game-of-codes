@@ -2,6 +2,7 @@ import { Component, OnInit, EventEmitter , Output } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material';
 
 import { Word } from '../word';
+import { Clue } from '../clue';
 import { Game } from '../game';
 
 import { WordService } from '../word.service';
@@ -48,13 +49,48 @@ export class WordboardComponent implements OnInit {
     }
     else {
       this.getWords();
+      this.checkAITurn();      
     }
+    
   }
 
   selectedWord: Word;
 
   onSelect(word: Word): void{
     this.selectedWord = word;
+  }
+
+  getVasikiaClue(){
+    this.globals.isAITurn = true;
+    this.globals.game.teamTurn = this.globals.teamsTurn[0]
+    this.http.post(this.globals.APIurl+"guideVasikiaAskClue", this.globals.game , this.globals.httpOptions).subscribe((data: Clue) => {
+      this.globals.clueList.push(data)
+      this.globals.clueIndex++;
+      this.globals.clueList[this.globals.clueIndex].numOfCorrectlyGuessed = 0;
+      this.globals.clueList[this.globals.clueIndex].wordsGuessed = []
+      console.log(this.globals.clueList[this.globals.clueIndex])
+      this.globals.isAITurn = false;
+
+      this.globals.isPlayersTurn = true;
+      this.globals.currentGuessesLeft = this.globals.clueList[this.globals.clueIndex].numOfHintedWords;
+      this.globals.numberOfRelatedWords = this.globals.clueList[this.globals.clueIndex].numOfHintedWords;
+
+      this.globals.currentClue = this.globals.clueList[this.globals.clueIndex].clueText;
+
+    });
+  }
+
+  checkAITurn(){
+    if(this.globals.isBluesTurn){
+      if(this.globals.gameSettings.blueGuide != "HumanG"){
+        this.getVasikiaClue()
+      }
+    }
+    else{
+      if(this.globals.gameSettings.redGuide != "HumanG"){
+       this.getVasikiaClue()
+      }
+    }
   }
 
   getWords(): void {
@@ -93,7 +129,6 @@ export class WordboardComponent implements OnInit {
     };
     
     this.updateCurrentClue();
-
     this.dialog.open(GameDialogComponent, dialogConfig);
   }
 
@@ -187,8 +222,7 @@ export class WordboardComponent implements OnInit {
           }
 
           this.globals.clueList[this.globals.clueIndex].badness = 0;
-          this.globals.clueList[this.globals.clueIndex].badness = 0;
-          this.openDialog(this.gameStateTitle, this.gameStateMessage); 
+          this.openDialog(this.gameStateTitle, this.gameStateMessage);
         }
       }
     }
@@ -318,7 +352,11 @@ export class WordboardComponent implements OnInit {
   }
 
   updateCurrentClue(){
-    return this.http.post<number>(this.globals.APIurl+"updateClue", this.globals.clueList[this.globals.clueIndex] , this.globals.httpOptions).subscribe();
+    return this.http.post<number>(this.globals.APIurl+"updateClue", this.globals.clueList[this.globals.clueIndex] , this.globals.httpOptions).subscribe( data => { 
+      if (!this.globals.isGameOver){
+        this.checkAITurn();
+      }}
+    );
   }
 
   updateGameFinished(){

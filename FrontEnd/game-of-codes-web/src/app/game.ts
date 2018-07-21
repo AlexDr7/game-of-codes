@@ -8,6 +8,8 @@ export interface Game {
     redWordsCount: number;
     Board: Word[];
 
+    teamTurn: string;
+
     blueCorrectGuesses: number;
     blueWrongGuesses: number;
     redCorrectGuesses: number;

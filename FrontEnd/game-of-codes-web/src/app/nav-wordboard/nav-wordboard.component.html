@@ -12,8 +12,18 @@
       </li>
     </ul>
 
+    <span class="score" [ngClass]="{'notDisplayed':!globals.isAITurn}">Vasikia <span class="text"> is thinking </span></span>
 
-    <form class="form-inline giveClue" [ngClass]="{'notDisplayed':globals.isPlayersTurn || globals.isGameOver}">
+    <div class="flower-spinner" [ngClass]="{'notDisplayed':!globals.isAITurn}">
+      <div class="dots-container" [ngClass]="{'notDisplayed':!globals.isAITurn}">
+        <div class="bigger-dot">
+          <div class="smaller-dot"></div>
+        </div>
+      </div>
+    </div>
+
+
+    <form class="form-inline giveClue" [ngClass]="{'notDisplayed':globals.isPlayersTurn || globals.isGameOver || globals.isAITurn}">
       <input #newClue class="form-control mr-sm-2" type="search" placeholder="Give Clue" aria-label="Clue">
       <select #numOfRelatedWords class="form-control">
         <option value="0">0</option>
@@ -28,8 +38,8 @@
       </select>
       <button class="btn btn-primary giveClueButton" type="submit" (click)="onGiveClueClick(newClue.value,numOfRelatedWords.value)">Give Clue</button>
     </form>
-    <button class="btn btn-danger guideButton" type="button" [ngClass]="{'notDisplayed': !globals.isPlayersTurn || globals.canNotPass }" (click)="onPass()">Pass</button>
-    <span id="Clue" class="score" [ngClass]="{'notDisplayed':!globals.isPlayersTurn || globals.isGameOver}"><span class="text"> Clue: </span><span class="clue">{{globals.currentClue}}</span><span class="text"> Related Words: </span>{{globals.numberOfRelatedWords}}<span class="text"> Guesses Left: </span>{{globals.currentGuessesLeft}}</span>
-    <button class="btn btn-danger guideButton" type="button" [ngClass]="{'notDisplayed':globals.isPlayersTurn}" (click)="toGuidesTurnClick()">Guide's View</button>
+    <button class="btn btn-danger guideButton" type="button" [ngClass]="{'notDisplayed': !globals.isPlayersTurn || globals.canNotPass || globals.isAITurn}" (click)="onPass()">Pass</button>
+    <span id="Clue" class="score" [ngClass]="{'notDisplayed':!globals.isPlayersTurn || globals.isGameOver || globals.isAITurn}"><span class="text"> Clue: </span><span class="clue">{{globals.currentClue}}</span><span class="text"> Related Words: </span>{{globals.numberOfRelatedWords}}<span class="text"> Guesses Left: </span>{{globals.currentGuessesLeft}}</span>
+    <button class="btn btn-danger guideButton" type="button" [ngClass]="{'notDisplayed':globals.isPlayersTurn || globals.isAITurn}" (click)="toGuidesTurnClick()">Guide's View</button>
   
 </nav>
