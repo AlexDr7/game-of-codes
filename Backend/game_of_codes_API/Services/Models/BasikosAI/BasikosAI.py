@@ -39,7 +39,7 @@ class BasikosAI:
             print("Number of relevant after deletion of opponent words " + str(self.wordAssoc.commonWordsLength()))
 
 
-        self.wordAssoc.deleteWordsThatAppearInEveryWord()
+        self.wordAssoc.deleteCommonWordsThatAppearInEveryWord()
         print("Number of relevant after deletion of words that appear a lot " + str(self.wordAssoc.commonWordsLength()))
 
         self.wordAssoc.deleteEveryWordAssociatedWith(self.board.purpleWord, 3)
@@ -51,5 +51,20 @@ class BasikosAI:
         clueObject = Clue(self.gameID, self.player, self.guide, clue[0], clue[1], self.team, len(clue[1])-1)
 
         return clueObject
+
+    def relateClueGetWords(self, clue):
+        words = list()
+
+        self.wordAssoc.relateClueToWordsOnBoardforPlayer(clue.clueText, self.board.activeWordsOnBoard, 8, 6, 2000)
+
+        relatedWords = self.wordAssoc.getSortedListOfCommonWordsForPlayer()
+        print(relatedWords)
+        for i in range(0, int(clue.numOfWordsHinted)):
+            words.append(relatedWords[i][1][1])
+
+
+        print(words)
+
+        return words
 
 

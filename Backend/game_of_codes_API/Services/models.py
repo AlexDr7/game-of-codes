@@ -34,9 +34,11 @@ class Game(models.Model):
     red_wrong_guesses = models.IntegerField(default=0)
     red_correct_guesses = models.IntegerField(default=0)
 
+    num_of_blue_words = models.IntegerField(default=8)
+    num_of_red_words = models.IntegerField(default=8)
+
     is_blue_first = models.BooleanField(default=True)
     is_single_mode = models.BooleanField(default=False)
-
 
 
 class Game_Square(models.Model):

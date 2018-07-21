@@ -8,10 +8,10 @@ class JSONParser:
 
     def deserialiseBoard(json):
         gameid = json["GameID"]
-        numOfBlueWords = json["blueWordsCount"]
-        numOfRedWords = json["redWordsCount"]
+        game = databaseCommands.select_game(gameid)
+        numOfBlueWords = game.num_of_blue_words
+        numOfRedWords = game.num_of_red_words
 
-        boardJson = json["Board"]
         board = WordBoard(gameid,numOfBlueWords,numOfRedWords)
 
         board.deserialiseBoard()
@@ -36,7 +36,7 @@ class JSONParser:
 
     def deserializeClueAndCreateClue(json):
 
-        gameID = json["gameID"]
+        gameID = json["GameID"]
         clueText = json["clueText"]
 
         numOfRelated = json["numOfHintedWords"]

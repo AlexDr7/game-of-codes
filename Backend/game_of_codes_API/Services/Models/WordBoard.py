@@ -21,6 +21,8 @@ class WordBoard:
         self.size = 25
 
         self.wordsOnBoard = set()
+        self.activeWordsOnBoard = dict()
+
         self.blueWords = []
         self.redWords = []
         self.greyWords = []
@@ -94,6 +96,7 @@ class WordBoard:
             self.board.append(newGameSqr)
             self.wordsOnBoard.add(gameSqr.word_id)
             if not gameSqr.is_guessed:
+                self.activeWordsOnBoard[gameSqr.word_id] = gameSqr.id
                 if gameSqr.color == "B":
                     self.blueWords.append(gameSqr.word_id)
                 elif gameSqr.color == "R":

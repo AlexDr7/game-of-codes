@@ -38,7 +38,8 @@ class Game:
         self.redWrongGuesses = 0
 
         self.gameID = databaseCommands.create_game(self.bluePlayer, self.blueGuide, self.redPlayer, self.redGuide,
-                                     self.isGameCompleted, self.blueCorrectGuesses, self.blueWrongGuesses,
+                                                   self.numOfBlueWords, self.numOfRedWords, self.isGameCompleted,
+                                                   self.blueCorrectGuesses, self.blueWrongGuesses,
                                   self.redCorrectGuesses, self.redWrongGuesses, self.isSingleMode, self.isBluesFirst)
 
         self.board = WordBoard(self.gameID, self.numOfBlueWords, self.numOfRedWords)

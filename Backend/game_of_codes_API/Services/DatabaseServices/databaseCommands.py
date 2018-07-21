@@ -33,13 +33,14 @@ class databaseCommands:
 
 
     def create_game(bluePlayer = "HumanP", blueGuide= "HumanG", redPlayer = "HumanP", redGuide = "HumanG",
-                isCompleted= False, blueCorrectGuesses=0, blueWrongGuesses=0, redCorrectGuesses=0, redWrongGuesses=0,
+                    numOfBlueWords = 9, numOfRedWords = 8, isCompleted= False, blueCorrectGuesses=0,
+                    blueWrongGuesses=0, redCorrectGuesses=0, redWrongGuesses=0,
                     isSingleMode = False, isBlueFirst = True):
 
         g = Game(is_completed=isCompleted, blue_player_id=bluePlayer, red_player_id=redPlayer, blue_guide_id=blueGuide
                  , red_guide_id=redGuide, blue_wrong_guesses=blueWrongGuesses, blue_correct_guesses=blueCorrectGuesses,
                  red_wrong_guesses=redWrongGuesses, red_correct_guesses=redCorrectGuesses, is_blue_first=isBlueFirst
-                 , is_single_mode=isSingleMode)
+                 , is_single_mode=isSingleMode, num_of_blue_words=numOfBlueWords, num_of_red_words=numOfRedWords)
         g.save()
 
 
@@ -87,8 +88,12 @@ class databaseCommands:
         return gs
 
     def select_game_square_gameId_word(gameID, word):
-        gs = Game_Square.objects.get(game_id=gameID, word=word)
-        return gs
+        gs = Game_Square.objects.filter(game_id=gameID, word=word)
+        if len(gs)>1:
+            print(" ERROR select_game_square_gameId_word returned MORE THAN 2 ITEMS gameId:" + str(gameID)+ " word:"+word)
+            for sqr in gs:
+                print("Square ID:" + str(sqr.id))
+        return gs[0]
 
     def select_game_squares_based_on_game(gameID):
         return Game_Square.objects.filter(game_id=gameID)
@@ -111,8 +116,6 @@ class databaseCommands:
                 sq = databaseCommands.select_game_square_gameId_word(gameID, word)
                 c.words_hinted.add(sq)
 
-
-
         c.save()
         return c.id
 
@@ -125,9 +128,10 @@ class databaseCommands:
         c.badness = badness
         c.num_of_words_correctly_guessed = numWordsCorrectlyGuessed
 
-        for sq2 in wordlistGuessed:
-            wg = Game_Square.objects.get(pk=sq2)
-            c.words_guessed.add(sq2)
+        for word in wordlistGuessed:
+            if isinstance(word,str):
+                sq = databaseCommands.select_game_square_gameId_word(c.game.id, word)
+                c.words_hinted.add(sq)
 
         c.save()
         return c.id

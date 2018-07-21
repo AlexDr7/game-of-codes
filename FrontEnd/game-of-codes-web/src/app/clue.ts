@@ -1,7 +1,7 @@
 import { Word } from './word';
 
 export class Clue {
-    gameID: number;
+    GameID: number;
     clueID: number;
     colour: string;
     wordsGuessed: Word[];
@@ -11,9 +11,10 @@ export class Clue {
     clueText: string;
     playerName: string;
     guideName: string;
+    teamTurn: string;
 
     constructor(gameId: number,clueTxt: string, colour: string, numOfWordsHinted:number, numOfCorrectlyGuessed:number, playerName: string, guideName: string){
-        this.gameID = gameId;
+        this.GameID = gameId;
         this.clueText = clueTxt;
         this.colour = colour;
         this.numOfHintedWords = numOfWordsHinted;
