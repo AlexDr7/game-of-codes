@@ -17,7 +17,7 @@ def initializeWordDatabase():
 
     print(filepath)
 
-    with open(filepath) as fp:
+    with open(str(filepath)) as fp:
         line = fp.readline()
         while line:
             target_word = line.strip().upper()
