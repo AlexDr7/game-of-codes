@@ -37,7 +37,7 @@ def updateClue(request):
         body = json.loads(body_unicode)
 
         clue = JSONParser.deserializeUpdateClue(body)
-        print(body)
+        #print(body)
         response = HttpResponse(clue, status=200)
 
     else:
@@ -53,7 +53,7 @@ def updateGame(request):
         body_unicode = request.body.decode('utf-8')
         body = json.loads(body_unicode)
 
-        print(body)
+        #print(body)
 
         game = JSONParser.deserializeUpdateGame(body)
 
@@ -88,7 +88,7 @@ def guideVasikiaAskClue(request):
     if request.method == "POST":
         body_unicode = request.body.decode('utf-8')
         body = json.loads(body_unicode)
-        print(body)
+        #print(body)
         turn = body["teamTurn"]
         board = JSONParser.deserialiseBoard(body)
         agentI = BasikosAI(board, turn)
@@ -109,7 +109,7 @@ def playerVasikiaGiveClue(request):
     if request.method == "POST":
         body_unicode = request.body.decode('utf-8')
         body = json.loads(body_unicode)
-        print(body)
+        #print(body)
         turn = body["teamTurn"]
 
         board = JSONParser.deserialiseBoard(body)
