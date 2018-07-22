@@ -60,7 +60,7 @@ export class NavWordboardComponent implements OnInit {
   onPass(){
     this.globals.isPlayersTurn = false;
     this.globals.canNotPass = true;
-    if(this.globals.isBluesTurn){
+    if(this.globals.isBluesTurn && !this.globals.singleMode){
       this.globals.isBluesTurn = false;
       this.globals.teamsTurn = "Red's Turn";
     }
@@ -70,7 +70,7 @@ export class NavWordboardComponent implements OnInit {
     }
     this.globals.clueList[this.globals.clueIndex].badness = 2;
     this.updateCurrentClue();
-    this.guidesTurn.emit();
+    this.guidesTurn.emit("pass");
   }
 
   sendClue(clue){

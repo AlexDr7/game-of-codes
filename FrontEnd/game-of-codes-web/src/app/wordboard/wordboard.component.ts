@@ -143,8 +143,17 @@ export class WordboardComponent implements OnInit {
     }
   }
 
-  toGuidesTurn($event): void {
-    if(!this.globals.isPlayersTurn){
+  toGuidesTurn(evt): void {
+
+    if (evt === "pass"){
+      this.checkAITurn();
+      this.isWordboardVisible=false;
+      if (this.globals.singleMode){
+        this.revealRandomRedWord();
+      }
+      
+    }
+    else if(!this.globals.isPlayersTurn){
       if(this.isWordboardVisible){
         this.isWordboardVisible=false;
       }
@@ -154,7 +163,6 @@ export class WordboardComponent implements OnInit {
     }
     else{
       this.isWordboardVisible=false;
-      this.checkAITurn();
     }
     
   }
