@@ -29,5 +29,11 @@ nav a.active {
 }
 
 .starter-template{
-  margin: -1.8rem;
+  margin: -1.0rem;
+}
+
+@media (min-width: 1200px) {
+  .container{
+      max-width: 1200px;
+  }
 }

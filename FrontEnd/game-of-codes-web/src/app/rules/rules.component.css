@@ -1,0 +1,18 @@
+h2{
+    margin:3rem;
+}
+p{
+    font-size: 115%;
+    font-weight: 420;
+}
+.rules-container{
+    width: 70%;
+}
+
+.board-example{
+    width: 50%;
+    float: left;
+}
+.view-image{
+    width:100%;
+}

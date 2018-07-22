@@ -1,15 +1,95 @@
-<h1> Rules </h1>
+<div class="container rules-container">
+  <h1> Rules </h1>
 
-<div>
-  <h2>Overview</h2>
+  <div>
+    <h2>Overview</h2>
+    <p>This game is played by two teams: <font color="#B22222">Red</font> and <font color="#00BFFF">Blue</font>. 
+    </p>
+    <p>
+        The board consists of 25 words in a 5x5 grid. 
+      </p>
+    <p>
+      Each team is consisted of one guide and players. During each turn
+      the guide will provide clues to his team in order to help them guess which words on the board belong to their colour.
+      The clues are given in the form of a single word accompanied with the number of words that it relates to.
+    </p>
+    <p>
+      After the clue is given the players of the team try to guess which words their guide is hinting at. They pick words
+      one by one until they either choose a wrong word (a word not of their own colour) or until they guess the number of words
+      specified by their guide.
+    </p>
+    <p>
+      <font color="red">Be careful</font> though! If you guess the <font color="#DDA0DD">Purple</font> word your team instantly loses!
+    </p>
+    
+
+    <h2>Winning the game</h2>
+
+    <p>To win the game your team must reveal all of the words of your own colour before all of the words of the opposing colour are 
+      revealed. 
+    </p>
+    <p>The Scoreboard on the top left shows the number of words left from each colour. Keep the number of words in mind while you are playing!
+      </p>
+    <figure>
+      <img src="../../assets/ScoreboardImageFinal.png" alt="Scoreboard">
+      <figcaption><i>Word Counter</i></figcaption>
+    </figure>
+
+    <h2>Giving Clues</h2>
+    <p>As a guide your goal is to give a clue to your teammates with which they will be able to guess the larger number of words possible
+      correctly. The clue must be a single word. When you have decided on a clue, you write the clue on the text-field, choose the number of words that it relates to and Press
+      Give Clue to start the player's turn. The guides also have access to the Guide's View, which turns the words into their real colours. 
+    </p>
+    <p>
+        <font color="red">Be careful!</font> Only the two guides are allowed to look at the guides view! Players should not look
+        at the screen when the Guide's View is active!
+      </p>
+    <figure>
+      <img src="../../assets/GivingClueToGuidesView.png" alt="Scoreboard">
+      <figcaption><i>Press this to change to Guide's View</i></figcaption>
+    </figure>
+
+    <div class="board-example">
+      <figure>
+        <img class="view-image" src="../../assets/toGuides1.PNG" alt="Scoreboard">
+        <figcaption><i>Normal View</i></figcaption>
+      </figure>
+    </div>
+    <div class="board-example">
+      <figure>
+        <img class="view-image" src="../../assets/toGuides2.PNG" alt="Scoreboard">
+        <figcaption><i>Guide's View</i></figcaption>
+      </figure>
+    </div>
+
+    <p>
+        When giving clues keep in mind that your clue should under no circumstances be related to the <font color="#DDA0DD">Purple</font>
+        word, since your players might guess it and lose the game. 
+      </p>
+
+    <h2>Guessing</h2>
+    <p>
+        As a player you try to relate the clue given from your guide to the words on the Board. When you want to guess a word, you simply click
+        on it and the colour of the word is revealed. If the colour revealed was of your own team, you can keep guessing. Your turn ends when 
+        the word guessed is not your own, or when you have correctly guessed all the related words. If you choose a <font color="#DDA0DD">Purple</font>
+        word, you instantly lose the game. <font color="#bfbfbf">Grey</font> words are neutral, if you pick them your turn is over, but no
+        harm is done. Finally, if you choose a word of the opposing colour, you have just ended your turn and helped the enemy team.
+      </p>
+
+      <h2>Single Team Mode</h2>
+      <p>
+        Single Team Mode is designed for small groups of people. You play as the <font color="#00BFFF">Blue</font> team by default and
+        each time your turn ends, a <font color="#B22222">Red</font> word is revealed. Your goal is to guess the <font color="#00BFFF">Blue</font>
+        words in the fewest turns possible. If you succeed you get a score depending on how many you managed to get. This mode is perfect
+        for single players combined with the use of an AI agent.
+      </p>
+
+      <h2>AI Agents</h2>
+      <p>
+        AI agents can be used in place of a team member. They can play as a Guide or a Player. If you want to play the game but
+        there are not enough human players, you can use one or multiple AIs! Or you can add an AI agent on your team just for fun!
+      </p>
 
 
-  <h2>Winning the game</h2>
-
-
-  <h2>Giving Clues</h2>
-
-
-  <h2>Guessing</h2>
-
+  </div>
 </div>
