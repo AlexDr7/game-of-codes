@@ -337,7 +337,6 @@ bicycle
 bid
 bidet
 big
-big-rig
 bike
 bikini
 bill
