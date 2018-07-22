@@ -33,7 +33,7 @@ class BasikosAI:
 
         else:
             self.wordAssoc.calculateSimpleRelevantWords(self.board.redWords, 5)
-            print("Number of relevant " + self.wordAssoc.commonWordsLength())
+            print("Number of relevant " + str(self.wordAssoc.commonWordsLength()))
 
             self.wordAssoc.deleteEveryWordAssociatedWith(self.board.blueWords, 1)
             print("Number of relevant after deletion of opponent words " + str(self.wordAssoc.commonWordsLength()))
