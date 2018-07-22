@@ -52,6 +52,7 @@ class BasikosAI:
             i+=1
 
         clue = clues[i]
+        print(clue)
 
         clueObject = Clue(self.gameID, self.player, self.guide, clue[0], clue[1], self.team, len(clue[1])-1)
 
