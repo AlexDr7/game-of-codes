@@ -65,6 +65,7 @@ export class MenuComponent implements OnInit {
     this.globals.isGameOver = false;
     
     this.globals.isPlayersTurn = false;
+    this.globals.isAITurn = false;
     this.globals.teamsTurn = "Blue's Turn";
     this.globals.canNotPass = true;
 

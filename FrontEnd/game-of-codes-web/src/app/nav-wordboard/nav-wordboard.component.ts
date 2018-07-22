@@ -44,14 +44,16 @@ export class NavWordboardComponent implements OnInit {
       this.globals.clueList.push(new Clue(this.globals.gameid,clue,this.globals.teamsTurn[0],related,0,playerName,guideName))
 
       
-      this.sendClue(this.globals.clueList[this.globals.clueIndex]).subscribe( data => 
-        this.globals.clueList[this.globals.clueIndex].clueID = data);
-      console.log(this.globals.clueList[this.globals.clueIndex]);
+      this.sendClue(this.globals.clueList[this.globals.clueIndex]).subscribe( data => { 
+        this.globals.clueList[this.globals.clueIndex].clueID = data
+        
+        this.globals.isPlayersTurn = true;
+        this.globals.currentGuessesLeft = related;
 
-      this.globals.isPlayersTurn = true;
-      this.globals.currentGuessesLeft = related;
+        this.guidesTurn.emit();
+        }
+      );
 
-      this.guidesTurn.emit();
     }
   }
 
@@ -68,6 +70,7 @@ export class NavWordboardComponent implements OnInit {
     }
     this.globals.clueList[this.globals.clueIndex].badness = 2;
     this.updateCurrentClue();
+    this.guidesTurn.emit();
   }
 
   sendClue(clue){

@@ -59,10 +59,11 @@ class WordBoard:
         return self.board
 
     def createGameSquareWithRandomWord(self, color, gameID):
-        gs = GameSquare(color, gameID)
-        while gs.getWord() in self.wordsOnBoard:
-            gs.setWord(gs.getRandomWord())
+        word = databaseCommands.select_random_word().word_text
+        while word in self.wordsOnBoard:
+            word = databaseCommands.select_random_word().word_text
 
+        gs = GameSquare(color, gameID, word, False)
         self.wordsOnBoard.add(gs.getWord())
         return gs
 

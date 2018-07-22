@@ -32,7 +32,7 @@ class Clue:
 
     def serialiseClue(self):
         gameData = {
-            'gameID': self.gameID,
+            'GameID': self.gameID,
             'clueText': self.clueText,
             'colour': self.color,
             'numOfHintedWords': self.numOfWordsHinted,

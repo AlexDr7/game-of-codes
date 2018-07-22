@@ -109,7 +109,7 @@ def playerVasikiaGiveClue(request):
     if request.method == "POST":
         body_unicode = request.body.decode('utf-8')
         body = json.loads(body_unicode)
-
+        print(body)
         turn = body["teamTurn"]
 
         board = JSONParser.deserialiseBoard(body)

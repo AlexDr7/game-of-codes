@@ -68,8 +68,8 @@ export class WordboardComponent implements OnInit {
       this.globals.clueIndex++;
       this.globals.clueList[this.globals.clueIndex].numOfCorrectlyGuessed = 0;
       this.globals.clueList[this.globals.clueIndex].wordsGuessed = []
-      console.log(this.globals.clueList[this.globals.clueIndex])
       this.globals.isAITurn = false;
+      this.globals.canNotPass = true;
 
       this.globals.isPlayersTurn = true;
       this.globals.currentGuessesLeft = this.globals.clueList[this.globals.clueIndex].numOfHintedWords;
@@ -77,18 +77,59 @@ export class WordboardComponent implements OnInit {
 
       this.globals.currentClue = this.globals.clueList[this.globals.clueIndex].clueText;
 
-    });
+      this.checkAITurn();
+    },
+    error => {
+      this.openDialog(" Error while getting data from the server", "Wait for a few minutes and then try to go back to the menu and start a new game");
+    } );
+  }
+
+  giveClueToVasikia(){
+    this.globals.isAITurn = true;
+    this.globals.clueList[this.globals.clueIndex].teamTurn = this.globals.teamsTurn[0]
+    this.http.post(this.globals.APIurl+"playerVasikiaGiveClue",  this.globals.clueList[this.globals.clueIndex] , this.globals.httpOptions).subscribe(data => {
+
+      this.globals.clueList[this.globals.clueIndex].clueID = data["clueID"];
+      var wordsToBeGuessed = data["wordsToBeGuessed"];
+
+      var i=0;
+
+      var interv = setInterval(()=>{          
+        if(i < this.globals.clueList[this.globals.clueIndex].numOfHintedWords && this.globals.isPlayersTurn ){
+          this.clickWord(wordsToBeGuessed[i] - this.globals.game.Board[0].id);
+          i++;
+        }
+        else{
+          clearInterval(interv);
+          this.globals.isAITurn = false;
+          this.globals.isPlayersTurn = false;
+          
+          this.checkAITurn();
+        }
+      }, 3000); 
+
+    },
+    error => {
+      this.openDialog(" Error while getting data from the server", "Wait for a few minutes and then try to go back to the menu and start a new game");
+    } );
   }
 
   checkAITurn(){
     if(this.globals.isBluesTurn){
-      if(this.globals.gameSettings.blueGuide != "HumanG"){
+      if(!this.globals.isPlayersTurn && this.globals.gameSettings.blueGuide != "HumanG"){
         this.getVasikiaClue()
       }
+      else if(this.globals.isPlayersTurn && this.globals.gameSettings.bluePlayer != "HumanP"){
+        this.giveClueToVasikia()
+      }
+
     }
     else{
-      if(this.globals.gameSettings.redGuide != "HumanG"){
+      if(!this.globals.isPlayersTurn && this.globals.gameSettings.redGuide != "HumanG"){
        this.getVasikiaClue()
+      }
+      else if(this.globals.isPlayersTurn && this.globals.gameSettings.redPlayer != "HumanP"){
+        this.giveClueToVasikia()
       }
     }
   }
@@ -113,6 +154,7 @@ export class WordboardComponent implements OnInit {
     }
     else{
       this.isWordboardVisible=false;
+      this.checkAITurn();
     }
     
   }
@@ -266,8 +308,6 @@ export class WordboardComponent implements OnInit {
   revealRandomRedWord(){
     this.populateRedWordActiveArray();
     var randomIndex = Math.floor(Math.random() * this.redWordActiveArray.length);
-    console.log(randomIndex);
-    console.log(this.redWordActiveArray[randomIndex].index);
     this.globals.activeWords[this.redWordActiveArray[randomIndex].index] = false;
     this.globals.redWordsCount--;
     

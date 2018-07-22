@@ -135,16 +135,15 @@ class WordAssociation:
 
         #Search articles of every word on the board and compare the articles to the articles related to the clue
         for word in wordsActiveOnBoard.keys():
-            print(" Number of words appearing: " + str(self.countWords))
-            print(" This word " + str(word))
-            if word in self.allWords:
-                self.countWords = float(self.allWords[word][0])*550
-            else:
-                self.countWords = 0
 
             newWordList = [0, wordsActiveOnBoard[word]]
             self.commonWords[word] = newWordList
             searchOutcome = wikipedia.search(word, wordsOnBoardSearchWidth)
+
+            if word in self.allWords:
+                self.commonWords[word][0] += float(self.allWords[word][0])*550
+            else:
+                self.countWords = 0
 
             for outcome in searchOutcome:
                 try:

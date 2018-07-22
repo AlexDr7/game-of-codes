@@ -93,6 +93,7 @@ class databaseCommands:
             print(" ERROR select_game_square_gameId_word returned MORE THAN 2 ITEMS gameId:" + str(gameID)+ " word:"+word)
             for sqr in gs:
                 print("Square ID:" + str(sqr.id))
+
         return gs[0]
 
     def select_game_squares_based_on_game(gameID):
@@ -120,8 +121,14 @@ class databaseCommands:
         return c.id
 
     def select_clue(clueID):
-        c = Game_Square.objects.get(pk=clueID)
+        c = Clue.objects.get(pk=clueID)
         return c
+
+    def select_clue_gameId_clueText(gameId, clueText):
+        c = Clue.objects.filter(game_id=gameId, clue_text=clueText)
+        if len(c) == 0 :
+            return None
+        return c[0]
 
     def update_clue(clueID, wordlistGuessed, badness, numWordsCorrectlyGuessed):
         c = Clue.objects.get(pk=clueID)
