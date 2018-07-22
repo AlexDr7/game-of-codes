@@ -95,7 +95,7 @@ export class WordboardComponent implements OnInit {
       var i=0;
 
       var interv = setInterval(()=>{          
-        if(i < this.globals.clueList[this.globals.clueIndex].numOfHintedWords && this.globals.isPlayersTurn ){
+        if(i < this.globals.clueList[this.globals.clueIndex].numOfHintedWords && this.globals.isPlayersTurn && !this.globals.isGameOver){
           this.clickWord(wordsToBeGuessed[i] - this.globals.game.Board[0].id);
           i++;
         }
@@ -103,8 +103,9 @@ export class WordboardComponent implements OnInit {
           clearInterval(interv);
           this.globals.isAITurn = false;
           this.globals.isPlayersTurn = false;
-          
-          this.checkAITurn();
+          if (!this.globals.isGameOver){
+            this.checkAITurn();
+          }
         }
       }, 3000); 
 
