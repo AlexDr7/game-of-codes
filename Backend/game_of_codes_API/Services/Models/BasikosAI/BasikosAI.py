@@ -24,7 +24,10 @@ class BasikosAI:
 
     def relateWordsgetClue(self):
 
+        numberOfWords = 0;
+
         if self.team == "B":
+            numberOfWords = len(self.board.blueWords)
             self.wordAssoc.calculateSimpleRelevantWords(self.board.blueWords, 5)
             print("Number of relevant " + str(self.wordAssoc.commonWordsLength()))
 
@@ -32,6 +35,7 @@ class BasikosAI:
             print("Number of relevant after deletion of opponent words " + str(self.wordAssoc.commonWordsLength()))
 
         else:
+            numberOfWords = len(self.board.redWords)
             self.wordAssoc.calculateSimpleRelevantWords(self.board.redWords, 5)
             print("Number of relevant " + str(self.wordAssoc.commonWordsLength()))
 
@@ -45,7 +49,7 @@ class BasikosAI:
         self.wordAssoc.deleteEveryWordAssociatedWith(self.board.purpleWord, 3)
         print("Number of relevant after deletion of purple words " + str(self.wordAssoc.commonWordsLength()))
 
-        clue = self.wordAssoc.getBestClue()
+        clue = self.wordAssoc.getBestClue(numberOfWords)
         clues = self.wordAssoc.getSortedListOfCommonWords()
         i = 0
         while databaseCommands.select_clue_gameId_clueText(self.gameID,clues[i][0]) is not None:

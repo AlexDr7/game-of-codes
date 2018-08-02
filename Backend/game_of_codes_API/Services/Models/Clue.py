@@ -38,6 +38,7 @@ class Clue:
             'numOfHintedWords': self.numOfWordsHinted,
             'playerName': self.playerName,
             'guideName': self.guideName,
-            'clueID': self.clueID
+            'clueID': self.clueID,
+            'badness': -1
         }
         return gameData

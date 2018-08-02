@@ -227,11 +227,17 @@ class WordAssociation:
     def getSortedListOfCommonWords(self):
         return sorted(self.commonWords.items(), key=lambda e: e[1][0], reverse=True)
 
+    def getSortedListOfAllWords(self):
+        return sorted(self.allWords.items(), key=lambda e: e[1][0], reverse=True)
+
     def getSortedListOfCommonWordsForPlayer(self):
         return sorted(self.commonWords.items(), key=lambda e: e[1][0], reverse=True)
 
-    def getBestClue(self):
-        return self.getSortedListOfCommonWords()[0]
+    def getBestClue(self, numOfTargetWords):
+        if numOfTargetWords > 1:
+            return self.getSortedListOfCommonWords()[0]
+        else :
+            return self.getSortedListOfAllWords()[0]
 
     def printCommonWords(self):
         print(self.commonWords)
