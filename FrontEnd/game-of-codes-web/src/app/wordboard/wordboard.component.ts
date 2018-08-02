@@ -80,12 +80,13 @@ export class WordboardComponent implements OnInit {
       this.checkAITurn();
     },
     error => {
-      this.openDialog(" Error while getting data from the server", "Wait for a few minutes and then try to go back to the menu and start a new game");
+      this.openDialog(" Error while getting data from the server while asking for clue", "Wait for a few minutes and then try to go back to the menu and start a new game");
     } );
   }
 
   giveClueToVasikia(){
     this.globals.isAITurn = true;
+    this.globals.isPlayersTurn = true;
     this.globals.clueList[this.globals.clueIndex].teamTurn = this.globals.teamsTurn[0]
     this.http.post(this.globals.APIurl+"playerVasikiaGiveClue",  this.globals.clueList[this.globals.clueIndex] , this.globals.httpOptions).subscribe(data => {
 
@@ -103,34 +104,36 @@ export class WordboardComponent implements OnInit {
           clearInterval(interv);
           this.globals.isAITurn = false;
           this.globals.isPlayersTurn = false;
-          if (!this.globals.isGameOver){
-            this.checkAITurn();
-          }
+          this.checkAITurn();
+          
         }
       }, 3000); 
 
     },
     error => {
-      this.openDialog(" Error while getting data from the server", "Wait for a few minutes and then try to go back to the menu and start a new game");
+      this.openDialog(" Error while getting data from the server while guessing words", "Wait for a few minutes and then try to go back to the menu and start a new game");
     } );
   }
 
   checkAITurn(){
-    if(this.globals.isBluesTurn){
-      if(!this.globals.isPlayersTurn && this.globals.gameSettings.blueGuide != "HumanG"){
-        this.getVasikiaClue()
-      }
-      else if(this.globals.isPlayersTurn && this.globals.gameSettings.bluePlayer != "HumanP"){
-        this.giveClueToVasikia()
-      }
+    console.log(this.globals.isGameOver);
+    if (!this.globals.isGameOver){
+      if(this.globals.isBluesTurn){
+        if(!this.globals.isPlayersTurn && this.globals.gameSettings.blueGuide != "HumanG"){
+          this.getVasikiaClue()
+        }
+        else if(this.globals.isPlayersTurn && this.globals.gameSettings.bluePlayer != "HumanP"){
+          this.giveClueToVasikia()
+        }
 
-    }
-    else{
-      if(!this.globals.isPlayersTurn && this.globals.gameSettings.redGuide != "HumanG"){
-       this.getVasikiaClue()
       }
-      else if(this.globals.isPlayersTurn && this.globals.gameSettings.redPlayer != "HumanP"){
-        this.giveClueToVasikia()
+      else{
+        if(!this.globals.isPlayersTurn && this.globals.gameSettings.redGuide != "HumanG"){
+        this.getVasikiaClue()
+        }
+        else if(this.globals.isPlayersTurn && this.globals.gameSettings.redPlayer != "HumanP"){
+          this.giveClueToVasikia()
+        }
       }
     }
   }
@@ -164,6 +167,7 @@ export class WordboardComponent implements OnInit {
     }
     else{
       this.isWordboardVisible=false;
+      this.checkAITurn();
     }
     
   }
@@ -199,11 +203,13 @@ export class WordboardComponent implements OnInit {
           }
           else{
             this.globals.game.redWrongGuesses++;
+            this.globals.clueList[this.globals.clueIndex].badness = 3;
           }
         }
         else if(this.wordlist[wordClicked].colour=="R"){
           this.globals.redWordsCount--;
           if(this.globals.isBluesTurn){
+            this.globals.clueList[this.globals.clueIndex].badness = 3;
             this.globals.game.blueWrongGuesses++;
           }
           else{
