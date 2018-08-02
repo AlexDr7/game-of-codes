@@ -33,13 +33,15 @@ export class WordboardComponent implements OnInit {
   redWordActiveArray: Word[];
   blueWordActiveArray: Word[];
   purpleWord: Word;
+  previousAITurnTime: number;
+
+  GuessClueinterval ;
 
   singleModeMessages: String[] = ["Well, a win is a win, right?","Okay. But you can do better.", "There is a connection in your team.",
     "Really good work!", "You are amazing!!", "Woooooooooow!!!", "How did you manage to do so well!!?!", "This is ...difficult to believe."]
 
 
   constructor(private wordService : WordService, private globals: Globals, private dialog: MatDialog, private router: Router, private http: HttpClient) { 
-    
   }
 
   ngOnInit() {
@@ -62,7 +64,8 @@ export class WordboardComponent implements OnInit {
 
   getVasikiaClue(){
     this.globals.isAITurn = true;
-    this.globals.game.teamTurn = this.globals.teamsTurn[0]
+    this.globals.game.teamTurn = this.globals.teamsTurn[0];
+
     this.http.post(this.globals.APIurl+"guideVasikiaAskClue", this.globals.game , this.globals.httpOptions).subscribe((data: Clue) => {
       this.globals.clueList.push(data)
       this.globals.clueIndex++;
@@ -95,17 +98,16 @@ export class WordboardComponent implements OnInit {
 
       var i=0;
 
-      var interv = setInterval(()=>{          
-        if(i < this.globals.clueList[this.globals.clueIndex].numOfHintedWords && this.globals.isPlayersTurn && !this.globals.isGameOver){
+      this.GuessClueinterval = setInterval(()=>{          
+        if(i <= this.globals.clueList[this.globals.clueIndex].numOfHintedWords && this.globals.isPlayersTurn && !this.globals.isGameOver){
           this.clickWord(wordsToBeGuessed[i] - this.globals.game.Board[0].id);
           i++;
         }
         else{
-          clearInterval(interv);
+          clearInterval(this.GuessClueinterval);
           this.globals.isAITurn = false;
           this.globals.isPlayersTurn = false;
-          this.checkAITurn();
-          
+          this.checkAITurn(); 
         }
       }, 3000); 
 
@@ -116,13 +118,12 @@ export class WordboardComponent implements OnInit {
   }
 
   checkAITurn(){
-    console.log(this.globals.isGameOver);
     if (!this.globals.isGameOver){
       if(this.globals.isBluesTurn){
-        if(!this.globals.isPlayersTurn && this.globals.gameSettings.blueGuide != "HumanG"){
+        if(!this.globals.isPlayersTurn && this.globals.gameSettings.blueGuide != "HumanG" && !this.globals.isAITurn){
           this.getVasikiaClue()
         }
-        else if(this.globals.isPlayersTurn && this.globals.gameSettings.bluePlayer != "HumanP"){
+        else if(this.globals.isPlayersTurn && this.globals.gameSettings.bluePlayer != "HumanP" && !this.globals.isAITurn){
           this.giveClueToVasikia()
         }
 
@@ -150,6 +151,7 @@ export class WordboardComponent implements OnInit {
   toGuidesTurn(evt): void {
 
     if (evt === "pass"){
+      console.log("From GuidesTurn checkAITurn Pass");
       this.checkAITurn();
       this.isWordboardVisible=false;
       if (this.globals.singleMode){
@@ -409,7 +411,11 @@ export class WordboardComponent implements OnInit {
   updateCurrentClue(){
     return this.http.post<number>(this.globals.APIurl+"updateClue", this.globals.clueList[this.globals.clueIndex] , this.globals.httpOptions).subscribe( data => { 
       if (!this.globals.isGameOver){
-        this.checkAITurn();
+        if (this.globals.isAITurn){
+          clearInterval(this.GuessClueinterval);
+          this.globals.isAITurn = false;
+          this.checkAITurn();
+        }
       }}
     );
   }

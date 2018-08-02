@@ -7,7 +7,7 @@ import { HttpHeaders } from '@angular/common/http';
 
 @Injectable()
 export class Globals {
-  APIurl: string = "http://35.177.250.82:8000/";
+  APIurl: string = "http://localhost:8000/";
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type':  'application/json'
