@@ -51,8 +51,8 @@ class databaseCommands:
         g = Game.objects.get(pk=gameID)
         return g
 
-    def update_game_isCompleted(gameID, isCompleted, blueCorrectGuesses, blueWrongGuesses,redCorrectGuesses,
-                                redWrongGuesses):
+    def update_game_isCompleted(gameID, isCompleted, blueCorrectGuesses, blueWrongGuesses, redCorrectGuesses,
+                                redWrongGuesses, winner):
 
         g = Game.objects.get(pk=gameID)
         g.is_completed = isCompleted
@@ -60,9 +60,39 @@ class databaseCommands:
         g.blue_wrong_guesses = blueWrongGuesses
         g.red_correct_guesses = redCorrectGuesses
         g.red_wrong_guesses = redWrongGuesses
+        g.winner = winner
         g.save()
 
+        if not g.is_single_mode:
+
+            if winner == "B":
+                winning_player = databaseCommands.addWinToAgent(g.blue_player)
+                winning_guide = databaseCommands.addWinToAgent(g.blue_guide)
+
+                losing_player = databaseCommands.addLoseToAgent(g.red_player)
+                losing_guide = databaseCommands.addLoseToAgent(g.red_guide)
+
+            elif winner == "R":
+                winning_player = databaseCommands.addWinToAgent(g.red_player)
+                winning_guide = databaseCommands.addWinToAgent(g.red_guide)
+
+                losing_player = databaseCommands.addLoseToAgent(g.blue_player)
+                losing_guide = databaseCommands.addLoseToAgent(g.blue_guide)
+
+
         return g.id
+
+    def addWinToAgent(agentID):
+        ag = databaseCommands.select_agent(agentID)
+        ag.num_of_wins = ag.num_of_wins + 1
+        ag.total_games = ag.total_games + 1
+        ag.save()
+
+    def addLoseToAgent(agentID):
+        ag = databaseCommands.select_agent(agentID)
+        ag.num_of_losses = ag.num_of_losses + 1
+        ag.total_games = ag.total_games + 1
+        ag.save()
 
     def delete_game(gameID):
         g = Game.objects.get(pk=gameID)

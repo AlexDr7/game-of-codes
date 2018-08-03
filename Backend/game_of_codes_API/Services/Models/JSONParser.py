@@ -69,10 +69,12 @@ class JSONParser:
         gameID = json["GameID"]
         isComplete = True
 
-        blueCorrectGuesses= json["blueCorrectGuesses"]
-        blueWrongGuesses= json["blueWrongGuesses"]
-        redCorrectGuesses= json["redCorrectGuesses"]
-        redWrongGuesses= json["redWrongGuesses"]
+        blueCorrectGuesses = json["blueCorrectGuesses"]
+        blueWrongGuesses = json["blueWrongGuesses"]
+        redCorrectGuesses = json["redCorrectGuesses"]
+        redWrongGuesses = json["redWrongGuesses"]
+
+        winner = json["winner"]
 
         return databaseCommands.update_game_isCompleted(gameID, isComplete, blueCorrectGuesses, blueWrongGuesses,
-                                                        redCorrectGuesses, redWrongGuesses)
+                                                        redCorrectGuesses, redWrongGuesses, winner)
