@@ -50,7 +50,12 @@ class BasikosAI:
         print("Number of relevant after deletion of purple words " + str(self.wordAssoc.commonWordsLength()))
 
         clue = self.wordAssoc.getBestClue(numberOfWords)
-        clues = self.wordAssoc.getSortedListOfCommonWords()
+
+        if numberOfWords > 1:
+            clues = self.wordAssoc.getSortedListOfCommonWords()
+        else:
+            clues = self.wordAssoc.getSortedListOfAllWords()
+
         i = 0
         while databaseCommands.select_clue_gameId_clueText(self.gameID,clues[i][0]) is not None:
             i+=1

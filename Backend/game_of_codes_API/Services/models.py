@@ -23,6 +23,12 @@ class Agent(models.Model):
         return self.name
 
 class Game(models.Model):
+    BLUE_RED = (
+        ('B', 'Blue'),
+        ('R', 'Red'),
+        ('Null', 'No one')
+    )
+
     is_completed = models.BooleanField(default=False)
     blue_player = models.ForeignKey(Agent, on_delete=models.PROTECT, related_name='blue_player')
     red_player = models.ForeignKey(Agent, on_delete=models.PROTECT, related_name='red_player')
@@ -33,6 +39,8 @@ class Game(models.Model):
     blue_correct_guesses = models.IntegerField(default=0)
     red_wrong_guesses = models.IntegerField(default=0)
     red_correct_guesses = models.IntegerField(default=0)
+
+    winner = models.CharField(max_length=4, choices=BLUE_RED, default='Null')
 
     num_of_blue_words = models.IntegerField(default=8)
     num_of_red_words = models.IntegerField(default=8)
