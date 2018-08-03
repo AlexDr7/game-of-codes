@@ -63,6 +63,7 @@ export class WordboardComponent implements OnInit {
   }
 
   getVasikiaClue(){
+    console.log("Get Vasikia Clue");
     this.globals.isAITurn = true;
     this.globals.game.teamTurn = this.globals.teamsTurn[0];
 
@@ -119,6 +120,7 @@ export class WordboardComponent implements OnInit {
 
   checkAITurn(){
     if (!this.globals.isGameOver){
+      console.log("Check AI Turn" + this.globals.isPlayersTurn + " blue Guide"+ this.globals.gameSettings.blueGuide)
       if(this.globals.isBluesTurn){
         if(!this.globals.isPlayersTurn && this.globals.gameSettings.blueGuide != "HumanG" && !this.globals.isAITurn){
           this.getVasikiaClue()
@@ -347,6 +349,7 @@ export class WordboardComponent implements OnInit {
         this.gameStateTitle = "Red Team Won!!";
         this.gameStateMessage = "Congratulations Red Team!!! ";
         this.globals.teamsTurn = "Red Team Won!";
+        this.globals.game.winner = "R";
       }
       this.globals.isBluesTurn = false;
       this.updateGameFinished();
@@ -357,6 +360,7 @@ export class WordboardComponent implements OnInit {
         this.gameStateTitle = "Blue Team Won!!";
         this.gameStateMessage = "Congratulations Blue Team!!! ";
         this.globals.teamsTurn = "Blue Team Won!";
+        this.globals.game.winner = "B";
       }
       this.globals.isBluesTurn = true;
 
@@ -371,11 +375,13 @@ export class WordboardComponent implements OnInit {
         this.gameStateTitle = "Blue Team Defeat!!";
         this.globals.teamsTurn = "Red Team Won!";
         this.globals.isBluesTurn = false;
+        this.globals.game.winner = "R";
       }
       else {
         this.gameStateTitle = "Red Team Defeat!!";
         this.globals.teamsTurn = "Blue Team Won!";
         this.globals.isBluesTurn = true;
+        this.globals.game.winner = "B";
       }
 
       this.globals.clueList[this.globals.clueIndex].badness = 4;
@@ -398,10 +404,12 @@ export class WordboardComponent implements OnInit {
       if(blueFoundAllWords){
         this.gameStateTitle = "Congratulations !! You found all the words!!"
         this.gameStateMessage = " Your score is "+this.globals.redWordsCount+", \""+ this.singleModeMessages[this.globals.redWordsCount]+ "\"";
+        this.globals.game.winner = "B";
       }
       else{
         this.gameStateTitle = "You lost!!"
         this.gameStateMessage = " Better luck next time!"
+        this.globals.game.winner = "R";
       }
       return true;
     }
@@ -414,8 +422,9 @@ export class WordboardComponent implements OnInit {
         if (this.globals.isAITurn){
           clearInterval(this.GuessClueinterval);
           this.globals.isAITurn = false;
-          this.checkAITurn();
+          
         }
+        this.checkAITurn();
       }}
     );
   }

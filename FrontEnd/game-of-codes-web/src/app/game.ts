@@ -14,4 +14,6 @@ export interface Game {
     blueWrongGuesses: number;
     redCorrectGuesses: number;
     redWrongGuesses: number;
+
+    winner: string;
 }

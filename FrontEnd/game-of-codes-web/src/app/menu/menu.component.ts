@@ -48,6 +48,8 @@ export class MenuComponent implements OnInit {
       this.globals.game.redCorrectGuesses = 0;
       this.globals.game.redWrongGuesses = 0;
 
+      this.globals.game.winner = 'Null';
+
       if (!this.globals.isBluesTurn){
         this.globals.teamsTurn = "Red's Turn";
       }
