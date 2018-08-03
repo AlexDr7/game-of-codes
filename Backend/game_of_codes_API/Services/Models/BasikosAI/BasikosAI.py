@@ -28,7 +28,7 @@ class BasikosAI:
 
         if self.team == "B":
             numberOfWords = len(self.board.blueWords)
-            self.wordAssoc.calculateSimpleRelevantWords(self.board.blueWords, 4)
+            self.wordAssoc.calculateSimpleRelevantWords(self.board.blueWords, 3)
             print("Number of relevant " + str(self.wordAssoc.commonWordsLength()))
 
             self.wordAssoc.deleteEveryWordAssociatedWith(self.board.redWords, 1)
@@ -36,10 +36,10 @@ class BasikosAI:
 
         else:
             numberOfWords = len(self.board.redWords)
-            self.wordAssoc.calculateSimpleRelevantWords(self.board.redWords, 1)
+            self.wordAssoc.calculateSimpleRelevantWords(self.board.redWords, 3)
             print("Number of relevant " + str(self.wordAssoc.commonWordsLength()))
 
-            self.wordAssoc.deleteEveryWordAssociatedWith(self.board.blueWords, 2)
+            self.wordAssoc.deleteEveryWordAssociatedWith(self.board.blueWords, 1)
             print("Number of relevant after deletion of opponent words " + str(self.wordAssoc.commonWordsLength()))
 
 
