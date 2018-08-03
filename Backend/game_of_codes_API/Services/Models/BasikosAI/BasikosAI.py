@@ -28,7 +28,7 @@ class BasikosAI:
 
         if self.team == "B":
             numberOfWords = len(self.board.blueWords)
-            self.wordAssoc.calculateSimpleRelevantWords(self.board.blueWords, 5)
+            self.wordAssoc.calculateSimpleRelevantWords(self.board.blueWords, 4)
             print("Number of relevant " + str(self.wordAssoc.commonWordsLength()))
 
             self.wordAssoc.deleteEveryWordAssociatedWith(self.board.redWords, 1)
@@ -36,17 +36,17 @@ class BasikosAI:
 
         else:
             numberOfWords = len(self.board.redWords)
-            self.wordAssoc.calculateSimpleRelevantWords(self.board.redWords, 5)
+            self.wordAssoc.calculateSimpleRelevantWords(self.board.redWords, 1)
             print("Number of relevant " + str(self.wordAssoc.commonWordsLength()))
 
-            self.wordAssoc.deleteEveryWordAssociatedWith(self.board.blueWords, 1)
+            self.wordAssoc.deleteEveryWordAssociatedWith(self.board.blueWords, 2)
             print("Number of relevant after deletion of opponent words " + str(self.wordAssoc.commonWordsLength()))
 
 
         self.wordAssoc.deleteCommonWordsThatAppearInEveryWord()
         print("Number of relevant after deletion of words that appear a lot " + str(self.wordAssoc.commonWordsLength()))
 
-        self.wordAssoc.deleteEveryWordAssociatedWith(self.board.purpleWord, 3)
+        self.wordAssoc.deleteEveryWordAssociatedWith(self.board.purpleWord, 2)
         print("Number of relevant after deletion of purple words " + str(self.wordAssoc.commonWordsLength()))
 
         clue = self.wordAssoc.getBestClue(numberOfWords)
@@ -65,7 +65,7 @@ class BasikosAI:
     def relateClueGetWords(self, clue):
         words = list()
 
-        self.wordAssoc.relateClueToWordsOnBoardforPlayer(clue.clueText, self.board.activeWordsOnBoard, 8, 6, 2000)
+        self.wordAssoc.relateClueToWordsOnBoardforPlayer(clue.clueText, self.board.activeWordsOnBoard, 5, 4, 1000)
 
         relatedWords = self.wordAssoc.getSortedListOfCommonWordsForPlayer()
         print(relatedWords)

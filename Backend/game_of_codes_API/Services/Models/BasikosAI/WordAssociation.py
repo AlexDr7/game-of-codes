@@ -141,7 +141,7 @@ class WordAssociation:
             searchOutcome = wikipedia.search(word, wordsOnBoardSearchWidth)
 
             if word in self.allWords:
-                self.commonWords[word][0] += float(self.allWords[word][0])*550
+                self.commonWords[word][0] += float(self.allWords[word][0])*250
             else:
                 self.countWords = 0
 
@@ -188,8 +188,7 @@ class WordAssociation:
             if contentWordChecked in self.allWords:
                 self.commonWords[targetWord][0] += float(self.allWords[contentWordChecked][0])/5.0
             if contentWordChecked == clueWord :
-                self.commonWords[targetWord][0] += 600
-                print("Found in " + targetWord )
+                self.commonWords[targetWord][0] += 300
             if self.countWords > wordsOnBoardMaxWordSearch:
                 break;
 
