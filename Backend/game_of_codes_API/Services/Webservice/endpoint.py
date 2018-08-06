@@ -92,7 +92,49 @@ def guideVasikiaAskClue(request):
         turn = body["teamTurn"]
         board = JSONParser.deserialiseBoard(body)
         agentI = BasikosAI(board, turn)
-        clue = agentI.relateWordsgetClue()
+        clue = agentI.VasikiaRelateWordsGetClue()
+
+        dumpJson = json.dumps(clue.serialiseClue())
+
+        response = HttpResponse(dumpJson, content_type="application/json")
+
+    else:
+        return HttpResponse("Method not Allowed", status=405)
+
+    return response
+
+@csrf_exempt
+def guideTantalusAskClue(request):
+
+    if request.method == "POST":
+        body_unicode = request.body.decode('utf-8')
+        body = json.loads(body_unicode)
+        print(body)
+        turn = body["teamTurn"]
+        board = JSONParser.deserialiseBoard(body)
+        agentI = BasikosAI(board, turn)
+        clue = agentI.TantalusRelateWordsGetClue()
+
+        dumpJson = json.dumps(clue.serialiseClue())
+
+        response = HttpResponse(dumpJson, content_type="application/json")
+
+    else:
+        return HttpResponse("Method not Allowed", status=405)
+
+    return response
+
+@csrf_exempt
+def guideErmisAskClue(request):
+
+    if request.method == "POST":
+        body_unicode = request.body.decode('utf-8')
+        body = json.loads(body_unicode)
+        print(body)
+        turn = body["teamTurn"]
+        board = JSONParser.deserialiseBoard(body)
+        agentI = BasikosAI(board, turn)
+        clue = agentI.ErmisRelateWordsGetClue()
 
         dumpJson = json.dumps(clue.serialiseClue())
 
@@ -117,7 +159,71 @@ def playerVasikiaGiveClue(request):
 
         clue = JSONParser.deserializeClueAndCreateClue(body)
 
-        wordsToBeGuessed = agentI.relateClueGetWords(clue)
+        wordsToBeGuessed = agentI.VasikiaRelateClueGetWords(clue)
+
+        clue.updateClue(wordsToBeGuessed, -1, 0)
+
+        jsonText = {
+            'clueID': clue.clueID,
+            'wordsToBeGuessed': wordsToBeGuessed
+        }
+
+        dumpJson = json.dumps(jsonText)
+
+        response = HttpResponse(dumpJson, content_type="application/json")
+
+    else:
+        return HttpResponse("Method not Allowed", status=405)
+
+    return response
+
+@csrf_exempt
+def playerErmisGiveClue(request):
+
+    if request.method == "POST":
+        body_unicode = request.body.decode('utf-8')
+        body = json.loads(body_unicode)
+        print(body)
+        turn = body["teamTurn"]
+
+        board = JSONParser.deserialiseBoard(body)
+        agentI = BasikosAI(board, turn)
+
+        clue = JSONParser.deserializeClueAndCreateClue(body)
+
+        wordsToBeGuessed = agentI.ErmisRelateClueGetWords(clue)
+
+        clue.updateClue(wordsToBeGuessed, -1, 0)
+
+        jsonText = {
+            'clueID': clue.clueID,
+            'wordsToBeGuessed': wordsToBeGuessed
+        }
+
+        dumpJson = json.dumps(jsonText)
+
+        response = HttpResponse(dumpJson, content_type="application/json")
+
+    else:
+        return HttpResponse("Method not Allowed", status=405)
+
+    return response
+
+@csrf_exempt
+def playerTantalusGiveClue(request):
+
+    if request.method == "POST":
+        body_unicode = request.body.decode('utf-8')
+        body = json.loads(body_unicode)
+        print(body)
+        turn = body["teamTurn"]
+
+        board = JSONParser.deserialiseBoard(body)
+        agentI = BasikosAI(board, turn)
+
+        clue = JSONParser.deserializeClueAndCreateClue(body)
+
+        wordsToBeGuessed = agentI.TantalusRelateClueGetWords(clue)
 
         clue.updateClue(wordsToBeGuessed, -1, 0)
 
@@ -141,7 +247,7 @@ def wordService(request):
     if request.method == "POST":
         body_unicode = request.body.decode('utf-8')
         body = json.loads(body_unicode)
-
+        print(body)
         game = JSONParser.deserializeGameSettingsAndCreateGame(body)
         dumpJson = json.dumps(game.serialiseGame())
 

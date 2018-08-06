@@ -1910,12 +1910,9 @@ paperback
 parachute
 paramedic
 parcel
-parent
 park
 parking
 parrot
-particle
-partner
 party
 pass
 passage
@@ -3003,9 +3000,6 @@ weather
 web
 wedding
 weed
-week
-weekend
-weekender
 weight
 weird
 wet-bar

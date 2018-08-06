@@ -36,6 +36,8 @@ class WordAssociation:
 
         for targetWord in targetWords:
 
+            self.countWords = 0
+
             searchOutcome = wikipedia.search(targetWord, searchWidth)
 
             for outcome in searchOutcome:
@@ -81,6 +83,7 @@ class WordAssociation:
 
     def deleteEveryWordAssociatedWith(self, badWords, searchWidth):
         for badWord in badWords:
+            self.countWords = 0
             searchOutcome = wikipedia.search(badWord, searchWidth)
             for outcome in searchOutcome:
                 self.searchWikipediaBasedOnWordAndDeleteFromCommon(outcome)
@@ -141,9 +144,9 @@ class WordAssociation:
             searchOutcome = wikipedia.search(word, wordsOnBoardSearchWidth)
 
             if word in self.allWords:
-                self.commonWords[word][0] += float(self.allWords[word][0])*250
-            else:
-                self.countWords = 0
+                self.commonWords[word][0] += float(self.allWords[word][0])*1100
+
+            self.countWords = 0
 
             for outcome in searchOutcome:
                 try:
@@ -171,8 +174,7 @@ class WordAssociation:
         for contentWord in contentWords:
             contentWordChecked = contentWord.strip().upper()
 
-            if contentWordChecked not in self.meaninglessWords and contentWordChecked not in self.wordsOnBoard\
-                    and not self.isRelatedEtymologicallyToBoardWords(contentWordChecked):
+            if contentWordChecked not in self.meaninglessWords:
                 if contentWordChecked in self.allWords:
                     editedList = self.allWords[contentWordChecked]
                     editedList[0] += 1
@@ -186,9 +188,9 @@ class WordAssociation:
             contentWordChecked = contentWord.strip().upper()
             self.countWords += 1;
             if contentWordChecked in self.allWords:
-                self.commonWords[targetWord][0] += float(self.allWords[contentWordChecked][0])/5.0
+                self.commonWords[targetWord][0] += float(self.allWords[contentWordChecked][0])/2.0
             if contentWordChecked == clueWord :
-                self.commonWords[targetWord][0] += 300
+                self.commonWords[targetWord][0] += 10000
             if self.countWords > wordsOnBoardMaxWordSearch:
                 break;
 
