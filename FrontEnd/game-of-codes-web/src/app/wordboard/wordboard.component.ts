@@ -239,7 +239,6 @@ export class WordboardComponent implements OnInit {
     if (!this.globals.isGameOver){
       if(this.globals.isBluesTurn){
         if(!this.globals.isPlayersTurn && this.globals.gameSettings.blueGuide != "HumanG" && !this.globals.isAITurn){
-          console.log("In guides"+  this.globals.gameSettings.blueGuide);
           if (this.globals.gameSettings.blueGuide == "VasikiaG"){
             this.globals.isVasikiaActive = true;
             this.getVasikiaClue();
@@ -314,7 +313,6 @@ export class WordboardComponent implements OnInit {
   toGuidesTurn(evt): void {
 
     if (evt === "pass"){
-      console.log("From GuidesTurn checkAITurn Pass");
       this.checkAITurn();
       this.isWordboardVisible=false;
       if (this.globals.singleMode){
