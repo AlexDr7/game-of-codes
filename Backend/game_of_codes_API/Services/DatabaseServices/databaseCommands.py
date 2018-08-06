@@ -78,7 +78,14 @@ class databaseCommands:
 
                 losing_player = databaseCommands.addLoseToAgent(g.blue_player)
                 losing_guide = databaseCommands.addLoseToAgent(g.blue_guide)
+        else:
+            if winner == "B":
+                winning_player = databaseCommands.addSingleWinToAgent(g.blue_player)
+                winning_guide = databaseCommands.addSingleWinToAgent(g.blue_guide)
 
+            elif winner == "R":
+                losing_player = databaseCommands.addSingleLoseToAgent(g.blue_player)
+                losing_guide = databaseCommands.addSingleLoseToAgent(g.blue_guide)
 
         return g.id
 
@@ -88,10 +95,22 @@ class databaseCommands:
         ag.total_games = ag.total_games + 1
         ag.save()
 
+    def addSingleWinToAgent(agentID):
+        ag = databaseCommands.select_agent(agentID)
+        ag.num_of_single_wins = ag.num_of_single_wins + 1
+        ag.total_single_games = ag.total_single_games + 1
+        ag.save()
+
     def addLoseToAgent(agentID):
         ag = databaseCommands.select_agent(agentID)
         ag.num_of_losses = ag.num_of_losses + 1
         ag.total_games = ag.total_games + 1
+        ag.save()
+
+    def addSingleLoseToAgent(agentID):
+        ag = databaseCommands.select_agent(agentID)
+        ag.num_of_single_losses = ag.num_of_single_losses + 1
+        ag.total_single_games = ag.total_single_games + 1
         ag.save()
 
     def delete_game(gameID):

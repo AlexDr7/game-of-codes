@@ -42,7 +42,7 @@ class TantalusWordAssociation(WordAssociation):
             searchOutcome = wikipedia.search(word, wordsOnBoardSearchWidth)
 
             if word in self.allWords:
-                self.commonWords[word][0] += float(self.allWords[word][0])*250
+                self.commonWords[word][0] += float(self.allWords[word][0])*1250
 
             self.countWords = 0
 
@@ -89,6 +89,6 @@ class TantalusWordAssociation(WordAssociation):
             if contentWordChecked in self.allWords:
                 self.commonWords[targetWord][0] += float(self.allWords[contentWordChecked][0])/2.0
             if contentWordChecked == clueWord :
-                self.commonWords[targetWord][0] += 300
+                self.commonWords[targetWord][0] += 2200
             if self.countWords > wordsOnBoardMaxWordSearch:
                 break;

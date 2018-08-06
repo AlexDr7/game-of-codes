@@ -19,6 +19,10 @@ class Agent(models.Model):
     num_of_losses = models.IntegerField('Number of Losses', default=0)
     total_games = models.IntegerField('Number of Games', default=0)
 
+    num_of_single_wins = models.IntegerField('Number of Single Mode Wins', default=0)
+    num_of_single_losses = models.IntegerField('Number of Single Mode Losses', default=0)
+    total_single_games = models.IntegerField('Number of Single Mode Games', default=0)
+
     def __str__(self):
         return self.name
 

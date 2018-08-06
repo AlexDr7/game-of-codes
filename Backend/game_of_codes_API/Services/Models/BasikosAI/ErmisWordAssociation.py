@@ -126,7 +126,6 @@ class ErmisWordAssociation(WordAssociation):
             self.countWords = 0
 
             for outcome in searchOutcome:
-                print(word, "  ", self.commonWords[word][0])
                 try:
                     if outcome is not None:
                         if self.countWords > self.upperWordLimit:
@@ -155,6 +154,6 @@ class ErmisWordAssociation(WordAssociation):
             if contentWordChecked in self.allWords:
                 self.commonWords[targetWord][0] += float(self.allWords[contentWordChecked][0])
             if contentWordChecked == clueWord:
-                self.commonWords[targetWord][0] += 1200
+                self.commonWords[targetWord][0] += 2200
             if self.countWords > self.upperWordLimit:
                 break;
