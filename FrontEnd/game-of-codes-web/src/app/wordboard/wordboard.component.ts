@@ -63,7 +63,6 @@ export class WordboardComponent implements OnInit {
   }
 
   getVasikiaClue(){
-    console.log("Get Vasikia Clue");
     this.globals.isAITurn = true;
     this.globals.game.teamTurn = this.globals.teamsTurn[0];
 
@@ -74,6 +73,61 @@ export class WordboardComponent implements OnInit {
       this.globals.clueList[this.globals.clueIndex].wordsGuessed = []
       this.globals.isAITurn = false;
       this.globals.canNotPass = true;
+
+      this.globals.isPlayersTurn = true;
+      this.globals.isVasikiaActive = false;
+      this.globals.currentGuessesLeft = this.globals.clueList[this.globals.clueIndex].numOfHintedWords;
+      this.globals.numberOfRelatedWords = this.globals.clueList[this.globals.clueIndex].numOfHintedWords;
+
+      this.globals.currentClue = this.globals.clueList[this.globals.clueIndex].clueText;
+
+      this.checkAITurn();
+    },
+    error => {
+      this.openDialog(" Error while getting data from the server while asking for clue", "Wait for a few minutes and then try to go back to the menu and start a new game");
+    } );
+  }
+
+  getErmisClue(){
+    this.globals.isAITurn = true;
+    this.globals.game.teamTurn = this.globals.teamsTurn[0];
+
+    this.http.post(this.globals.APIurl+"guideErmisAskClue", this.globals.game , this.globals.httpOptions).subscribe((data: Clue) => {
+      this.globals.clueList.push(data)
+      this.globals.clueIndex++;
+      this.globals.clueList[this.globals.clueIndex].numOfCorrectlyGuessed = 0;
+      this.globals.clueList[this.globals.clueIndex].wordsGuessed = []
+      this.globals.isAITurn = false;
+      this.globals.canNotPass = true;
+
+      this.globals.isErmisActive = false;
+
+      this.globals.isPlayersTurn = true;
+      this.globals.currentGuessesLeft = this.globals.clueList[this.globals.clueIndex].numOfHintedWords;
+      this.globals.numberOfRelatedWords = this.globals.clueList[this.globals.clueIndex].numOfHintedWords;
+
+      this.globals.currentClue = this.globals.clueList[this.globals.clueIndex].clueText;
+
+      this.checkAITurn();
+    },
+    error => {
+      this.openDialog(" Error while getting data from the server while asking for clue", "Wait for a few minutes and then try to go back to the menu and start a new game");
+    } );
+  }
+
+  getTantalusClue(){
+    this.globals.isAITurn = true;
+    this.globals.game.teamTurn = this.globals.teamsTurn[0];
+
+    this.http.post(this.globals.APIurl+"guideTantalusAskClue", this.globals.game , this.globals.httpOptions).subscribe((data: Clue) => {
+      this.globals.clueList.push(data)
+      this.globals.clueIndex++;
+      this.globals.clueList[this.globals.clueIndex].numOfCorrectlyGuessed = 0;
+      this.globals.clueList[this.globals.clueIndex].wordsGuessed = []
+      this.globals.isAITurn = false;
+      this.globals.canNotPass = true;
+      
+      this.globals.isTantalusActive = false;
 
       this.globals.isPlayersTurn = true;
       this.globals.currentGuessesLeft = this.globals.clueList[this.globals.clueIndex].numOfHintedWords;
@@ -108,6 +162,69 @@ export class WordboardComponent implements OnInit {
           clearInterval(this.GuessClueinterval);
           this.globals.isAITurn = false;
           this.globals.isPlayersTurn = false;
+          this.globals.isVasikiaActive = false;
+          this.checkAITurn(); 
+        }
+      }, 3000); 
+
+    },
+    error => {
+      this.openDialog(" Error while getting data from the server while guessing words", "Wait for a few minutes and then try to go back to the menu and start a new game");
+    } );
+  }
+
+  giveClueToErmis(){
+    this.globals.isAITurn = true;
+    this.globals.isPlayersTurn = true;
+    this.globals.clueList[this.globals.clueIndex].teamTurn = this.globals.teamsTurn[0]
+    this.http.post(this.globals.APIurl+"playerErmisGiveClue",  this.globals.clueList[this.globals.clueIndex] , this.globals.httpOptions).subscribe(data => {
+
+      this.globals.clueList[this.globals.clueIndex].clueID = data["clueID"];
+      var wordsToBeGuessed = data["wordsToBeGuessed"];
+
+      var i=0;
+
+      this.GuessClueinterval = setInterval(()=>{          
+        if(i <= this.globals.clueList[this.globals.clueIndex].numOfHintedWords && this.globals.isPlayersTurn && !this.globals.isGameOver){
+          this.clickWord(wordsToBeGuessed[i] - this.globals.game.Board[0].id);
+          i++;
+        }
+        else{
+          clearInterval(this.GuessClueinterval);
+          this.globals.isAITurn = false;
+          this.globals.isPlayersTurn = false;
+          this.globals.isErmisActive = false;
+          this.checkAITurn(); 
+        }
+      }, 3000); 
+
+    },
+    error => {
+      this.openDialog(" Error while getting data from the server while guessing words", "Wait for a few minutes and then try to go back to the menu and start a new game");
+    } );
+  }
+
+  giveClueToTantalus(){
+    this.globals.isAITurn = true;
+    this.globals.isPlayersTurn = true;
+    this.globals.clueList[this.globals.clueIndex].teamTurn = this.globals.teamsTurn[0]
+    this.http.post(this.globals.APIurl+"playerTantalusGiveClue",  this.globals.clueList[this.globals.clueIndex] , this.globals.httpOptions).subscribe(data => {
+
+      this.globals.clueList[this.globals.clueIndex].clueID = data["clueID"];
+      var wordsToBeGuessed = data["wordsToBeGuessed"];
+
+      var i=0;
+
+      this.GuessClueinterval = setInterval(()=>{          
+        if(i <= this.globals.clueList[this.globals.clueIndex].numOfHintedWords && this.globals.isPlayersTurn && !this.globals.isGameOver){
+          this.clickWord(wordsToBeGuessed[i] - this.globals.game.Board[0].id);
+          i++;
+        }
+        else{
+          clearInterval(this.GuessClueinterval);
+          this.globals.isAITurn = false;
+          this.globals.isPlayersTurn = false;
+          this.globals.isTantalusActive = false;
           this.checkAITurn(); 
         }
       }, 3000); 
@@ -120,22 +237,66 @@ export class WordboardComponent implements OnInit {
 
   checkAITurn(){
     if (!this.globals.isGameOver){
-      console.log("Check AI Turn" + this.globals.isPlayersTurn + " blue Guide"+ this.globals.gameSettings.blueGuide)
       if(this.globals.isBluesTurn){
         if(!this.globals.isPlayersTurn && this.globals.gameSettings.blueGuide != "HumanG" && !this.globals.isAITurn){
-          this.getVasikiaClue()
+          console.log("In guides"+  this.globals.gameSettings.blueGuide);
+          if (this.globals.gameSettings.blueGuide == "VasikiaG"){
+            this.globals.isVasikiaActive = true;
+            this.getVasikiaClue();
+          }
+          else if (this.globals.gameSettings.blueGuide == "ErmisG"){
+            this.globals.isErmisActive = true;
+            this.getErmisClue();
+          }
+          else if (this.globals.gameSettings.blueGuide == "TantalusG"){
+            this.globals.isTantalusActive = true;
+            this.getTantalusClue();
+          }
         }
-        else if(this.globals.isPlayersTurn && this.globals.gameSettings.bluePlayer != "HumanP" && !this.globals.isAITurn){
-          this.giveClueToVasikia()
+        else if(this.globals.isPlayersTurn && this.globals.gameSettings.bluePlayer != "HumanP" && !this.globals.isAITurn){   
+          if (this.globals.gameSettings.bluePlayer == "VasikiaP"){
+            this.globals.isVasikiaActive = true;
+            this.giveClueToVasikia();
+          }
+          else if (this.globals.gameSettings.bluePlayer == "ErmisP"){
+            this.globals.isErmisActive = true;
+            this.giveClueToErmis();
+          }
+          else if (this.globals.gameSettings.bluePlayer == "TantalusP"){
+            this.globals.isTantalusActive = true;
+            this.giveClueToTantalus();
+          }
         }
 
       }
       else{
         if(!this.globals.isPlayersTurn && this.globals.gameSettings.redGuide != "HumanG"){
-        this.getVasikiaClue()
+          if (this.globals.gameSettings.redGuide == "VasikiaG"){
+            this.globals.isVasikiaActive = true;
+            this.getVasikiaClue();
+          }
+          else if (this.globals.gameSettings.redGuide == "ErmisG"){
+            this.globals.isErmisActive = true;
+            this.getErmisClue();
+          }
+          else if (this.globals.gameSettings.redGuide == "TantalusG"){
+            this.globals.isTantalusActive = true;
+            this.getTantalusClue();
+          }
         }
         else if(this.globals.isPlayersTurn && this.globals.gameSettings.redPlayer != "HumanP"){
-          this.giveClueToVasikia()
+          if (this.globals.gameSettings.redPlayer == "VasikiaP"){
+            this.globals.isVasikiaActive = true;
+            this.giveClueToVasikia();
+          }
+          else if (this.globals.gameSettings.redPlayer == "ErmisP"){
+            this.globals.isErmisActive = true;
+            this.giveClueToErmis();
+          }
+          else if (this.globals.gameSettings.redPlayer == "TantalusP"){
+            this.globals.isTantalusActive = true;
+            this.giveClueToTantalus();
+          }
         }
       }
     }
@@ -329,7 +490,9 @@ export class WordboardComponent implements OnInit {
     var randomIndex = Math.floor(Math.random() * this.redWordActiveArray.length);
     this.globals.activeWords[this.redWordActiveArray[randomIndex].index] = false;
     this.globals.redWordsCount--;
-    
+
+    this.checkGameEnd(this.redWordActiveArray[randomIndex].index);
+        
     return this.redWordActiveArray[randomIndex];
   }
 
@@ -422,7 +585,10 @@ export class WordboardComponent implements OnInit {
         if (this.globals.isAITurn){
           clearInterval(this.GuessClueinterval);
           this.globals.isAITurn = false;
-          
+          this.globals.isPlayersTurn = false;
+          this.globals.isVasikiaActive = false;
+          this.globals.isErmisActive = false;
+          this.globals.isTantalusActive = false;
         }
         this.checkAITurn();
       }}

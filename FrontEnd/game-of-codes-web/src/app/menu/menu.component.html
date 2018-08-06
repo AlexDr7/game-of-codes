@@ -20,28 +20,36 @@
         <h4 class="blue">Blue Player</h4>
         <select [(ngModel)]="bluePlayer" class="form-control">
           <option value="HumanP" selected>Human Player</option>
-          <option value="VasikiaP">Vasikia (Basic AI Player)</option>             
+          <option value="ErmisP">Ermis (Faster AI Player)</option>  
+          <option value="VasikiaP">Vasikia (Basic AI Player)</option> 
+          <option value="TantalusP">Tantalus (Greedy AI Player)</option>           
         </select>
       </div>
       <div class="col-md-3">
         <h4 class="blue">Blue Guide</h4>
         <select [(ngModel)]="blueGuide" class="form-control">
           <option value="HumanG" selected>Human Guide</option>
-          <option value="VasikiaG">Vasikia (Basic AI Guide)</option>             
+          <option value="ErmisG">Ermis (Faster AI Guide)</option>  
+          <option value="VasikiaG">Vasikia (Basic AI Guide)</option> 
+          <option value="TantalusG">Tantalus (Greedy AI Guide)</option>               
         </select>
       </div>
       <div class="col-md-3" [ngClass]="{'notDisplayed': globals.singleMode}">
         <h4 class="red">Red Player</h4>
         <select [(ngModel)]="redPlayer" class="form-control">
           <option value="HumanP" selected>Human Player</option>
-          <option value="VasikiaP">Vasikia (Basic AI Player)</option>             
+          <option value="ErmisP">Ermis (Faster AI Player)</option>  
+          <option value="VasikiaP">Vasikia (Basic AI Player)</option> 
+          <option value="TantalusP">Tantalus (Greedy AI Player)</option>             
         </select>
       </div>
       <div class="col-md-3" [ngClass]="{'notDisplayed': globals.singleMode}">
         <h4 class="red">Red Guide</h4>
         <select [(ngModel)]="redGuide" class="form-control">
           <option value="HumanG" selected>Human Guide</option>
-          <option value="VasikiaG">Vasikia (Basic AI Guide)</option>             
+          <option value="ErmisG">Ermis (Faster AI Guide)</option>  
+          <option value="VasikiaG">Vasikia (Basic AI Guide)</option> 
+          <option value="TantalusG">Tantalus (Greedy AI Guide)</option>              
         </select>
       </div>
     </div>

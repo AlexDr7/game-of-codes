@@ -12,14 +12,34 @@
       </li>
     </ul>
 
-    <span class="score" [ngClass]="{'notDisplayed':!globals.isAITurn}"> <span class="AIAgent">Vasikia</span> <span class="text"> is thinking </span></span>
+    <span class="score" [ngClass]="{'notDisplayed':!globals.isAITurn || !globals.isVasikiaActive}"> <span class="AIAgent">Vasikia</span> <span class="text"> is thinking </span></span>
+    <span class="score" [ngClass]="{'notDisplayed':!globals.isAITurn || !globals.isErmisActive}"> <span class="AIAgent">Ermis</span> <span class="text"> is thinking </span></span>
+    <span class="score" [ngClass]="{'notDisplayed':!globals.isAITurn || !globals.isTantalusActive}"> <span class="AIAgent">Tantalus</span> <span class="text"> is thinking </span></span>
 
-    <div class="flower-spinner" [ngClass]="{'notDisplayed':!globals.isAITurn}">
-      <div class="dots-container" [ngClass]="{'notDisplayed':!globals.isAITurn}">
+    <div class="flower-spinner" [ngClass]="{'notDisplayed':!globals.isAITurn || !globals.isVasikiaActive}">
+      <div class="dots-container" [ngClass]="{'notDisplayed':!globals.isAITurn || !globals.isVasikiaActive}">
         <div class="bigger-dot">
           <div class="smaller-dot"></div>
         </div>
       </div>
+    </div>
+
+    <div class="orbit-spinner" [ngClass]="{'notDisplayed':!globals.isAITurn || !globals.isErmisActive}">
+      <div class="orbit"></div>
+      <div class="orbit"></div>
+      <div class="orbit"></div>
+    </div>
+
+    <div class="fingerprint-spinner" [ngClass]="{'notDisplayed':!globals.isAITurn || !globals.isTantalusActive}">
+      <div class="spinner-ring"></div>
+      <div class="spinner-ring"></div>
+      <div class="spinner-ring"></div>
+      <div class="spinner-ring"></div>
+      <div class="spinner-ring"></div>
+      <div class="spinner-ring"></div>
+      <div class="spinner-ring"></div>
+      <div class="spinner-ring"></div>
+      <div class="spinner-ring"></div>
     </div>
 
 

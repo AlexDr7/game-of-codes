@@ -7,7 +7,7 @@ import { HttpHeaders } from '@angular/common/http';
 
 @Injectable()
 export class Globals {
-  APIurl: string = "http://35.177.250.82:8000/";
+  APIurl: string = "http://localhost:8000/";
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type':  'application/json'
@@ -35,6 +35,10 @@ export class Globals {
   clueList: Clue[];
   clueIndex: number = -1;
   currentClue : string;
+
+  isVasikiaActive: boolean = false;
+  isErmisActive: boolean = false;
+  isTantalusActive: boolean = false;
 
   blueWordsCount: number = 0;
   redWordsCount: number = 0;
