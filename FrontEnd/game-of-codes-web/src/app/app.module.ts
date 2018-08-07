@@ -17,6 +17,7 @@ import { NavWordboardComponent } from './nav-wordboard/nav-wordboard.component';
 import { Globals } from './globals';
 import { GameDialogComponent } from './game-dialog/game-dialog.component';
 import { RulesComponent } from './rules/rules.component';
+import { AboutComponent } from './about/about.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { RulesComponent } from './rules/rules.component';
     NavComponent,
     NavWordboardComponent,
     GameDialogComponent,
-    RulesComponent
+    RulesComponent,
+    AboutComponent
   ],
   entryComponents: [
     GameDialogComponent

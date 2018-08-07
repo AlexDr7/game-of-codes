@@ -1,3 +1,8 @@
 .notDisplayed{
     display:none;
 }
+
+.nav-link{
+    font-size: 1.05em;
+    font-weight: 450;
+}
