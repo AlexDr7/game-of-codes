@@ -161,7 +161,7 @@ class BasikosAI:
             while databaseCommands.select_clue_gameId_clueText(self.gameID,clues[i][0]) is not None:
                 i += 1
 
-            cluePercent = clues[i][1][0] - clues[i][1][0] * 0.17
+            cluePercent = clues[i][1][0] - clues[i][1][0] * 0.18
             bestClue = clues[i]
             maxRelatedWordsToClue = len(clues[i][1]) - 1
 
