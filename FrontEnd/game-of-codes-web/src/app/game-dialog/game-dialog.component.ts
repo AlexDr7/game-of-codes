@@ -10,12 +10,14 @@ export class GameDialogComponent implements OnInit {
 
   title: string;
   message :string;
+  AImessage: string;
 
   constructor(private dialogRef: MatDialogRef<GameDialogComponent>,
     @Inject(MAT_DIALOG_DATA) data) {
 
     this.title = data.title;
     this.message = data.description;
+    this.AImessage = data.AImsg;
 }
 
   ngOnInit() {

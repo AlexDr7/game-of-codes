@@ -29,6 +29,7 @@ export class WordboardComponent implements OnInit {
   teamPlayingMessage: string;
   board : Game;
 
+  AIPlayermsg: string;
 
   redWordActiveArray: Word[];
   blueWordActiveArray: Word[];
@@ -42,6 +43,7 @@ export class WordboardComponent implements OnInit {
 
 
   constructor(private wordService : WordService, private globals: Globals, private dialog: MatDialog, private router: Router, private http: HttpClient) { 
+    this.AIPlayermsg = " Words Guessed by AI: ";
   }
 
   ngOnInit() {
@@ -217,6 +219,7 @@ export class WordboardComponent implements OnInit {
 
       this.GuessClueinterval = setInterval(()=>{          
         if(i <= this.globals.clueList[this.globals.clueIndex].numOfHintedWords && this.globals.isPlayersTurn && !this.globals.isGameOver){
+          this.AIPlayermsg = this.AIPlayermsg + " "
           this.clickWord(wordsToBeGuessed[i] - this.globals.game.Board[0].id);
           i++;
         }
@@ -239,6 +242,7 @@ export class WordboardComponent implements OnInit {
     if (!this.globals.isGameOver){
       if(this.globals.isBluesTurn){
         if(!this.globals.isPlayersTurn && this.globals.gameSettings.blueGuide != "HumanG" && !this.globals.isAITurn){
+          this.AIPlayermsg = "";
           if (this.globals.gameSettings.blueGuide == "VasikiaG"){
             this.globals.isVasikiaActive = true;
             this.getVasikiaClue();
@@ -252,7 +256,8 @@ export class WordboardComponent implements OnInit {
             this.getTantalusClue();
           }
         }
-        else if(this.globals.isPlayersTurn && this.globals.gameSettings.bluePlayer != "HumanP" && !this.globals.isAITurn){   
+        else if(this.globals.isPlayersTurn && this.globals.gameSettings.bluePlayer != "HumanP" && !this.globals.isAITurn){  
+          this.AIPlayermsg = " Words Guessed by AI: "; 
           if (this.globals.gameSettings.bluePlayer == "VasikiaP"){
             this.globals.isVasikiaActive = true;
             this.giveClueToVasikia();
@@ -270,6 +275,7 @@ export class WordboardComponent implements OnInit {
       }
       else{
         if(!this.globals.isPlayersTurn && this.globals.gameSettings.redGuide != "HumanG"){
+          this.AIPlayermsg = "";
           if (this.globals.gameSettings.redGuide == "VasikiaG"){
             this.globals.isVasikiaActive = true;
             this.getVasikiaClue();
@@ -284,6 +290,7 @@ export class WordboardComponent implements OnInit {
           }
         }
         else if(this.globals.isPlayersTurn && this.globals.gameSettings.redPlayer != "HumanP"){
+          this.AIPlayermsg = " Words Guessed by AI: ";
           if (this.globals.gameSettings.redPlayer == "VasikiaP"){
             this.globals.isVasikiaActive = true;
             this.giveClueToVasikia();
@@ -341,11 +348,17 @@ export class WordboardComponent implements OnInit {
     dialogConfig.disableClose = false;
     dialogConfig.autoFocus = true;
 
+    if (this.globals.isAITurn) {
+      message = message;
+    }
+
     dialogConfig.data = {
       title: title,
-      description: message
+      description: message,
+      AImsg: this.AIPlayermsg
     };
     
+    this.AIPlayermsg = "";
     this.updateCurrentClue();
     this.dialog.open(GameDialogComponent, dialogConfig);
   }
@@ -353,6 +366,11 @@ export class WordboardComponent implements OnInit {
   clickWord( wordClicked : number){
     if(this.globals.isPlayersTurn){
       if(this.globals.activeWords[wordClicked]){
+
+        if (this.globals.isAITurn){
+          this.AIPlayermsg = this.AIPlayermsg + " | " + this.wordlist[wordClicked].value + " ( colour: " + this.wordlist[wordClicked].colour + " )";
+        }
+
         this.globals.activeWords[wordClicked] = false;
         this.globals.canNotPass = false;
 
