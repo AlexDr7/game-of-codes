@@ -104,6 +104,27 @@ def guideVasikiaAskClue(request):
     return response
 
 @csrf_exempt
+def guideSlowVasikiaAskClue(request):
+
+    if request.method == "POST":
+        body_unicode = request.body.decode('utf-8')
+        body = json.loads(body_unicode)
+        print(body)
+        turn = body["teamTurn"]
+        board = JSONParser.deserialiseBoard(body)
+        agentI = BasikosAI(board, turn)
+        clue = agentI.SlowVasikiaRelateWordsGetClue()
+
+        dumpJson = json.dumps(clue.serialiseClue())
+
+        response = HttpResponse(dumpJson, content_type="application/json")
+
+    else:
+        return HttpResponse("Method not Allowed", status=405)
+
+    return response
+
+@csrf_exempt
 def guideTantalusAskClue(request):
 
     if request.method == "POST":
@@ -160,6 +181,37 @@ def playerVasikiaGiveClue(request):
         clue = JSONParser.deserializeClueAndCreateClue(body)
 
         wordsToBeGuessed = agentI.VasikiaRelateClueGetWords(clue)
+
+        clue.updateClue(wordsToBeGuessed, -1, 0)
+
+        jsonText = {
+            'clueID': clue.clueID,
+            'wordsToBeGuessed': wordsToBeGuessed
+        }
+
+        dumpJson = json.dumps(jsonText)
+
+        response = HttpResponse(dumpJson, content_type="application/json")
+
+    else:
+        return HttpResponse("Method not Allowed", status=405)
+
+    return response
+
+def playerSlowVasikiaGiveClue(request):
+
+    if request.method == "POST":
+        body_unicode = request.body.decode('utf-8')
+        body = json.loads(body_unicode)
+        print(body)
+        turn = body["teamTurn"]
+
+        board = JSONParser.deserialiseBoard(body)
+        agentI = BasikosAI(board, turn)
+
+        clue = JSONParser.deserializeClueAndCreateClue(body)
+
+        wordsToBeGuessed = agentI.SlowVasikiaRelateClueGetWords(clue)
 
         clue.updateClue(wordsToBeGuessed, -1, 0)
 
