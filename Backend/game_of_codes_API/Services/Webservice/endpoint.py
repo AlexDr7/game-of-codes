@@ -198,6 +198,7 @@ def playerVasikiaGiveClue(request):
 
     return response
 
+@csrf_exempt
 def playerSlowVasikiaGiveClue(request):
 
     if request.method == "POST":
