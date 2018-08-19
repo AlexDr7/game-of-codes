@@ -297,9 +297,9 @@ export class WordboardComponent implements OnInit {
 
   checkAITurn(){
     if (!this.globals.isGameOver){
+      this.AIPlayermsg = "";
       if(this.globals.isBluesTurn){
         if(!this.globals.isPlayersTurn && this.globals.gameSettings.blueGuide != "HumanG" && !this.globals.isAITurn){
-          this.AIPlayermsg = "";
           if (this.globals.gameSettings.blueGuide == "VasikiaG"){
             this.globals.isVasikiaActive = true;
             this.getVasikiaClue();
@@ -335,12 +335,14 @@ export class WordboardComponent implements OnInit {
             this.globals.isVasikiaActive = true;
             this.giveClueToSlowVasikia();
           }
+          else{
+            this.AIPlayermsg = "";
+          }
         }
 
       }
       else{
         if(!this.globals.isPlayersTurn && this.globals.gameSettings.redGuide != "HumanG"){
-          this.AIPlayermsg = "";
           if (this.globals.gameSettings.redGuide == "VasikiaG"){
             this.globals.isVasikiaActive = true;
             this.getVasikiaClue();
@@ -355,7 +357,7 @@ export class WordboardComponent implements OnInit {
           }
           else if (this.globals.gameSettings.redGuide == "SlowVasikiaG"){
             this.globals.isVasikiaActive = true;
-            this.giveClueToSlowVasikia();
+            this.getSlowVasikiaClue();
           }
         }
         else if(this.globals.isPlayersTurn && this.globals.gameSettings.redPlayer != "HumanP"){
@@ -375,6 +377,9 @@ export class WordboardComponent implements OnInit {
           else if (this.globals.gameSettings.redPlayer == "SlowVasikiaP"){
             this.globals.isVasikiaActive = true;
             this.giveClueToSlowVasikia();
+          }
+          else{
+            this.AIPlayermsg = "";
           }
         }
       }
