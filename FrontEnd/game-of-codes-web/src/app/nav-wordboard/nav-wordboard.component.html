@@ -12,7 +12,7 @@
       </li>
     </ul>
 
-    <span class="score" [ngClass]="{'notDisplayed':!globals.isAITurn || !globals.isVasikiaActive}"> <span class="AIAgent">Vasikia</span> <span class="text"> is thinking </span></span>
+    <span class="score" [ngClass]="{'notDisplayed':!globals.isAITurn || !globals.isVasikiaActive}"><span class="AIAgent" [ngClass]="{'notDisplayed':!globals.isAITurn || !globals.isSlowVasikiaActive || !globals.isVasikiaActive}">Slow</span> <span class="AIAgent">Vasikia</span> <span class="text"> is thinking </span></span>
     <span class="score" [ngClass]="{'notDisplayed':!globals.isAITurn || !globals.isErmisActive}"> <span class="AIAgent">Ermis</span> <span class="text"> is thinking </span></span>
     <span class="score" [ngClass]="{'notDisplayed':!globals.isAITurn || !globals.isTantalusActive}"> <span class="AIAgent">Tantalus</span> <span class="text"> is thinking </span></span>
 

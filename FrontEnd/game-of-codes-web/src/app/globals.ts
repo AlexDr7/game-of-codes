@@ -39,6 +39,7 @@ export class Globals {
   isVasikiaActive: boolean = false;
   isErmisActive: boolean = false;
   isTantalusActive: boolean = false;
+  isSlowVasikiaActive: boolean = false;
 
   blueWordsCount: number = 0;
   redWordsCount: number = 0;

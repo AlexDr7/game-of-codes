@@ -104,6 +104,7 @@ export class WordboardComponent implements OnInit {
 
       this.globals.isPlayersTurn = true;
       this.globals.isVasikiaActive = false;
+      this.globals.isSlowVasikiaActive = false;
       this.globals.currentGuessesLeft = this.globals.clueList[this.globals.clueIndex].numOfHintedWords;
       this.globals.numberOfRelatedWords = this.globals.clueList[this.globals.clueIndex].numOfHintedWords;
 
@@ -222,6 +223,7 @@ export class WordboardComponent implements OnInit {
           this.globals.isAITurn = false;
           this.globals.isPlayersTurn = false;
           this.globals.isVasikiaActive = false;
+          this.globals.isSlowVasikiaActive = false;
           this.checkAITurn(); 
         }
       }, 3000); 
@@ -314,6 +316,7 @@ export class WordboardComponent implements OnInit {
           }
           else if (this.globals.gameSettings.blueGuide == "SlowVasikiaG"){
             this.globals.isVasikiaActive = true;
+            this.globals.isSlowVasikiaActive = true;
             this.getSlowVasikiaClue();
           }
         }
@@ -333,6 +336,7 @@ export class WordboardComponent implements OnInit {
           }
           else if (this.globals.gameSettings.bluePlayer == "SlowVasikiaP"){
             this.globals.isVasikiaActive = true;
+            this.globals.isSlowVasikiaActive = true;
             this.giveClueToSlowVasikia();
           }
           else{
@@ -357,6 +361,7 @@ export class WordboardComponent implements OnInit {
           }
           else if (this.globals.gameSettings.redGuide == "SlowVasikiaG"){
             this.globals.isVasikiaActive = true;
+            this.globals.isSlowVasikiaActive = true;
             this.getSlowVasikiaClue();
           }
         }
@@ -376,6 +381,7 @@ export class WordboardComponent implements OnInit {
           }
           else if (this.globals.gameSettings.redPlayer == "SlowVasikiaP"){
             this.globals.isVasikiaActive = true;
+            this.globals.isSlowVasikiaActive = true;
             this.giveClueToSlowVasikia();
           }
           else{
@@ -681,6 +687,7 @@ export class WordboardComponent implements OnInit {
           this.globals.isAITurn = false;
           this.globals.isPlayersTurn = false;
           this.globals.isVasikiaActive = false;
+          this.globals.isSlowVasikiaActive = false;
           this.globals.isErmisActive = false;
           this.globals.isTantalusActive = false;
         }
