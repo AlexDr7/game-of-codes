@@ -230,7 +230,7 @@ class BasikosAI:
     def VasikiaRelateClueGetWords(self, clue):
         words = list()
 
-        self.wordAssoc.relateClueToWordsOnBoardforPlayer(clue.clueText, self.board.activeWordsOnBoard, 3, 2, 1200)
+        self.wordAssoc.relateClueToWordsOnBoardforPlayer(clue.clueText, self.board.activeWordsOnBoard, 3, 2, 1000)
 
         relatedWords = self.wordAssoc.getSortedListOfCommonWordsForPlayer()
         print(relatedWords)
@@ -268,7 +268,7 @@ class BasikosAI:
 
         self.wordAssoc = TantalusWordAssociation(self.board)
 
-        self.wordAssoc.TantalusRelateClueToWordsOnBoardforPlayer(clue.clueText, self.board.activeWordsOnBoard, 3, 2, 1200)
+        self.wordAssoc.TantalusRelateClueToWordsOnBoardforPlayer(clue.clueText, self.board.activeWordsOnBoard, 3, 3, 650)
 
         relatedWords = self.wordAssoc.getSortedListOfCommonWordsForPlayer()
         print(relatedWords)
