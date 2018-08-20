@@ -135,18 +135,18 @@ class BasikosAI:
 
         if self.team == "B":
             numberOfWords = len(self.board.blueWords)
-            self.wordAssoc.calculateSimpleRelevantWords(self.board.blueWords, 2)
+            self.wordAssoc.calculateSimpleRelevantWords(self.board.blueWords, 3)
             print("Number of relevant " + str(self.wordAssoc.commonWordsLength()))
 
         else:
             numberOfWords = len(self.board.redWords)
-            self.wordAssoc.calculateSimpleRelevantWords(self.board.redWords, 2)
+            self.wordAssoc.calculateSimpleRelevantWords(self.board.redWords, 3)
             print("Number of relevant " + str(self.wordAssoc.commonWordsLength()))
 
         self.wordAssoc.deleteCommonWordsThatAppearInEveryWord()
         print("Number of relevant after deletion of words that appear a lot " + str(self.wordAssoc.commonWordsLength()))
 
-        self.wordAssoc.deleteEveryWordAssociatedWith(self.board.purpleWord, 2)
+        self.wordAssoc.deleteEveryWordAssociatedWith(self.board.purpleWord, 3)
         print("Number of relevant after deletion of purple words " + str(self.wordAssoc.commonWordsLength()))
 
         clue = self.wordAssoc.getBestClue(numberOfWords)
