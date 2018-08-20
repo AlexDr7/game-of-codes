@@ -62,9 +62,7 @@ class BasikosAI:
         self.wordAssoc.deleteEveryWordAssociatedWith(self.board.purpleWord, 3)
         print("Number of relevant after deletion of purple words " + str(self.wordAssoc.commonWordsLength()))
 
-        clue = self.wordAssoc.getBestClue(numberOfWords)
-
-        if numberOfWords > 1:
+        if self.wordAssoc.commonWordsLength() > 0:
             clues = self.wordAssoc.getSortedListOfCommonWords()
         else:
             clues = self.wordAssoc.getSortedListOfAllWords()
@@ -109,9 +107,7 @@ class BasikosAI:
         self.wordAssoc.deleteEveryWordAssociatedWith(self.board.purpleWord, 3)
         print("Number of relevant after deletion of purple words " + str(self.wordAssoc.commonWordsLength()))
 
-        clue = self.wordAssoc.getBestClue(numberOfWords)
-
-        if numberOfWords > 1:
+        if self.wordAssoc.commonWordsLength() > 0:
             clues = self.wordAssoc.getSortedListOfCommonWords()
         else:
             clues = self.wordAssoc.getSortedListOfAllWords()
@@ -149,9 +145,7 @@ class BasikosAI:
         self.wordAssoc.deleteEveryWordAssociatedWith(self.board.purpleWord, 3)
         print("Number of relevant after deletion of purple words " + str(self.wordAssoc.commonWordsLength()))
 
-        clue = self.wordAssoc.getBestClue(numberOfWords)
-
-        if numberOfWords > 1:
+        if self.wordAssoc.commonWordsLength() > 0:
             clues = self.wordAssoc.getSortedListOfCommonWords()
         else:
             clues = self.wordAssoc.getSortedListOfAllWords()
@@ -205,9 +199,7 @@ class BasikosAI:
         self.wordAssoc.deleteEveryWordAssociatedWith(self.board.purpleWord, 5)
         print("Number of relevant after deletion of purple words " + str(self.wordAssoc.commonWordsLength()))
 
-        clue = self.wordAssoc.getBestClue(numberOfWords)
-
-        if numberOfWords > 1:
+        if self.wordAssoc.commonWordsLength() > 0:
             clues = self.wordAssoc.getSortedListOfCommonWords()
         else:
             clues = self.wordAssoc.getSortedListOfAllWords()
