@@ -29,7 +29,7 @@ export class NavWordboardComponent implements OnInit {
     if(clue){
       this.globals.currentClue = clue;
       this.globals.numberOfRelatedWords = related;
-      this.globals.canNotPass = true;
+      this.globals.canNotPass = true; 
 
       this.globals.clueIndex++;
       if (this.globals.isBluesTurn){
