@@ -49,6 +49,23 @@ class JSONParser:
 
         return Clue(gameID, agentPlayer, agentGuide, clueText, relatedGameSquares, color, numOfRelated)
 
+    def deserializeClue(json):
+
+        gameID = json["GameID"]
+        clueText = json["clueText"]
+
+        numOfRelated = json["numOfHintedWords"]
+        color = json["colour"]
+
+        agentPlayer = json["playerName"]
+        agentGuide = json["guideName"]
+
+        clueID = json["clueID"]
+
+        relatedGameSquares = list()
+
+        return Clue(gameID, agentPlayer, agentGuide, clueText, relatedGameSquares, color, numOfRelated, -1, 0, clueID)
+
     def deserializeUpdateClue(json):
 
         clueID = json["clueID"]

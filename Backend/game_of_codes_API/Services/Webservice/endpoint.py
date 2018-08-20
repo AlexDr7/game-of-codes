@@ -72,7 +72,7 @@ def addClue(request):
         body_unicode = request.body.decode('utf-8')
         body = json.loads(body_unicode)
 
-        #print(body)
+        print(body)
         clue = JSONParser.deserializeClueAndCreateClue(body)
 
         response = HttpResponse(clue.clueID, status=201)
@@ -178,7 +178,7 @@ def playerVasikiaGiveClue(request):
         board = JSONParser.deserialiseBoard(body)
         agentI = BasikosAI(board, turn)
 
-        clue = JSONParser.deserializeClueAndCreateClue(body)
+        clue = JSONParser.deserializeClue(body)
 
         wordsToBeGuessed = agentI.VasikiaRelateClueGetWords(clue)
 
@@ -210,7 +210,7 @@ def playerSlowVasikiaGiveClue(request):
         board = JSONParser.deserialiseBoard(body)
         agentI = BasikosAI(board, turn)
 
-        clue = JSONParser.deserializeClueAndCreateClue(body)
+        clue = JSONParser.deserializeClue(body)
 
         wordsToBeGuessed = agentI.SlowVasikiaRelateClueGetWords(clue)
 
@@ -242,7 +242,7 @@ def playerErmisGiveClue(request):
         board = JSONParser.deserialiseBoard(body)
         agentI = BasikosAI(board, turn)
 
-        clue = JSONParser.deserializeClueAndCreateClue(body)
+        clue = JSONParser.deserializeClue(body)
 
         wordsToBeGuessed = agentI.ErmisRelateClueGetWords(clue)
 
@@ -274,7 +274,7 @@ def playerTantalusGiveClue(request):
         board = JSONParser.deserialiseBoard(body)
         agentI = BasikosAI(board, turn)
 
-        clue = JSONParser.deserializeClueAndCreateClue(body)
+        clue = JSONParser.deserializeClue(body)
 
         wordsToBeGuessed = agentI.TantalusRelateClueGetWords(clue)
 

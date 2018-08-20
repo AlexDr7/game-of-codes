@@ -5,7 +5,7 @@ from Services.Models.GameSquare import GameSquare
 class Clue:
 
     def __init__(self, gameID, playerName, guideName, clueText, relatedGameSquareList, color="B", numOfWordsHinted=0,
-                 badness=-1, numOfWordsCorrectlyGuessed=0):
+                 badness=-1, numOfWordsCorrectlyGuessed=0, clueID=0):
 
         self.gameID = gameID
         self.clueText = clueText
@@ -17,9 +17,13 @@ class Clue:
         self.numOfWordsHinted = numOfWordsHinted
         self.numOfWordsCorrectlyGuessed = numOfWordsCorrectlyGuessed
 
-        self.clueID = databaseCommands.create_clue(self.gameID, self.guideName, self.playerName, self.clueText,
+        if not clueID:
+            self.clueID = databaseCommands.create_clue(self.gameID, self.guideName, self.playerName, self.clueText,
                                                    self.relatedGameSquares,self.numOfWordsHinted, self.color,
                                                     self.badness, self.numOfWordsCorrectlyGuessed)
+
+        else:
+            self.clueID = clueID
 
 
 
